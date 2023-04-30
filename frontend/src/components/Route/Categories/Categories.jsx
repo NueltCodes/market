@@ -38,18 +38,23 @@ const Categories = () => {
                 navigate(`/products?category=${data.title}`);
               };
               return (
-                <div
-                  className="w-full h-[100px] flex items-center justify-between cursor-pointer overflow-hidden"
-                  key={data.id}
-                  onClick={() => handleSubmit(data)}
-                >
-                  <h5 className={`text-[10px] leading-[1.3]`}>{data.title}</h5>
-                  <img
-                    src={data.image_Url}
-                    alt=""
-                    className="w-[120px] object-cover"
-                  />
-                </div>
+                <>
+                  <div
+                    className="w-full h-[100px] flex items-center justify-between cursor-pointer overflow-hidden"
+                    key={data.id}
+                    onClick={() => handleSubmit(data)}
+                  >
+                    <h5 className={`text-[10px] leading-[1.3]`}>
+                      {data.title}
+                    </h5>
+                    <img
+                      src={data.image_Url}
+                      alt=""
+                      className="w-[120px] object-cover"
+                    />
+                  </div>
+                  <div className="border-b my-1 md:hidden md:my-0"></div>
+                </>
               );
             })}
         </div>
