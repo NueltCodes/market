@@ -31,7 +31,7 @@ const ProductDetails = ({ data }) => {
   return (
     <div className="bg-white">
       {data ? (
-        <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
+        <div className={`mx-auto w-[90%] 800px:w-[80%]`}>
           <div className="w-full py-5">
             <div className="block w-full gap-5 800px:flex">
               <div className="w-full 800px:w-[50%]">
@@ -166,7 +166,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(1)}
           >
@@ -179,7 +179,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(2)}
           >
@@ -192,7 +192,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(3)}
           >
@@ -270,13 +270,13 @@ const ProductDetailsInfo = ({ data }) => {
           </div>
           <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
             <div className="text-left">
-              <h5 className="font-[600]">
-                Joined on: <span className="font-[500]">14 March,2023</span>
+              <h5 className="font-semibold">
+                Joined on: <span className="font-medium">14 March,2023</span>
               </h5>
-              <h5 className="font-[600] pt-3">
-                Total Products: <span className="font-[500]">1,223</span>
+              <h5 className="font-semibold pt-3">
+                Total Products: <span className="font-medium">1,223</span>
               </h5>
-              <h5 className="font-[600] pt-3">
+              <h5 className="font-semibold pt-3">
                 Total Reviews: <span className="font-[500]">324</span>
               </h5>
               <Link to="/">

@@ -1,3 +1,14 @@
+// imports Data for my sideBar icons
+import {
+  AiOutlineCreditCard,
+  AiOutlineLogin,
+  AiOutlineMessage,
+} from "react-icons/ai";
+import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
+import { MdOutlineTrackChanges } from "react-icons/md";
+import { TbAddressBook } from "react-icons/tb";
+import { RxPerson } from "react-icons/rx";
+
 // navigation Data
 export const navItems = [
   {
@@ -21,6 +32,39 @@ export const navItems = [
     url: "/faq",
   },
 ];
+
+// sideBar Data
+const sideBar = [
+  {
+    title: "Profile",
+    icon: <RxPerson size={20} />,
+  },
+  {
+    title: "Orders",
+    icon: <HiOutlineShoppingBag size={20} />,
+  },
+  {
+    title: "Refunds",
+    icon: <HiOutlineReceiptRefund size={20} />,
+  },
+  {
+    title: "Inbox",
+  },
+  {
+    title: "Track Order",
+  },
+  {
+    title: "Payment Methods",
+  },
+  {
+    title: "Address",
+  },
+  {
+    title: "Log out",
+  },
+];
+
+export default sideBar;
 
 // branding data
 export const brandingData = [

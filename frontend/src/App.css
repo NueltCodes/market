@@ -43,3 +43,18 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.scrollableContainer {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Define a class that hides the scrollbar for Webkit browsers */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Define a Tailwind class that applies the custom styles using @apply */
+.custom-scrollable-container {
+  @apply scrollableContainer hide-scrollbar;
+}

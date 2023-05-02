@@ -10,7 +10,7 @@ const SuggestedProduct = ({ data }) => {
     const d =
       productData && productData.filter((i) => i.category === data.category);
     setProducts(d);
-  }, []);
+  }, [data.category]);
 
   return (
     <div>
