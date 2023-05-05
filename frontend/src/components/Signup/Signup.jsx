@@ -23,13 +23,13 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
-    const newForm = new FormData();
-
     if (avatar == null) {
       toast.error("an image must be upload");
       return;
     }
+
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const newForm = new FormData();
 
     newForm.append("file", avatar);
     newForm.append("name", name);

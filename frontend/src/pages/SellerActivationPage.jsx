@@ -24,18 +24,17 @@ const SellerActivationPage = () => {
       };
       sendRequest();
     }
-  }, [activation_token]);
+  }, []);
 
   return (
     <div
-      className="w-screen h-screen flex justify-center items-center"
-      // style={{
-      //   width: "100%",
-      //   height: "100vh",
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}
+      style={{
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       {error ? (
         <p>Your token is expired!</p>

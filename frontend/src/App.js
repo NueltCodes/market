@@ -30,9 +30,7 @@ import { ShopHomePage } from "./ShopRoutes.js";
 
 function App() {
   const { loading, isAuthenticated } = useSelector((state) => state.user);
-  const { isLoading, isAuthenticatedSeller } = useSelector(
-    (state) => state.seller
-  );
+  const { isLoading, isSeller } = useSelector((state) => state.seller);
 
   useEffect(() => {
     Store.dispatch(loadUser());
@@ -86,9 +84,7 @@ function App() {
             <Route
               path="/shop/:id"
               element={
-                <SellerProtectedRoute
-                  isAuthenticatedSeller={isAuthenticatedSeller}
-                >
+                <SellerProtectedRoute isSeller={isSeller}>
                   <ShopHomePage />
                 </SellerProtectedRoute>
               }

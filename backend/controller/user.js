@@ -89,12 +89,16 @@ router.post(
       if (user) {
         return next(new ErrorHandler("User already exists", 400));
       }
-      user = await User.create({
+
+      user = new User({
         name,
         email,
-        avatar,
         password,
+        avatar,
+        active: true,
       });
+
+      await user.save();
 
       sendToken(user, 201, res);
     } catch (error) {

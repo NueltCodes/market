@@ -4,12 +4,13 @@ const router = express.Router();
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
+const sendToken = require("../utils/jwtToken");
 const Shop = require("../model/shop");
-const { isAuthenticatedSeller } = require("../middleware/auth");
+const { isAuthenticated, isSeller } = require("../middleware/auth");
 const { upload } = require("../multer");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
-const sendShopToken = require("../utils/shopToken.js");
+const sendShopToken = require("../utils/shopToken");
 
 // create shop
 router.post("/create-shop", upload.single("file"), async (req, res, next) => {
@@ -70,7 +71,7 @@ const createActivationToken = (seller) => {
   });
 };
 
-// activate seller
+// activate user
 router.post(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
@@ -93,10 +94,6 @@ router.post(
       if (seller) {
         return next(new ErrorHandler("User already exists", 400));
       }
-
-      // this was useful for me to  console.log the data is been passed to the backend and know if there is any bug
-
-      // console.log(name, email, avatar, password, zipCode, address, phoneNumber);
 
       seller = await Shop.create({
         name,
@@ -150,11 +147,10 @@ router.post(
 // load shop
 router.get(
   "/getSeller",
-  isAuthenticatedSeller,
+  isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const seller = await Shop.findById(req.seller._id);
-
       if (!seller) {
         return next(new ErrorHandler("User doesn't exists", 400));
       }

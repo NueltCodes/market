@@ -14,9 +14,9 @@ export const userReducer = createReducer(initialState, {
     state.user = action.payload;
   },
   LoadUserFail: (state, action) => {
-    state.isAuthenticated = false;
     state.loading = false;
     state.error = action.payload;
+    state.isAuthenticated = false;
   },
   clearErrors: (state) => {
     state.error = null;

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
-const SellerProtectedRoute = ({ isAuthenticatedSeller, seller, children }) => {
-  if (!isAuthenticatedSeller) {
+const SellerProtectedRoute = ({ isSeller, children }) => {
+  if (!isSeller) {
     return <Navigate to={`/`} replace />;
   }
   return children;
