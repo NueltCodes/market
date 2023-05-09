@@ -51,10 +51,36 @@ input[type="number"] {
 
 /* Define a class that hides the scrollbar for Webkit browsers */
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+  display: thin;
 }
 
 /* Define a Tailwind class that applies the custom styles using @apply */
 .custom-scrollable-container {
   @apply scrollableContainer hide-scrollbar;
+}
+
+/* CSS file */
+/* Hide scrollbar by default */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Show scrollbar on parent element hover */
+:hover::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+
+/* Set scrollbar width and color */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9484b8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
 }
