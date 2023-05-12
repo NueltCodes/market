@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getAllProductsShop } from "../../redux/actions/product";
+import { backend_url } from "../../server";
 import styles from "../../styles/styles";
 
 const ProductDetails = ({ data }) => {
@@ -13,6 +16,13 @@ const ProductDetails = ({ data }) => {
   const [click, setClick] = useState(false);
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
+
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProductsShop(data && data.shop._id));
+  }, [dispatch, data]);
 
   const incrementCount = () => {
     setCount(count + 1);
@@ -31,40 +41,36 @@ const ProductDetails = ({ data }) => {
   return (
     <div className="bg-white">
       {data ? (
-        <div className={`mx-auto w-[90%] 800px:w-[80%]`}>
+        <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
           <div className="w-full py-5">
-            <div className="block w-full gap-5 800px:flex">
+            <div className="block w-full 800px:flex gap-5">
               <div className="w-full 800px:w-[50%]">
                 <img
-                  src={data.image_Url[select].url}
+                  src={`${backend_url}${data && data.images[select]}`}
                   alt=""
                   className="w-[80%]"
                 />
                 <div className="w-full flex">
-                  <div
-                    className={`${
-                      select === 0 ? "border" : "null"
-                    } cursor-pointer`}
-                  >
-                    <img
-                      src={data?.image_Url[0].url}
-                      alt=""
-                      className="h-[200px]"
-                      onClick={() => setSelect(0)}
-                    />
-                  </div>
+                  {data &&
+                    data.images.map((i, index) => (
+                      <div
+                        className={`${
+                          select === 0 ? "border" : "null"
+                        } cursor-pointer w-full mr-0.5`}
+                      >
+                        <img
+                          src={`${backend_url}${i}`}
+                          alt=""
+                          className="h-[200px] overflow-hidden  mt-3 object-cover"
+                          onClick={() => setSelect(index)}
+                        />
+                      </div>
+                    ))}
                   <div
                     className={`${
                       select === 1 ? "border" : "null"
                     } cursor-pointer`}
-                  >
-                    <img
-                      src={data?.image_Url[1].url}
-                      alt=""
-                      className="h-[200px]"
-                      onClick={() => setSelect(1)}
-                    />
-                  </div>
+                  ></div>
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
@@ -72,15 +78,15 @@ const ProductDetails = ({ data }) => {
                 <p>{data.description}</p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discount_price}$
+                    {data.discountPrice}$
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.price ? data.price + "$" : null}
+                    {data.originalPrice ? data.originalPrice + "$" : null}
                   </h3>
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">
-                  <div className="gap-1 flex">
+                  <div>
                     <button
                       className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={decrementCount}
@@ -117,14 +123,16 @@ const ProductDetails = ({ data }) => {
                     )}
                   </div>
                 </div>
-                <div className={`${styles.button} !mt-6 !rounded !h-11`}>
+                <div
+                  className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
+                >
                   <span className="text-white flex items-center">
                     Add to cart <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
                 <div className="flex items-center pt-8">
                   <img
-                    src={data.shop.shop_avatar.url}
+                    src={`${backend_url}${data?.shop?.avatar}`}
                     alt=""
                     className="w-[50px] h-[50px] rounded-full mr-2"
                   />
@@ -132,9 +140,7 @@ const ProductDetails = ({ data }) => {
                     <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                       {data.shop.name}
                     </h3>
-                    <h5 className="pb-3 text-[15px]">
-                      ({data.shop.ratings}) Ratings
-                    </h5>
+                    <h5 className="pb-3 text-[15px]">(4/5) Ratings</h5>
                   </div>
                   <div
                     className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
@@ -148,7 +154,7 @@ const ProductDetails = ({ data }) => {
               </div>
             </div>
           </div>
-          <ProductDetailsInfo data={data} />
+          <ProductDetailsInfo data={data} products={products} />
           <br />
           <br />
         </div>
@@ -157,7 +163,7 @@ const ProductDetails = ({ data }) => {
   );
 };
 
-const ProductDetailsInfo = ({ data }) => {
+const ProductDetailsInfo = ({ data, products }) => {
   const [active, setActive] = useState(1);
 
   return (
@@ -166,7 +172,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(1)}
           >
@@ -179,7 +185,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(2)}
           >
@@ -192,7 +198,7 @@ const ProductDetailsInfo = ({ data }) => {
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-semibold cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(3)}
           >
@@ -206,35 +212,7 @@ const ProductDetailsInfo = ({ data }) => {
       {active === 1 ? (
         <>
           <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
-            Product details are a crucial part of any eCommerce website or
-            online marketplace. These details help the potential customers to
-            make an informed decision about the product they are interested in
-            buying. A well-written product description can also be a powerful
-            marketing tool that can help to increase sales. Product details
-            typically include information about the product's features,
-            specifications, dimensions, weight, materials, and other relevant
-            information that can help language, and be honest and transparent
-            about the product's features and limitations.
-          </p>
-          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
-            customers to understand the product better. The product details
-            section should also include high-quality images and videos of the
-            product, as well as customer reviews and ratings. When writing
-            product details, it is essential to keep the target audience in
-            mind. The language used should be clear and easy to understand, and
-            technical terms should be explained in simple language. The tone of
-            the product details should be persuasive, highlighting the unique
-            features of the
-          </p>
-          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
-            customers to understand the product better. The product details
-            section should also include high-quality images and videos of the
-            product, as well as customer reviews and ratings. When writing
-            product details, it is essential to keep the target audience in
-            mind. The language used should be clear and easy to understand, and
-            technical terms should be explained in simple language. The tone of
-            the product details should be persuasive, highlighting the unique
-            features of the
+            {data.description}
           </p>
         </>
       ) : null}
@@ -248,35 +226,36 @@ const ProductDetailsInfo = ({ data }) => {
       {active === 3 && (
         <div className="w-full block 800px:flex p-5">
           <div className="w-full 800px:w-[50%]">
-            <div className="flex items-center">
-              <img
-                src={data.shop.shop_avatar.url}
-                className="w-[50px] h-[50px] rounded-full"
-                alt=""
-              />
-              <div className="pl-3">
-                <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
-                <h5 className="pb-2 text-[15px]">
-                  ({data.shop.ratings}) Ratings
-                </h5>
+            <Link to={`/shop/preview/${data.shop._id}`}>
+              <div className="flex items-center">
+                <img
+                  src={`${backend_url}${data?.shop?.avatar}`}
+                  className="w-[50px] h-[50px] rounded-full"
+                  alt=""
+                />
+                <div className="pl-3">
+                  <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
+                  <h5 className="pb-2 text-[15px]">(4/5) Ratings</h5>
+                </div>
               </div>
-            </div>
-            <p className="pt-2">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem
-              cum quibusdam omnis a minima perspiciatis itaque magnam nesciunt,
-              porro saepe aspernatur repudiandae iusto sapiente, esse accusamus
-              eligendi! Vel, officia similique?
-            </p>
+            </Link>
+            <p className="pt-2">{data.shop.description}</p>
           </div>
           <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
             <div className="text-left">
-              <h5 className="font-semibold">
-                Joined on: <span className="font-medium">14 March,2023</span>
+              <h5 className="font-[600]">
+                Joined on:{" "}
+                <span className="font-[500]">
+                  {data.shop?.createdAt?.slice(0, 10)}
+                </span>
               </h5>
-              <h5 className="font-semibold pt-3">
-                Total Products: <span className="font-medium">1,223</span>
+              <h5 className="font-[600] pt-3">
+                Total Products:{" "}
+                <span className="font-[500]">
+                  {products && products.length}
+                </span>
               </h5>
-              <h5 className="font-semibold pt-3">
+              <h5 className="font-[600] pt-3">
                 Total Reviews: <span className="font-[500]">324</span>
               </h5>
               <Link to="/">

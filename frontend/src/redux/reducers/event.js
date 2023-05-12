@@ -33,14 +33,14 @@ export const eventReducer = createReducer(initialState, {
   },
 
   // delete event of a shop
-  deleteeventRequest: (state) => {
+  deleteEventRequest: (state) => {
     state.isLoading = true;
   },
-  deleteeventSuccess: (state, action) => {
+  deleteEventSuccess: (state, action) => {
     state.isLoading = false;
     state.message = action.payload;
   },
-  deleteeventFailed: (state, action) => {
+  deleteEventFailed: (state, action) => {
     state.isLoading = false;
     state.error = action.payload;
   },

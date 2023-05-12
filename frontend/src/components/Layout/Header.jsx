@@ -27,14 +27,17 @@ const Header = ({ activeHeading }) => {
   const [openCart, setOpenCart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
+  const { allProducts } = useSelector((state) => state.products);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
 
-    const filteredProducts = productData.filter((product) =>
-      product.name.toLowerCase().includes(term.toLowerCase())
-    );
+    const filteredProducts =
+      allProducts &&
+      allProducts.filter((product) =>
+        product.name.toLowerCase().includes(term.toLowerCase())
+      );
     setSearchData(filteredProducts);
   };
 
@@ -74,14 +77,20 @@ const Header = ({ activeHeading }) => {
               <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&
                   searchData.map((i, index) => {
-                    const d = i.name;
+                    // const d = i.name;
 
-                    const Product_name = d.replace(/\s+/g, "-");
+                    // const Product_name = d.replace(/\s+/g, "-");
                     return (
-                      <Link to={`/product/${Product_name}`} key={index}>
+                      <Link
+                        to={`/product/${i._id}`}
+                        key={index}
+                        onClick={() => {
+                          setSearchData(false);
+                        }}
+                      >
                         <div className="w-full flex items-start-py-3">
                           <img
-                            src={i.image_Url[0].url}
+                            src={`${backend_url}${i.images[0]}`}
                             alt=""
                             className="w-[40px] h-[40px] mr-[10px]"
                           />
