@@ -84,3 +84,16 @@ input[type="number"] {
 ::-webkit-scrollbar-track {
   background-color: white;
 }
+
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 1;
+  background: transparent;
+}
+
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollbar-hidden::-webkit-scrollbar-track {
+  background: transparent;
+}

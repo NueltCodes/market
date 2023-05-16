@@ -25,6 +25,11 @@ const ProductsPage = () => {
     //    window.scrollTo(0,0);
   }, [allProducts]);
 
+  // note this is for good ser experience, this is to scroll to top automatic when the page reload star from button
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {isLoading ? (

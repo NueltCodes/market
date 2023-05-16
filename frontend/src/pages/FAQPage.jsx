@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import styles from "../styles/styles";
 
 const Faq = () => {
   const [activeTab, setActiveTab] = useState(0);
+
+  // note this is for good ser experience, this is to scroll to top automatic when the page reload star from button
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const toggleTab = (tab) => {
     if (activeTab === tab) {
