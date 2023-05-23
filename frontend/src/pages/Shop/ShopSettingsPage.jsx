@@ -1,20 +1,20 @@
 import React from "react";
+import ShopSettings from "../../components/Shop/ShopSettings.jsx";
 import DashboardHeader from "../../components/Shop/Layout/DashboardHeader";
 import DashboardSideBar from "../../components/Shop/Layout/DashboardSideBar";
-import ShopDashboard from "../../components/Shop/ShopDashboard.jsx";
 
-const ShopDashboardPage = () => {
+const ShopSettingsPage = () => {
   return (
     <div>
       <DashboardHeader />
       <div className="flex items-start justify-between w-full">
-        <div className="800px:w-[330px] w-[80]">
-          <DashboardSideBar active={1} />
+        <div className="w-[80px] 800px:w-[330px]">
+          <DashboardSideBar active={11} />
         </div>
-        <ShopDashboard />
+        <ShopSettings />
       </div>
     </div>
   );
 };
 
-export default ShopDashboardPage;
+export default ShopSettingsPage;

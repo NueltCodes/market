@@ -1,38 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/Header";
-import Lottie from "lottie-react";
+import { useLottie } from "lottie-react";
 import animationData from "../Assests/animations/107043-success.json";
+import SuccessLoader from "../components/Layout/SuccessLoader";
 
 const OrderSuccessPage = () => {
+  // note this is for good ser experience, this is to scroll to top automatic when the page reload star from button
+  useEffect(() => {
+    window.scrollTo(0, 10);
+  }, []);
+
   return (
-    <div>
+    <div className="w-screen h-screen flex flex-col ">
       <Header />
-      <Success />
+      <div className="text-center pt-10">
+        <h5 className="sm:text-5xl text-xl font-bold text-[#000000a1]">
+          Your order is successful 😍
+        </h5>
+      </div>
+      <SuccessLoader />
       <Footer />
-    </div>
-  );
-};
-
-const Success = () => {
-  const defaultOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  return (
-    <div>
-      <Lottie options={defaultOptions} width={300} height={300} />
-
-      <h5 className="text-center mb-14 text-[25px] text-[#000000a1]">
-        Your order is successful 😍
-      </h5>
-      <br />
-      <br />
     </div>
   );
 };

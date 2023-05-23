@@ -1,23 +1,11 @@
 import { Button } from "@mui/material";
-import { MdOutlineTrackChanges } from "react-icons/md";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-// TrackOrders
-export const trackOrder = [
-  {
-    _id: "7463hvbfbhfbrtr28820221",
-    orderItems: [
-      {
-        name: "Iphone 14 pro max",
-      },
-    ],
-    totalPrice: 120,
-    orderStatus: "Processing",
-  },
-];
-
-export const trackColumns = [
+// ordersData.js
+export const ShopOrdersColumn = [
   { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+
   {
     field: "status",
     headerName: "Status",
@@ -32,6 +20,7 @@ export const trackColumns = [
       return "";
     },
   },
+
   {
     field: "itemsQty",
     headerName: "Items Qty",
@@ -47,19 +36,21 @@ export const trackColumns = [
     minWidth: 130,
     flex: 0.8,
   },
+
   {
     field: " ",
     flex: 1,
-    minWidth: 130,
+    minWidth: 150,
     headerName: "",
     type: "number",
     sortable: false,
+
     renderCell: (params) => {
       return (
         <>
           <Link to={`/order/${params.id}`}>
             <Button>
-              <MdOutlineTrackChanges size={20} />
+              <AiOutlineArrowRight size={20} />
             </Button>
           </Link>
         </>

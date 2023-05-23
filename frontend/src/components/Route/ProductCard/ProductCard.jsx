@@ -18,8 +18,9 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../../../redux/actions/wishlist";
+import Ratings from "../../Ratings";
 
-const ProductCard = ({ data, key }) => {
+const ProductCard = ({ data, key, isEvent }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -72,7 +73,13 @@ const ProductCard = ({ data, key }) => {
         key={key}
       >
         <div className="flex justify-end"></div>
-        <Link to={`/product/${data._id}`}>
+        <Link
+          to={`${
+            isEvent === true
+              ? ` /product/${data._id}?isEvent=true`
+              : `/product/${data._id}`
+          }`}
+        >
           <img
             src={`${backend_url}${data.images && data.images[0]}`}
             alt=""
@@ -82,39 +89,20 @@ const ProductCard = ({ data, key }) => {
         <Link to={`/shop/preview/${data?.shop._id}`}>
           <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
         </Link>
-        <Link to={`/product/${data._id}`}>
+        <Link
+          to={`${
+            isEvent === true
+              ? ` /product/${data._id}?isEvent=true`
+              : `/product/${data._id}`
+          }`}
+        >
+          {" "}
           <h4 className="pb-3 font-[500]">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
-
           <div className="flex">
-            <AiFillStar
-              className="mr-2 cursor-pointer"
-              size={20}
-              color="#F6BA00"
-            />
-            <AiFillStar
-              className="mr-2 cursor-pointer"
-              size={20}
-              color="#F6BA00"
-            />
-            <AiFillStar
-              className="mr-2 cursor-pointer"
-              size={20}
-              color="#F6BA00"
-            />
-            <AiFillStar
-              className="mr-2 cursor-pointer"
-              color="#F6BA00"
-              size={20}
-            />
-            <AiOutlineStar
-              size={20}
-              className="mr-2 cursor-pointer"
-              color="#F6BA00"
-            />
+            <Ratings rating={data?.ratings} />
           </div>
-
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
               <h5 className={`${styles.productDiscountPrice}`}>
@@ -128,7 +116,7 @@ const ProductCard = ({ data, key }) => {
               </h4>
             </div>
             <span className="font-[400] text-[17px] text-[#68d284]">
-              50 sold
+              {data?.sold_out} sold
             </span>
           </div>
         </Link>

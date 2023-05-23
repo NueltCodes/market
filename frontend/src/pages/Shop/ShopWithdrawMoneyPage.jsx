@@ -1,22 +1,20 @@
 import React from "react";
 import DashboardHeader from "../../components/Shop/Layout/DashboardHeader";
 import DashboardSideBar from "../../components/Shop/Layout/DashboardSideBar";
-import AllEvents from "../../components/Shop/AllEvents.jsx";
+import WithdrawMoney from "../../components/Shop/WithdrawMoney.jsx";
 
-const ShopAllEvents = () => {
+const ShopWithdrawMoneyPage = () => {
   return (
     <div>
       <DashboardHeader />
-      <div className="flex justify-between w-full">
+      <div className="flex items-start justify-between w-full">
         <div className="800px:w-[330px] w-[80]">
-          <DashboardSideBar active={5} />
+          <DashboardSideBar active={7} />
         </div>
-        <div className="w-full flex justify-center">
-          <AllEvents />
-        </div>
+        <WithdrawMoney />
       </div>
     </div>
   );
 };
 
-export default ShopAllEvents;
+export default ShopWithdrawMoneyPage;

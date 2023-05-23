@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  AiOutlineArrowRight,
-  AiOutlineCamera,
-  AiOutlineDelete,
-} from "react-icons/ai";
+import { AiOutlineCamera, AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { backend_url, server } from "../../server";
 import styles from "../../styles/styles";
 import { DataGrid } from "@mui/x-data-grid";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { MdOutlineTrackChanges } from "react-icons/md";
-import { allRefund, allRefundColumns } from "./Data/AllRefundData";
-import { orders, ordersColumns } from "./Data/Orders";
-import { trackColumns, trackOrder } from "./Data/TrackOrder";
+
+import { allRefundColumns } from "../columnsData/AllRefundData";
+// this both import below are Static data
+import { ordersColumns } from "../columnsData/Orders";
+import { trackColumns } from "../columnsData/TrackOrder";
 import { toast } from "react-toastify";
 import {
   deleteUserAddress,
@@ -24,20 +19,29 @@ import {
 import axios from "axios";
 import { Country, State } from "country-state-city";
 import { RxCross1 } from "react-icons/rx";
+import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 // Data's for the Datagrid table
 
 // AllOrders
 const AllOrders = () => {
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersOfUser(user._id));
+  }, []);
+
   const row = [];
 
   orders &&
     orders.forEach((item) => {
       row.push({
         id: item._id,
-        itemsQty: item.orderItems.length,
-        total: "US$ " + item.totalPrice,
-        status: item.orderStatus,
+        itemsQty: item.cart.length,
+        total: "US $" + item.totalPrice,
+        status: item.status,
       });
     });
 
@@ -56,10 +60,21 @@ const AllOrders = () => {
 
 // AllRefundOrders
 const AllRefundOrders = () => {
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersOfUser(user._id));
+  }, []);
+
+  const eligibleOrders =
+    orders && orders.filter((item) => item.status === "Processing refund");
+
   const row = [];
 
-  allRefund &&
-    allRefund.forEach((item) => {
+  eligibleOrders &&
+    eligibleOrders.forEach((item) => {
       row.push({
         id: item._id,
         itemsQty: item.orderItems.length,
@@ -83,10 +98,18 @@ const AllRefundOrders = () => {
 
 // TrackOrder
 const TrackOrder = () => {
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrdersOfUser(user._id));
+  }, []);
+
   const row = [];
 
-  trackOrder &&
-    trackOrder.forEach((item) => {
+  orders &&
+    orders.forEach((item) => {
       row.push({
         id: item._id,
         itemsQty: item.orderItems.length,
