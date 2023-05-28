@@ -55,3 +55,42 @@ export const ShopDashboardColumn = [
     },
   },
 ];
+
+export const AdminOrderColumn = [
+  { field: "id", headerName: "User ID", minWidth: 150, flex: 0.7 },
+  {
+    field: "status",
+    headerName: "Status",
+    minWidth: 130,
+    flex: 0.7,
+    cellClassName: (params) => {
+      if (params && typeof params.getValue === "function") {
+        return params.getValue(params.id, "status") === "Delivered"
+          ? "greenColor"
+          : "redColor";
+      }
+      return "";
+    },
+  },
+  {
+    field: "itemsQty",
+    headerName: "Items Qty",
+    type: "number",
+    minWidth: 130,
+    flex: 0.8,
+  },
+  {
+    field: "total",
+    headerName: "Total",
+    type: "text",
+    minWidth: 130,
+    flex: 0.8,
+  },
+  {
+    field: "createdAt",
+    headerName: "Order Date",
+    type: "number",
+    minWidth: 130,
+    flex: 0.8,
+  },
+];

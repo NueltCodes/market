@@ -7,11 +7,13 @@ const ShopDashboardPage = () => {
   return (
     <div>
       <DashboardHeader />
-      <div className="flex items-start justify-between w-full">
-        <div className="800px:w-[330px] w-[80]">
+      <div className="flex items-start w-full">
+        <div className="lg:w-[20%] sm:w-[10%] w-[15%]">
           <DashboardSideBar active={1} />
         </div>
-        <ShopDashboard />
+        <div className="lg:w-[80%] sm:w-[90%] w-[85%]">
+          <ShopDashboard />
+        </div>
       </div>
     </div>
   );

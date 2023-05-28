@@ -62,14 +62,15 @@ input[type="number"] {
 /* CSS file */
 /* Hide scrollbar by default */
 ::-webkit-scrollbar {
-  display: none;
-}
-
-/* Show scrollbar on parent element hover */
-:hover::-webkit-scrollbar {
   display: block;
   width: 4px;
 }
+
+/* Show scrollbar on parent element hover */
+/* :hover::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+} */
 
 /* Set scrollbar width and color */
 ::-webkit-scrollbar {

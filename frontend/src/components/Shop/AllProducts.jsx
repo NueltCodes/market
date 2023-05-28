@@ -62,7 +62,7 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/product/${params.row.id}`}>
+            <Link to={`/product/${params.id}`}>
               <Button>
                 <AiOutlineEye size={20} />
               </Button>
@@ -97,9 +97,9 @@ const AllProducts = () => {
       row.push({
         id: item._id,
         name: item.name,
-        price: "US$ " + item.discountPrice,
+        price: "$ " + item.discountPrice,
         stock: item.stock,
-        sold: 10,
+        sold: item.sold_out,
       });
     });
 

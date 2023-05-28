@@ -5,16 +5,22 @@ import {
   AiOutlineMessage,
 } from "react-icons/ai";
 import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
-import { MdOutlinePassword, MdOutlineTrackChanges } from "react-icons/md";
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlinePassword,
+  MdOutlineTrackChanges,
+} from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const ProfileSidebar = ({ setActive, active }) => {
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -126,6 +132,27 @@ const ProfileSidebar = ({ setActive, active }) => {
           Address
         </span>
       </div>
+
+      {user && user?.role === "Admin" && (
+        <Link to="/admin/dashboard">
+          <div
+            className="flex items-center cursor-pointer w-full mb-8"
+            onClick={() => setActive(8)}
+          >
+            <MdOutlineAdminPanelSettings
+              size={20}
+              color={active === 8 ? "red" : ""}
+            />
+            <span
+              className={` ${
+                active === 7 ? "text-[red]" : ""
+              } 800px:block hidden pl-3`}
+            >
+              Admin Dashboard
+            </span>
+          </div>
+        </Link>
+      )}
 
       <div
         className="single_item flex items-center cursor-pointer w-full mb-8"

@@ -21,6 +21,7 @@ const UserInbox = () => {
   const [newMessage, setNewMessage] = useState("");
   const [userData, setUserData] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [images, setImages] = useState();
   const [activeStatus, setActiveStatus] = useState(false);
   const [open, setOpen] = useState(false);
   const scrollRef = useRef(null);
@@ -146,6 +147,57 @@ const UserInbox = () => {
       });
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    setImages(file);
+    imageSendingHandler(file);
+  };
+
+  const imageSendingHandler = async (e) => {
+    const formData = new FormData();
+
+    formData.append("images", e);
+    formData.append("sender", user._id);
+    formData.append("text", newMessage);
+    formData.append("conversationId", currentChat._id);
+
+    const receiverId = currentChat.members.find(
+      (member) => member !== user._id
+    );
+
+    socketId.emit("sendMessage", {
+      senderId: user._id,
+      receiverId,
+      images: e,
+    });
+
+    try {
+      await axios
+        .post(`${server}/message/create-new-message`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setImages();
+          setMessages([...messages, res.data.message]);
+          updateLastMessageForImage();
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateLastMessageForImage = async () => {
+    await axios.put(
+      `${server}/conversation/update-last-message/${currentChat._id}`,
+      {
+        lastMessage: "Photo",
+        lastMessageId: user._id,
+      }
+    );
+  };
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ beahaviour: "smooth" });
   }, [messages]);
@@ -188,6 +240,7 @@ const UserInbox = () => {
           userData={userData}
           activeStatus={activeStatus}
           scrollRef={scrollRef}
+          handleImageUpload={handleImageUpload}
         />
       )}
     </div>
@@ -243,7 +296,7 @@ const MessageList = ({
     >
       <div className="relative">
         <img
-          src={`${backend_url}${userData?.avatar}`}
+          src={`${backend_url}${user?.avatar}`}
           alt=""
           className="w-[50px] h-[50px] rounded-full"
         />
@@ -254,11 +307,11 @@ const MessageList = ({
         )}
       </div>
       <div className="pl-3">
-        <h1 className="text-[18px]">{userData?.name}</h1>
+        <h1 className="text-[18px]">{user?.name}</h1>
         <p className="text-[16px] text-[#000c]">
-          {data?.lastMessageId !== userData?._id
+          {data?.lastMessageId !== user?._id
             ? "You:"
-            : userData?.name.split(" ")[0] + ": "}{" "}
+            : user?.name.split(" ")[0] + ": "}{" "}
           {data?.lastMessage}
         </p>
       </div>
@@ -276,6 +329,7 @@ const SellerInbox = ({
   userData,
   activeStatus,
   scrollRef,
+  handleImageUpload,
 }) => {
   return (
     <div className="w-[full] min-h-full flex flex-col justify-between p-5">
@@ -316,19 +370,27 @@ const SellerInbox = ({
                   alt=""
                 />
               )}
-              <div>
-                <div
-                  className={`w-max p-2 rounded ${
-                    item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
-                  } text-[#fff] h-min`}
-                >
-                  <p>{item.text}</p>
-                </div>
+              {item.images && (
+                <img
+                  src={`${backend_url}${item.images}`}
+                  className="w-[300px] h-[300px] object-cover rounded-[10px] ml-2 mb-2"
+                />
+              )}
+              {item.text !== "" && (
+                <div>
+                  <div
+                    className={`w-max p-2 rounded ${
+                      item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
+                    } text-[#fff] h-min`}
+                  >
+                    <p>{item.text}</p>
+                  </div>
 
-                <p className="text-[12px] text-[#000000d3] pt-1">
-                  {format(item.createdAt)}
-                </p>
-              </div>
+                  <p className="text-[12px] text-[#000000d3] pt-1">
+                    {format(item.createdAt)}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
       </div>
@@ -340,7 +402,16 @@ const SellerInbox = ({
         onSubmit={sendMessageHandler}
       >
         <div className="w-[30px]">
-          <TfiGallery className="cursor-pointer" size={20} />
+          <input
+            type="file"
+            name=""
+            id="image"
+            className="hidden"
+            onChange={handleImageUpload}
+          />
+          <label htmlFor="image">
+            <TfiGallery className="cursor-pointer" size={20} />
+          </label>
         </div>
         <div className="w-full">
           <input

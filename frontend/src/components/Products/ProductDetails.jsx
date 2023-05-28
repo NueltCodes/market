@@ -120,7 +120,7 @@ const ProductDetails = ({ data }) => {
                 <img
                   src={`${backend_url}${data && data.images[select]}`}
                   alt=""
-                  className="w-[80%]"
+                  className="w-[85%] h-[250px] object-cover"
                 />
                 <div className="w-full flex">
                   {data &&
@@ -128,12 +128,12 @@ const ProductDetails = ({ data }) => {
                       <div
                         className={`${
                           select === 0 ? "border" : "null"
-                        } cursor-pointer`}
+                        } cursor-pointer mr-2 mt-4`}
                       >
                         <img
                           src={`${backend_url}${i}`}
                           alt=""
-                          className="h-[200px] overflow-hidden mr-3 mt-3"
+                          className="w-[50px] h-[50px] object-cover overflow-hidden"
                           onClick={() => setSelect(index)}
                         />
                       </div>
@@ -143,6 +143,33 @@ const ProductDetails = ({ data }) => {
                       select === 1 ? "border" : "null"
                     } cursor-pointer`}
                   ></div>
+                </div>
+                <div className=" hidden 800px:flex items-center mt-12">
+                  <Link to={`/shop/preview/${data?.shop._id}`}>
+                    <img
+                      src={`${backend_url}${data?.shop?.avatar}`}
+                      alt=""
+                      className="w-[50px] h-[50px] rounded-full mr-2"
+                    />
+                  </Link>
+                  <div className="pr-8">
+                    <Link to={`/shop/preview/${data?.shop._id}`}>
+                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                        {data.shop.name}
+                      </h3>
+                    </Link>
+                    <h5 className="pb-3 text-[15px]">
+                      ({averageRating}/5) Ratings
+                    </h5>
+                  </div>
+                  <div
+                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
+                    onClick={handleMessageSubmit}
+                  >
+                    <span className="text-white flex items-center">
+                      Send Message <AiOutlineMessage className="ml-1" />
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
@@ -158,7 +185,7 @@ const ProductDetails = ({ data }) => {
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">
-                  <div>
+                  <div className="flex gap-1">
                     <button
                       className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={decrementCount}
@@ -203,7 +230,7 @@ const ProductDetails = ({ data }) => {
                     Add to cart <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
-                <div className="flex items-center pt-8">
+                <div className="800px:hidden flex items-center pt-8 ">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
                       src={`${backend_url}${data?.shop?.avatar}`}
@@ -261,7 +288,7 @@ const ProductDetailsInfo = ({
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[14px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(1)}
           >
@@ -274,7 +301,7 @@ const ProductDetailsInfo = ({
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[14px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(2)}
           >
@@ -287,11 +314,11 @@ const ProductDetailsInfo = ({
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              "text-[#000] text-[14px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(3)}
           >
-            Seller Information
+            Sellers Info's
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />

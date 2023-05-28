@@ -94,3 +94,23 @@ export const getAllProducts = () => async (dispatch) => {
     });
   }
 };
+
+// get all products for admin
+export const getAdminAllProducts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getAdminAllProductsRequest",
+    });
+
+    const { data } = await axios.get(`${server}/product/admin-all-products`);
+    dispatch({
+      type: "getAdminAllProductsSuccess",
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getAdminAllProductsFailed",
+      payload: error.response.data.message,
+    });
+  }
+};

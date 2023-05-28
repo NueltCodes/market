@@ -4,7 +4,7 @@ const { upload } = require("../multer");
 const Shop = require("../model/shop");
 const Event = require("../model/event");
 const ErrorHandler = require("../utils/ErrorHandler");
-const { isSeller } = require("../middleware/auth");
+const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
 const router = express.Router();
 const fs = require("fs");
 
@@ -72,7 +72,6 @@ router.get(
 // delete event of a shop
 router.delete(
   "/delete-shop-event/:id",
-  isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const productId = req.params.id;
@@ -99,6 +98,25 @@ router.delete(
       res.status(201).json({
         success: true,
         message: "Event Deleted successfully!",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
+// get all events for Admin
+router.get(
+  "/admin-all-events",
+  isAuthenticated,
+  isAdmin("Admin"),
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const events = await Event.find().sort({ createdAt: -1 });
+
+      res.status(201).json({
+        success: true,
+        events,
       });
     } catch (error) {
       return next(new ErrorHandler(error, 400));

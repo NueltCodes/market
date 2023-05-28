@@ -358,8 +358,7 @@ const PaymentInfo = ({
                   </div>
                   <PayPalScriptProvider
                     options={{
-                      "client-id":
-                        "Your client id",
+                      "client-id": process.env.PAYPAL_CLIENT_ID,
                     }}
                   >
                     <PayPalButtons
