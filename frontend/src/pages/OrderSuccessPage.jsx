@@ -12,10 +12,10 @@ const OrderSuccessPage = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex flex-col ">
+    <div className="w-full h-screen  ">
       <Header />
       <div className="text-center pt-10">
-        <h5 className="sm:text-5xl text-xl font-bold text-[#000000a1]">
+        <h5 className="sm:text-5xl text-xl font-bold text-[#000000]">
           Your order is successful 😍
         </h5>
       </div>

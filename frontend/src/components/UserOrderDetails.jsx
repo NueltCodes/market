@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/styles";
 import { getAllOrdersOfUser } from "../redux/actions/order";
 import { backend_url, server } from "../server";
 import { RxCross1 } from "react-icons/rx";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { MdOutlinePayments } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const UserOrderDetails = () => {
   const { orders } = useSelector((state) => state.order);
-  const { user } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [rating, setRating] = useState(1);
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -66,6 +67,28 @@ const UserOrderDetails = () => {
       });
   };
 
+  const handleMessageSubmit = async (item) => {
+    if (isAuthenticated) {
+      const groupTitle = item._id + user._id;
+      const userId = user._id;
+      const sellerId = item.shop._id;
+      await axios
+        .post(`${server}/conversation/create-new-conversation`, {
+          groupTitle,
+          userId,
+          sellerId,
+        })
+        .then((res) => {
+          navigate(`/inbox?${res.data.conversation._id}`);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+    } else {
+      toast.error("Please login to create a conversation");
+    }
+  };
+
   return (
     <div className={`py-4 min-h-screen ${styles.section}`}>
       <div className="w-full flex items-center justify-between">
@@ -89,7 +112,7 @@ const UserOrderDetails = () => {
       <br />
       {data &&
         data?.cart.map((item, index) => (
-          <div className="w-full flex items-start mb-5">
+          <div className="w-full 800px:flex flex flex-col gap-5 items-start mb-5">
             <img
               src={`${backend_url}/${item.images[0]}`}
               alt=""
@@ -101,14 +124,22 @@ const UserOrderDetails = () => {
                 ${item.discountPrice} x {item.qty}
               </h5>
             </div>
-            {!item.isReviewed && data?.status === "Delivered" ? (
+            <div>
               <div
-                className={`${styles.button} text-[#fff]`}
-                onClick={() => setOpen(true) || setSelectedItem(item)}
+                className={`${styles.button} text-white bg-blue-600`}
+                onClick={() => handleMessageSubmit(item)}
               >
-                Write a review
+                Send Message
               </div>
-            ) : null}
+              {!item.isReviewed && data?.status === "Delivered" ? (
+                <div
+                  className={`${styles.button} text-[#fff]`}
+                  onClick={() => setOpen(true) || setSelectedItem(item)}
+                >
+                  Write a review
+                </div>
+              ) : null}
+            </div>
           </div>
         ))}
 
@@ -205,7 +236,7 @@ const UserOrderDetails = () => {
       </div>
       <br />
       <br />
-      <div className="w-full 800px:flex items-center">
+      <div className="w-full 800px:flex items-center bg-white p-3 rounded-xl">
         <div className="w-full 800px:w-[60%]">
           <h4 className="pt-3 text-[20px] font-[600]">Shipping Address:</h4>
           <h4 className="pt-3 text-[20px]">
@@ -218,11 +249,26 @@ const UserOrderDetails = () => {
           <h4 className=" text-[20px]">{data?.user?.phoneNumber}</h4>
         </div>
         <div className="w-full 800px:w-[40%]">
-          <h4 className="pt-3 text-[20px]">Payment Info:</h4>
-          <h4>
-            Status:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
+          <h3 className="pt-3 text-[20px] font-[600]">Payment Info:</h3>
+          <h4 className="pt-1">
+            Payment Status:{" "}
+            <span
+              className={`${
+                data?.paymentInfo?.status ? "text-green-500" : "text-red-500"
+              } font-semibold`}
+            >
+              {data?.paymentInfo?.status
+                ? data?.paymentInfo?.status
+                : "Not Paid"}
+            </span>
           </h4>
+          <h4 className="py-1">Payment type: </h4>
+          <div className="flex items-center justify-center font-semibold text-white bg-[#110ca5] rounded-xl p-2">
+            {data?.paymentInfo?.type}
+            <span className="pl-3">
+              <MdOutlinePayments color="white" size={17} />
+            </span>
+          </div>
           <br />
           {data?.status === "Delivered" && (
             <div
@@ -235,9 +281,7 @@ const UserOrderDetails = () => {
         </div>
       </div>
       <br />
-      <Link to="/">
-        <div className={`${styles.button} text-white`}>Send Message</div>
-      </Link>
+
       <br />
       <br />
     </div>

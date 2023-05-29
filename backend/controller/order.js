@@ -13,8 +13,17 @@ router.post(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
+      console.log(paymentInfo);
 
-      //   group cart items by shopId
+      // Validate paymentInfo object
+      if (!paymentInfo || !paymentInfo.id) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid payment information",
+        });
+      }
+
+      // Group cart items by shopId
       const shopItemsMap = new Map();
 
       for (const item of cart) {
@@ -25,7 +34,7 @@ router.post(
         shopItemsMap.get(shopId).push(item);
       }
 
-      // create an order for each shop
+      // Create an order for each shop
       const orders = [];
 
       for (const [shopId, items] of shopItemsMap) {
