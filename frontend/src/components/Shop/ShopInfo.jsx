@@ -67,7 +67,7 @@ const ShopInfo = ({ isOwner }) => {
               />
             </div>
             <h3 className="text-center py-2 text-[20px]">{data.name}</h3>
-            <p className="text-[16px] text-[#000000a6] p-[10px] flex items-center">
+            <p className="text-[16px] text-[#000000a6] p-[10px] text-center">
               {data.description}
             </p>
           </div>

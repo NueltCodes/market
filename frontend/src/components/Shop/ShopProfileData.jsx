@@ -45,7 +45,7 @@ const ShopProfileData = ({ isOwner }) => {
                 active === 2 ? "text-red-500" : "text-[#333]"
               } cursor-pointer pr-[20px]`}
             >
-              Running Events
+              Active Events
             </h5>
           </div>
 
@@ -55,7 +55,7 @@ const ShopProfileData = ({ isOwner }) => {
                 active === 3 ? "text-red-500" : "text-[#333]"
               } cursor-pointer pr-[20px]`}
             >
-              Shop Reviews
+              Reviews
             </h5>
           </div>
         </div>
@@ -79,6 +79,11 @@ const ShopProfileData = ({ isOwner }) => {
             products.map((i, index) => (
               <ProductCard data={i} key={index} isShop={true} />
             ))}
+          {products && products.length === 0 && (
+            <h5 className="w-full text-center py-5 text-[18px]">
+              No Available product yet for this shop!
+            </h5>
+          )}
         </div>
       )}
 
@@ -97,7 +102,7 @@ const ShopProfileData = ({ isOwner }) => {
           </div>
           {events && events.length === 0 && (
             <h5 className="w-full text-center py-5 text-[18px]">
-              No Events have for this shop!
+              No active Events yet for this shop!
             </h5>
           )}
         </div>
@@ -127,7 +132,7 @@ const ShopProfileData = ({ isOwner }) => {
             ))}
           {allReviews && allReviews.length === 0 && (
             <h5 className="w-full text-center py-5 text-[18px]">
-              No Reviews have for this shop!
+              No Reviews yet for this shop!
             </h5>
           )}
         </div>
