@@ -374,12 +374,13 @@ const SellerInbox = ({
                 <img
                   src={`${backend_url}${item.images}`}
                   className="w-[300px] h-[300px] object-cover rounded-[10px] ml-2 mb-2"
+                  alt="item"
                 />
               )}
               {item.text !== "" && (
-                <div>
+                <div className="w-[200px]">
                   <div
-                    className={`w-max p-2 rounded ${
+                    className={`w-[100%] p-2 rounded ${
                       item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
                     } text-[#fff] h-min`}
                   >

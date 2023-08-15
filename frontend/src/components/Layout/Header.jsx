@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../styles/styles";
-import { categoriesData, productData } from "../../static/data";
+import { categoriesData } from "../../static/data";
 import {
   AiOutlineHeart,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
-import { BiMenuAltLeft } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
+import { BiLogInCircle, BiMenuAltLeft } from "react-icons/bi";
 import DropDown from "./DropDown.jsx";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
@@ -72,11 +71,20 @@ const Header = ({ activeHeading }) => {
               onChange={handleSearchChange}
               className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
             />
-            <AiOutlineSearch
-              size={30}
-              className="absolute right-2 top-1.5 cursor-pointer"
-            />
-            {searchData && searchData.length !== 0 ? (
+            {searchTerm.length > 0 ? (
+              <RxCross1
+                size={20}
+                className="absolute right-2 top-1.5 cursor-pointer"
+                onClick={() => setSearchTerm("")}
+              />
+            ) : (
+              <AiOutlineSearch
+                size={30}
+                className="absolute right-2 top-1.5 cursor-pointer"
+              />
+            )}
+
+            {searchData && searchData.length !== 0 && searchTerm ? (
               <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&
                   searchData.map((i, index) => {
@@ -120,23 +128,31 @@ const Header = ({ activeHeading }) => {
       <div
         className={`${
           active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-        } transition hidden 800px:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
+        } transition hidden 800px:flex items-center justify-between w-full bg-[#453780] h-[70px]`}
       >
         <div
           className={`${styles.section} relative ${styles.normalFlex} justify-between`}
         >
           {/* categories */}
           <div onClick={() => setDropDown(!dropDown)}>
-            <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
-              <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
-              <button
-                className={`h-[100%] w-full flex justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
+            <div className="relative 1000px:h-[60px] h-[40px] mt-[10px] 1000px:w-[270px] w-[80px]">
+              <BiMenuAltLeft
+                size={30}
+                className="absolute top-3 left-2 hidden 1000px:block"
+              />
+              <div
+                className={`h-[100%] w-full 1000px:flex hidden justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
               >
-                All Categories
-              </button>
+                Categories
+              </div>
+              <div
+                className={`h-[100%] 1000px:hidden w-full text-left pl-1 pt-1.5 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
+              >
+                Filters
+              </div>
               <IoIosArrowDown
                 size={20}
-                className="absolute right-2 top-4 cursor-pointer"
+                className="absolute right-2 top-3 cursor-pointer"
                 onClick={() => setDropDown(!dropDown)}
               />
               {dropDown ? (
@@ -195,8 +211,15 @@ const Header = ({ activeHeading }) => {
                     />
                   </Link>
                 ) : (
-                  <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+                  <Link
+                    to="/login"
+                    className="hover:opacity-75 transition duration-300"
+                  >
+                    <BiLogInCircle
+                      size={30}
+                      color="red"
+                      className="opacity-80"
+                    />
                   </Link>
                 )}
               </div>
@@ -285,27 +308,32 @@ const Header = ({ activeHeading }) => {
                   onChange={handleSearchChange}
                   className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
                 />
-                {searchData && (
-                  <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
-                    {searchData.map((i, index) => {
-                      const d = i.name;
 
-                      const Product_name = d.replace(/\s+/g, "-");
-                      return (
-                        <Link to={`/product/${Product_name}`} key={index}>
-                          <div className="flex items-center mb-1">
-                            <img
-                              src={i.image_Url[0].url}
-                              alt=""
-                              className="w-[50px] mr-2"
-                            />
-                            <h5>{i.name}</h5>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
+                {searchData && searchData.length !== 0 && searchTerm ? (
+                  <>
+                    {searchData && (
+                      <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
+                        {searchData.map((i, index) => {
+                          const d = i.name;
+
+                          const Product_name = d.replace(/\s+/g, "-");
+                          return (
+                            <Link to={`/product/${Product_name}`} key={index}>
+                              <div className="flex items-center mb-1">
+                                <img
+                                  src={`${backend_url}${i.images[0]}`}
+                                  alt=""
+                                  className="w-[40px] h-[40px] mr-[10px]"
+                                />
+                                <h1>{i.name}</h1>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                ) : null}
               </div>
 
               <Navbar active={activeHeading} />
