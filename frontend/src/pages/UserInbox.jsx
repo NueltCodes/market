@@ -373,7 +373,7 @@ const SellerInbox = ({
               {item.images && (
                 <img
                   src={`${backend_url}${item.images}`}
-                  className="w-[300px] h-[300px] object-cover rounded-[10px] ml-2 mb-2"
+                  className="w-[70%] object-cover rounded-[10px] ml-2 mb-2"
                   alt="item"
                 />
               )}

@@ -13,7 +13,7 @@ const AdminSideBar = ({ active }) => {
   return (
     <div className="w-full h-[90vh] bg-white shadow-sm overflow-y-scroll sticky top-0 left-0 z-10">
       {/* single item */}
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin/dashboard" className="w-full flex items-center">
           <RxDashboard
             size={30}
@@ -29,7 +29,7 @@ const AdminSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-orders" className="w-full flex items-center">
           <FiShoppingBag
             size={30}
@@ -40,12 +40,12 @@ const AdminSideBar = ({ active }) => {
               active === 2 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Orders
+            Orders
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-sellers" className="w-full flex items-center">
           <GrWorkshop
             size={30}
@@ -56,12 +56,12 @@ const AdminSideBar = ({ active }) => {
               active === 3 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Sellers
+            Sellers
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-users" className="w-full flex items-center">
           <HiOutlineUserGroup
             size={30}
@@ -72,12 +72,12 @@ const AdminSideBar = ({ active }) => {
               active === 4 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Users
+            Users
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-products" className="w-full flex items-center">
           <BsHandbag size={30} color={`${active === 5 ? "crimson" : "#555"}`} />
           <h5
@@ -85,12 +85,12 @@ const AdminSideBar = ({ active }) => {
               active === 5 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Products
+            Products
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-events" className="w-full flex items-center">
           <MdOutlineLocalOffer
             size={30}
@@ -101,12 +101,12 @@ const AdminSideBar = ({ active }) => {
               active === 6 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Events
+            Events
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/admin-withdraw-request" className="w-full flex items-center">
           <CiMoneyBill
             size={30}
@@ -117,12 +117,12 @@ const AdminSideBar = ({ active }) => {
               active === 7 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Withdraw Request
+            Withdrawal
           </h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/profile" className="w-full flex items-center">
           <AiOutlineSetting
             size={30}

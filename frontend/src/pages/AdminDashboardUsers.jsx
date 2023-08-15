@@ -7,8 +7,8 @@ const AdminDashboardUsers = () => {
   return (
     <div>
       <AdminHeader />
-      <div className="flex items-start justify-between w-full">
-        <div className="800px:w-[330px] w-[80]">
+      <div className="flex items-start justify-between w-full overflow-hidden">
+        <div className="800px:w-[330px] w-[60px]">
           <AdminSideBar active={4} />
         </div>
         <AllUsers />

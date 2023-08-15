@@ -440,11 +440,11 @@ const Address = () => {
     <div className="w-full px-5">
       {open && (
         <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
-          <div className="w-[35%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
+          <div className="lg:w-[45%] sm:w-[60%] w-[80%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
             <div className="w-full flex justify-end p-3">
               <RxCross1
                 size={30}
-                className="cursor-pointer"
+                className="cursor-pointer hover:opacity-50 transition"
                 onClick={() => setOpen(false)}
               />
             </div>

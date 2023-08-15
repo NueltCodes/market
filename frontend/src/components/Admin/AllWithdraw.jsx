@@ -111,7 +111,7 @@ const AllWithdraw = () => {
       });
     });
   return (
-    <div className="w-full flex items-center pt-5 justify-center">
+    <div className="w-[90%] 800px:w-[80%] p-4">
       <div className="w-[95%] bg-white">
         <DataGrid
           rows={row}

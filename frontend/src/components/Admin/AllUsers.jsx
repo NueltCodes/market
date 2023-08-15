@@ -95,8 +95,8 @@ const AllUsers = () => {
     });
 
   return (
-    <div className="w-full flex justify-center pt-5">
-      <div className="w-[97%]">
+    <div className="w-[90%] 800px:w-[80%] p-4 flex justify-center pt-5">
+      <div className="w-[100%]">
         <h3 className="text-[22px] font-Poppins pb-2">All Users</h3>
         <div className="w-full min-h-[45vh] bg-white rounded">
           <DataGrid
@@ -114,17 +114,17 @@ const AllUsers = () => {
                 <RxCross1 size={25} onClick={() => setOpen(false)} />
               </div>
               <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                Are you sure you wanna delete this user?
+                Are you sure you want to delete this user?
               </h3>
               <div className="w-full flex items-center justify-center">
                 <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                  className={`${styles.button} hover:opacity-80 transition duration-200 text-white text-[18px] !h-[42px] mr-4`}
                   onClick={() => setOpen(false)}
                 >
                   cancel
                 </div>
                 <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                  className={`${styles.button} hover:opacity-80 transition duration-200 !bg-[crimson] text-white text-[18px] !h-[42px] ml-4`}
                   onClick={() => setOpen(false) || handleDelete(userId)}
                 >
                   confirm
