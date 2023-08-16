@@ -7,8 +7,8 @@ const ShopInboxPage = () => {
   return (
     <div>
       <DashboardHeader />
-      <div className="flex items-start justify-between w-full">
-        <div className="w-[80px] 800px:w-[330px]">
+      <div className="flex items-start justify-between w-full overflow-hidden">
+        <div className="lg:w-[330px] w-[60px]">
           <DashboardSideBar active={8} />
         </div>
         <DashboardMessages />

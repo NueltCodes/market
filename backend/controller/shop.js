@@ -165,15 +165,17 @@ router.post(
       if (!decodedToken) {
         return next(new ErrorHandler("RESET_PASSWORD = Invalid token", 400));
       }
-      const shop = await Shop.findOne({ email: decodedToken.email });
+      const seller = await Shop.findOne({ email: decodedToken.email });
 
-      if (!shop) {
+      if (!seller) {
         return res.status(404).json({ message: "Shop not found" });
       }
 
       // Update the password and save the shop
-      shop.password = password;
-      await shop.save();
+      seller.password = password;
+      await seller.save();
+
+      sendShopToken(seller, 201, res);
 
       return res.status(200).json({ message: "Password reset successful" });
     } catch (error) {

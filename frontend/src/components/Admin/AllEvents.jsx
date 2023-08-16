@@ -83,16 +83,14 @@ const AllEvents = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-[90%] 800px:w-[80%] p-4 ">
-          <div className="bg-white">
-            <DataGrid
-              rows={row}
-              columns={columns}
-              pageSize={10}
-              disableSelectionOnClick
-              autoHeight
-            />
-          </div>
+        <div className="w-[90%] 800px:w-[80%] p-4 bg-white">
+          <DataGrid
+            rows={row}
+            columns={columns}
+            pageSize={10}
+            disableSelectionOnClick
+            autoHeight
+          />
         </div>
       )}
     </>

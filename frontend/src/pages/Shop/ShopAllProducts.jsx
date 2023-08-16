@@ -7,13 +7,11 @@ const ShopAllProducts = () => {
   return (
     <div>
       <DashboardHeader />
-      <div className="flex justify-between w-full">
-        <div className="800px:w-[330px] w-[80]">
+      <div className="flex items-start justify-between w-full overflow-hidden">
+        <div className="lg:w-[330px] w-[60px]">
           <DashboardSideBar active={3} />
         </div>
-        <div className="w-full flex justify-center">
-          <AllProducts />
-        </div>
+        <AllProducts />
       </div>
     </div>
   );

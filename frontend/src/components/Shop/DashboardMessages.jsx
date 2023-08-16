@@ -205,7 +205,7 @@ const DashboardMessages = () => {
   }, [messages]);
 
   return (
-    <div className="w-[90%] bg-white m-5 h-[85vh] overflow-y-scroll rounded">
+    <div className="w-[90%] 800px:w-screen p-4 overflow-hidden bg-white m-5 h-[85vh] overflow-y-scroll scrollbar-hide rounded">
       {!open && (
         <>
           <h1 className="text-center text-[30px] py-3 font-Poppins">
@@ -354,7 +354,7 @@ const SellerInbox = ({
       </div>
 
       {/* messages */}
-      <div className="px-3 h-[65vh] py-3 overflow-y-scroll">
+      <div className="px-3 h-[65vh] py-3 overflow-y-scroll scrollbar-hide">
         {messages &&
           messages.map((item, index) => {
             return (
@@ -374,13 +374,14 @@ const SellerInbox = ({
                 {item.images && (
                   <img
                     src={`${backend_url}${item.images}`}
-                    className="w-[300px] h-[300px] object-cover rounded-[10px] mr-2"
+                    className="w-[70%] object-cover rounded-[10px] ml-2 mb-2"
+                    alt="item"
                   />
                 )}
                 {item.text !== "" && (
-                  <div>
+                  <div className="w-[200px]">
                     <div
-                      className={`w-max p-2 rounded ${
+                      className={`w-[100%] p-2 rounded ${
                         item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
                       } text-[#fff] h-min`}
                     >
