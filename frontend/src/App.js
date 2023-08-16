@@ -21,6 +21,8 @@ import {
   UserOrderDetailsPage,
   TrackOrderPage,
   UserInbox,
+  ShopResetPasswordPage,
+  SellerResetPasswordPage,
 } from "./routes/Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -101,10 +103,7 @@ function App() {
           path="/activation/:activation_token"
           element={<ActivationPage />}
         />
-        <Route
-          path="/seller/activation/:activation_token"
-          element={<SellerActivationPage />}
-        />
+
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/best-selling" element={<BestSellingPage />} />
@@ -155,8 +154,17 @@ function App() {
           }
         />
         {/* shop Routes */}
+        <Route
+          path="/seller/activation/:activation_token"
+          element={<SellerActivationPage />}
+        />
+        <Route
+          path="/seller/reset-password/:token"
+          element={<SellerResetPasswordPage />}
+        />
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
+        <Route path="/shop-resetPassword" element={<ShopResetPasswordPage />} />
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
         <Route
           path="/shop/:id"

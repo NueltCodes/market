@@ -22,7 +22,7 @@ const ShopCreate = () => {
     e.preventDefault();
 
     if (avatar == null) {
-      toast.error("an image must be upload");
+      toast.error("an image must be uploaded");
       return;
     }
 
@@ -55,8 +55,15 @@ const ShopCreate = () => {
   };
 
   const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatar(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (

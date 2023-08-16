@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import {
   AiFillHeart,
-  AiFillStar,
   AiOutlineEye,
   AiOutlineHeart,
   AiOutlineShoppingCart,
-  AiOutlineStar,
 } from "react-icons/ai";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
-import { backend_url } from "../../../server";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart } from "../../../redux/actions/cart";
 import { toast } from "react-toastify";
@@ -81,7 +78,7 @@ const ProductCard = ({ data, key, isEvent }) => {
           }`}
         >
           <img
-            src={`${backend_url}${data.images && data.images[0]}`}
+            src={`${data.images && data.images[0]?.url}`}
             alt=""
             className="800px:w-[98%] w-full h-[170px] object-contain 800px:pr-2"
           />

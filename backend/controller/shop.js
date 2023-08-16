@@ -71,7 +71,7 @@ const createActivationToken = (seller) => {
   });
 };
 
-// activate user
+// activating shop
 router.post(
   "/activation",
   catchAsyncErrors(async (req, res, next) => {
@@ -108,6 +108,76 @@ router.post(
       sendShopToken(seller, 201, res);
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+//  resetting shop / sending link to seller mail
+router.post(
+  "/reset-password-request",
+  catchAsyncErrors(async (req, res, next) => {
+    const { email } = req.body;
+
+    try {
+      const shop = await Shop.findOne({ email });
+
+      if (!shop) {
+        return next(new ErrorHandler("Shop not found", 400));
+      }
+
+      const resetToken = jwt.sign({ email }, process.env.RESET_SECRET, {
+        expiresIn: "1h", // Token expires in 1 hour
+      });
+
+      // am sending email along with the resetToken and reset link in here
+      const resetLink = `http://localhost:3000/seller/reset-password/${resetToken}`;
+      await sendMail({
+        email: shop.email,
+        subject: "Reset Your Shop Password",
+        message: `Hello ${shop.name}, please click on the link to reset your password: ${resetLink}`,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: `please check your email:- ${shop.email} to reset your password!`,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// Resetting shop password
+router.post(
+  "/reset-password",
+  catchAsyncErrors(async (req, res, next) => {
+    const { token, password } = req.body;
+
+    if (!token || !password) {
+      return res
+        .status(400)
+        .json({ message: "Token and password are required" });
+    }
+
+    try {
+      const decodedToken = jwt.verify(token, process.env.RESET_SECRET);
+
+      if (!decodedToken) {
+        return next(new ErrorHandler("RESET_PASSWORD = Invalid token", 400));
+      }
+      const shop = await Shop.findOne({ email: decodedToken.email });
+
+      if (!shop) {
+        return res.status(404).json({ message: "Shop not found" });
+      }
+
+      // Update the password and save the shop
+      shop.password = password;
+      await shop.save();
+
+      return res.status(200).json({ message: "Password reset successful" });
+    } catch (error) {
+      return res.status(400).json({ message: "Invalid token" });
     }
   })
 );

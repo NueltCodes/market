@@ -33,10 +33,20 @@ const CreateProduct = () => {
   }, [dispatch, error, success]);
 
   const handleImageChange = (e) => {
-    e.preventDefault();
+    const files = Array.from(e.target.files);
 
-    let files = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
+    setImages([]);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImages((prev) => [...prev, reader.result]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   console.log(images);

@@ -118,7 +118,7 @@ const ProductDetails = ({ data }) => {
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
                 <img
-                  src={`${backend_url}${data && data.images[select]}`}
+                  src={`${data && data.images[select]?.url}`}
                   alt=""
                   className="w-[85%] h-[250px] object-cover"
                 />
@@ -131,7 +131,7 @@ const ProductDetails = ({ data }) => {
                         } cursor-pointer mr-2 mt-4`}
                       >
                         <img
-                          src={`${backend_url}${i}`}
+                          src={`${i?.url}`}
                           alt=""
                           className="w-[50px] h-[50px] object-cover overflow-hidden"
                           onClick={() => setSelect(index)}

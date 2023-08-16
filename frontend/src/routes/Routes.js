@@ -14,9 +14,11 @@ import ProductDetailsPage from "../pages/ProductDetailsPage";
 import ProfilePage from "../pages/ProfilePage";
 import ShopCreatePage from "../pages/ShopCreatePage";
 import ShopLoginPage from "../pages/ShopLoginPage";
+import ShopResetPasswordPage from "../pages/ShopResetPasswordPage";
 import UserOrderDetailsPage from "../pages/UserOrderDetailsPage";
 import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
+import SellerResetPasswordPage from "../pages/SellerResetPasswordPage";
 
 export {
   LoginPage,
@@ -35,7 +37,9 @@ export {
   ProfilePage,
   ShopCreatePage,
   ShopLoginPage,
+  ShopResetPasswordPage,
   UserOrderDetailsPage,
   TrackOrderPage,
   UserInbox,
+  SellerResetPasswordPage,
 };
