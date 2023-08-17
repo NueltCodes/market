@@ -7,7 +7,7 @@ import { VscNewFile } from "react-icons/vsc";
 import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { HiOutlineMenuAlt2, HiOutlineReceiptRefund } from "react-icons/hi";
 
 const DashboardSideBar = ({ active }) => {
   return (
@@ -26,6 +26,12 @@ const DashboardSideBar = ({ active }) => {
           >
             Dashboard
           </h5>
+        </Link>
+      </div>
+      <div className="w-full flex items-center p-4">
+        <Link to="/" className="w-full flex items-center">
+          <HiOutlineMenuAlt2 size={30} />
+          <h5 className="hidden lg:block pl-2 text-[18px] font-normal">Home</h5>
         </Link>
       </div>
 

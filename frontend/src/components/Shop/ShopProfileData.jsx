@@ -4,7 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
 import styles from "../../styles/styles";
 import ProductCard from "../Route/ProductCard/ProductCard";
-import Loader from "../Layout/Loader";
 import { backend_url } from "../../server";
 import Ratings from "../Ratings";
 import { getAllEventsShop } from "../../redux/actions/event";
@@ -45,7 +44,7 @@ const ShopProfileData = ({ isOwner }) => {
                 active === 2 ? "text-red-500" : "text-[#333]"
               } cursor-pointer pr-[20px]`}
             >
-              Active Events
+              Events
             </h5>
           </div>
 
@@ -63,8 +62,10 @@ const ShopProfileData = ({ isOwner }) => {
           {isOwner && (
             <div>
               <Link to="/dashboard">
-                <div className={`${styles.button} !rounded-[4px] h-[42px]`}>
-                  <span className="text-[#fff]">Go Dashboard</span>
+                <div
+                  className={`${styles.button} !w-[100px] !rounded-[4px] !h-[35px]`}
+                >
+                  <span className="text-[#fff]">Dashboard</span>
                 </div>
               </Link>
             </div>
@@ -74,14 +75,18 @@ const ShopProfileData = ({ isOwner }) => {
 
       <br />
       {active === 1 && (
-        <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-          {products &&
-            products.map((i, index) => (
-              <ProductCard data={i} key={index} isShop={true} />
-            ))}
+        <div className="w-full">
+          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
+            {products &&
+              products.map((i, index) => (
+                <ProductCard data={i} key={index} isShop={true} />
+              ))}
+          </div>
           {products && products.length === 0 && (
             <h5 className="w-full text-center py-5 text-[18px]">
-              No Available product yet for this shop!
+              {isOwner
+                ? "You are yet to create a product"
+                : "No Available product yet for this seller!"}
             </h5>
           )}
         </div>
@@ -102,7 +107,9 @@ const ShopProfileData = ({ isOwner }) => {
           </div>
           {events && events.length === 0 && (
             <h5 className="w-full text-center py-5 text-[18px]">
-              No active Events yet for this shop!
+              {isOwner
+                ? "You are yet to create an event where you get to set timer for a product "
+                : " No active Events yet for this shop!"}
             </h5>
           )}
         </div>

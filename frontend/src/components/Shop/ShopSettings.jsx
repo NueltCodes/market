@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const ShopSettings = () => {
   const { seller } = useSelector((state) => state.seller);
   const [avatar, setAvatar] = useState();
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState(seller && seller.name);
   const [description, setDescription] = useState(
     seller && seller.description ? seller.description : ""
@@ -21,28 +22,42 @@ const ShopSettings = () => {
   const dispatch = useDispatch();
 
   const handleImage = async (e) => {
-    e.preventDefault();
     const file = e.target.files[0];
-    setAvatar(file);
 
-    const formData = new FormData();
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 5MB."
+      );
+      return;
+    }
 
-    formData.append("image", e.target.files[0]);
+    const reader = new FileReader();
 
-    await axios
-      .put(`${server}/shop/update-shop-avatar`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        dispatch(loadSeller());
-        toast.success("Avatar updated successfully!");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatar(reader.result);
+        axios
+          .put(
+            `${server}/shop/update-shop-avatar`,
+            { avatar: reader.result },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            dispatch(loadSeller());
+            toast.success("Avatar updated successfully!");
+          })
+          .catch((error) => {
+            toast.error(
+              error?.response?.data?.message ||
+                "Image is too large. Please compress the image."
+            );
+          });
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const updateHandler = async (e) => {
@@ -65,7 +80,7 @@ const ShopSettings = () => {
         dispatch(loadSeller());
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message);
       });
   };
 
@@ -74,15 +89,14 @@ const ShopSettings = () => {
       <div className="flex w-full 800px:w-[80%] flex-col justify-center my-5">
         <div className="w-full flex items-center justify-center">
           <div className="relative">
-            <img
-              src={
-                avatar
-                  ? URL.createObjectURL(avatar)
-                  : `${backend_url}/${seller.avatar}`
-              }
-              alt=""
-              className="w-[200px] h-[200px] rounded-full cursor-pointer"
-            />
+            {!loading && (
+              <img
+                src={avatar ? avatar : `${seller.avatar?.url}`}
+                alt=""
+                className="w-[200px] h-[200px] rounded-full cursor-pointer"
+              />
+            )}
+
             <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[10px] right-[15px]">
               <input
                 type="file"
@@ -178,7 +192,7 @@ const ShopSettings = () => {
             <input
               type="submit"
               value="Update Shop"
-              className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
+              className={`${styles.input} !w-[95%] mb-4 800px:mb-0 cursor-pointer border-[#3957db] !border-[1px]`}
               required
               readOnly
             />

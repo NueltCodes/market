@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { createevent } from "../../redux/actions/event";
+import { BiTrash } from "react-icons/bi";
 
 const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -28,10 +29,9 @@ const CreateEvent = () => {
     const minEndDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
     setStartDate(startDate);
     setEndDate(null);
-    document.getElementById("end-date").min = minEndDate.toISOString.slice(
-      0,
-      10
-    );
+    document.getElementById("end-date").min = minEndDate
+      .toISOString()
+      .slice(0, 10);
   };
 
   const handleEndDateChange = (e) => {
@@ -61,17 +61,23 @@ const CreateEvent = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
-    setImages([]);
-
     files.forEach((file) => {
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImages((prev) => [...prev, reader.result]);
+          setImages((prevImages) => [...prevImages, reader.result]);
         }
       };
       reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageDelete = (index) => {
+    setImages((prevImages) => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      return newImages;
     });
   };
 
@@ -227,7 +233,7 @@ const CreateEvent = () => {
           <input
             type="date"
             name="price"
-            id="start-date"
+            id="end-date"
             value={endDate ? endDate.toISOString().slice(0, 10) : ""}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={handleEndDateChange}
@@ -254,12 +260,23 @@ const CreateEvent = () => {
             </label>
             {images &&
               images.map((i) => (
-                <img
-                  src={URL.createObjectURL(i)}
-                  key={i}
-                  alt=""
-                  className="h-[120px] w-[120px] object-cover m-2"
-                />
+                <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
+                  <div className="z-10 absolute top-3 right-3">
+                    <BiTrash
+                      type="button"
+                      onClick={() => handleImageDelete(i)}
+                      size={20}
+                      color="red"
+                    />{" "}
+                  </div>
+
+                  <img
+                    src={i}
+                    key={i}
+                    alt=""
+                    className="h-full w-full object-cover rounded-md "
+                  />
+                </div>
               ))}
           </div>
           <br />

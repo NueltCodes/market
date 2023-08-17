@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../redux/actions/product";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
+import { BiTrash } from "react-icons/bi";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -35,21 +36,25 @@ const CreateProduct = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
-    setImages([]);
-
     files.forEach((file) => {
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImages((prev) => [...prev, reader.result]);
+          setImages((prevImages) => [...prevImages, reader.result]);
         }
       };
       reader.readAsDataURL(file);
     });
   };
 
-  console.log(images);
+  const handleImageDelete = (index) => {
+    setImages((prevImages) => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      return newImages;
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -196,12 +201,23 @@ const CreateProduct = () => {
           <div className="w-full flex items-center flex-wrap">
             {images &&
               images.map((i) => (
-                <img
-                  src={URL.createObjectURL(i)}
-                  key={i}
-                  alt=""
-                  className="h-[120px] w-[120px] object-cover m-2"
-                />
+                <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
+                  <div className="z-10 absolute top-3 right-3">
+                    <BiTrash
+                      type="button"
+                      onClick={() => handleImageDelete(i)}
+                      size={20}
+                      color="red"
+                    />{" "}
+                  </div>
+
+                  <img
+                    src={i}
+                    key={i}
+                    alt=""
+                    className="h-full w-full object-cover rounded-md "
+                  />
+                </div>
               ))}
           </div>
           <br />

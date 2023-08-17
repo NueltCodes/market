@@ -61,7 +61,7 @@ const ShopInfo = ({ isOwner }) => {
           <div className="w-full py-5">
             <div className="w-full flex item-center justify-center">
               <img
-                src={`${backend_url}${data.avatar}`}
+                src={data.avatar?.url}
                 alt=""
                 className="w-[150px] h-[150px] object-cover rounded-full"
               />
@@ -95,13 +95,13 @@ const ShopInfo = ({ isOwner }) => {
           </div>
           {isOwner && (
             <div className="py-3 px-4">
-              <div
-                className={`${styles.button} !w-full !h-[42px] !rounded-[5px]`}
-              >
-                <Link to="/settings">
+              <Link to="/settings">
+                <div
+                  className={`${styles.button} !w-full !h-[42px] !rounded-[5px]`}
+                >
                   <span className="text-white">Edit Shop</span>
-                </Link>
-              </div>
+                </div>
+              </Link>
               <div
                 className={`${styles.button} !w-full !h-[42px] !rounded-[5px]`}
                 onClick={logoutHandler}

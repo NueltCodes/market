@@ -57,7 +57,7 @@ const Hero = () => {
 
       <div className="h-full w-full flex flex-col justify-end items-center text-center">
         <div
-          className="font-bold rounded md:p-2 p-1 text-lg md:mb-16 sm:text-3xl lg:text-4xl text-white sm:max-w-xl max-w-xs"
+          className="font-bold rounded md:p-2 p-1 text-lg md:mb-16 sm:text-2xl lg:text-4xl text-white sm:max-w-xl max-w-xs"
           style={{
             background: "rgba(255, 255, 255, 0.2)",
             backdropFilter: "blur(10px)",
@@ -70,7 +70,7 @@ const Hero = () => {
             <span className="text-red-600">E•</span>Store
           </div>
           <Link to="/products" className="inline-block">
-            <div className={`${styles.button} `}>
+            <div className={`${styles.button} !w-[120px] `}>
               <span className="text-[#fff] font-[Poppins] text-[18px]">
                 Shop Now
               </span>

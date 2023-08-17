@@ -1,18 +1,15 @@
 const express = require("express");
-const path = require("path");
 const User = require("../model/user");
 const router = express.Router();
-const { upload } = require("../multer");
 const cloudinary = require("cloudinary");
 const ErrorHandler = require("../utils/ErrorHandler");
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
-router.post("/create-user", upload.single("file"), async (req, res, next) => {
+router.post("/create-user", async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     const userEmail = await User.findOne({ email });
@@ -214,7 +211,6 @@ router.put(
 router.put(
   "/update-avatar",
   isAuthenticated,
-  upload.single("image"),
   catchAsyncErrors(async (req, res, next) => {
     try {
       let existsUser = await User.findById(req.user.id);
@@ -228,11 +224,14 @@ router.put(
           folder: "avatars",
           width: 150,
         });
+
         existsUser.avatar = {
           public_id: myCloud.public_id,
           url: myCloud.secure_url,
         };
       }
+
+      await existsUser.save();
 
       res.status(200).json({
         success: true,

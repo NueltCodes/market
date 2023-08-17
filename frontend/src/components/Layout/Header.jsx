@@ -101,7 +101,7 @@ const Header = ({ activeHeading }) => {
                       >
                         <div className="w-full flex items-start-py-3">
                           <img
-                            src={`${backend_url}${i.images[0]}`}
+                            src={i.images[0]?.url}
                             alt=""
                             className="w-[40px] h-[40px] mr-[10px]"
                           />
@@ -114,14 +114,14 @@ const Header = ({ activeHeading }) => {
             ) : null}
           </div>
 
-          <div className={`${styles.button}`}>
-            <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
+          <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
+            <div className={`${styles.button}`}>
               <h1 className="text-[#fff] flex items-center">
-                {isSeller ? "Seller dash-board" : "Become Seller"}
+                {isSeller ? "Shop" : "Create Store"}
                 <IoIosArrowForward className="ml-1" />
               </h1>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -205,7 +205,7 @@ const Header = ({ activeHeading }) => {
                 {isAuthenticated ? (
                   <Link to="/profile">
                     <img
-                      src={`${backend_url}${user.avatar}`}
+                      src={`${user.avatar?.url}`}
                       className="w-[35px] h-[35px] rounded-full"
                       alt=""
                     />
@@ -337,13 +337,18 @@ const Header = ({ activeHeading }) => {
               </div>
 
               <Navbar active={activeHeading} />
-              <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                <Link to="/shop-create">
-                  <h1 className="text-[#fff] flex items-center">
-                    Become Seller <IoIosArrowForward className="ml-1" />
-                  </h1>
-                </Link>
-              </div>
+
+              {/* <div className={`${styles.button} ml-4 !rounded-[4px]`}> */}
+              <Link
+                to={`${isSeller ? "/dashboard" : "/shop-create"}`}
+                className={`${styles.button} ml-4 !rounded-[4px]`}
+              >
+                <h1 className="text-[#fff] flex items-center">
+                  {isSeller ? "Shop" : "Create Store"}
+                  <IoIosArrowForward className="ml-1" />
+                </h1>
+              </Link>
+              {/* </div> */}
               <br />
               <br />
               <br />
@@ -353,7 +358,7 @@ const Header = ({ activeHeading }) => {
                   <div>
                     <Link to="/profile">
                       <img
-                        src={`${backend_url}${user.avatar}`}
+                        src={user?.avatar?.url}
                         alt=""
                         className="w-[60px] h-[60px] rounded-full border-[3px] border-[#0eae88] mb-7"
                       />

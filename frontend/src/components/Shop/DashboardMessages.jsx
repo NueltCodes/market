@@ -227,6 +227,12 @@ const DashboardMessages = () => {
                 setActiveStatus={setActiveStatus}
               />
             ))}
+
+          {conversations && conversations.length < 1 && (
+            <div className="mt-20 h-full text-center font-normal text-2xl">
+              No customer has messaged you yet
+            </div>
+          )}
         </>
       )}
 
