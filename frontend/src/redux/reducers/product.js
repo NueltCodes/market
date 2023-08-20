@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: true,
+  products: [], // Add an empty array for products
 };
 
 export const productReducer = createReducer(initialState, {
@@ -39,6 +40,9 @@ export const productReducer = createReducer(initialState, {
   deleteProductSuccess: (state, action) => {
     state.isLoading = false;
     state.message = action.payload;
+    state.products = state.products.filter(
+      (product) => product._id !== action.payload.deletedProductId
+    );
   },
   deleteProductFailed: (state, action) => {
     state.isLoading = false;

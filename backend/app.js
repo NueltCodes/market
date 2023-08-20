@@ -13,7 +13,7 @@ app.use(
     credentials: true,
   })
 );
-app.use("/", express.static("uploads"));
+// app.use("/", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 // config

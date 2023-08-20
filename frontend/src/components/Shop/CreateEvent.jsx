@@ -6,10 +6,11 @@ import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { createevent } from "../../redux/actions/event";
 import { BiTrash } from "react-icons/bi";
+import Loader from "../Layout/Loader";
 
 const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
-  const { success, error } = useSelector((state) => state.events);
+  const { success, error, isLoading } = useSelector((state) => state.events);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,7 +57,7 @@ const CreateEvent = () => {
       navigate("/dashboard-events");
       window.location.reload();
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, navigate, success]);
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -89,18 +90,25 @@ const CreateEvent = () => {
     images.forEach((image) => {
       newForm.append("images", image);
     });
-    newForm.append("name", name);
-    newForm.append("description", description);
-    newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
-    newForm.append("discountPrice", discountPrice);
-    newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    newForm.append("start_Date", startDate.toISOString());
-    newForm.append("Finish_Date", endDate.toISOString());
-    dispatch(createevent(newForm));
+    const data = {
+      name,
+      description,
+      category,
+      tags,
+      originalPrice,
+      discountPrice,
+      stock,
+      images,
+      shopId: seller._id,
+      start_Date: startDate?.toISOString(),
+      Finish_Date: endDate?.toISOString(),
+    };
+    dispatch(createevent(data));
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className=" bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">

@@ -1,12 +1,12 @@
 const express = require("express");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const { upload } = require("../multer");
 const Shop = require("../model/shop");
 const Event = require("../model/event");
 const ErrorHandler = require("../utils/ErrorHandler");
 const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
 const router = express.Router();
 const fs = require("fs");
+const cloudinary = require("cloudinary");
 
 // create event
 router.post(
@@ -39,11 +39,11 @@ router.post(
           });
         }
 
-        const eventData = req.body;
-        eventData.images = imagesLinks;
-        eventData.shop = shop;
+        const productData = req.body;
+        productData.images = imagesLinks;
+        productData.shop = shop;
 
-        const event = await Event.create(eventData);
+        const event = await Event.create(productData);
 
         res.status(201).json({
           success: true,
@@ -92,18 +92,17 @@ router.delete(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const event = await Event.findById(req.params.id);
-
-      if (!product) {
-        return next(new ErrorHandler("Product is not found with this id", 404));
+      if (!event) {
+        return next(new ErrorHandler("Event is not found with this id", 404));
       }
 
-      for (let i = 0; i < product.images.length; i++) {
+      for (let i = 0; i < event.images.length; i++) {
         const result = await cloudinary.v2.uploader.destroy(
           event.images[i].public_id
         );
       }
 
-      await event.remove();
+      await Event.findByIdAndDelete(req.params.id); // Use findByIdAndDelete to remove the event
 
       res.status(201).json({
         success: true,

@@ -5,7 +5,6 @@ const router = express.Router();
 const Product = require("../model/product");
 const Order = require("../model/order");
 const Shop = require("../model/shop");
-const { upload } = require("../multer");
 const ErrorHandler = require("../utils/ErrorHandler");
 const fs = require("fs");
 const cloudinary = require("cloudinary");
@@ -58,6 +57,63 @@ router.post(
   })
 );
 
+router.post(
+  "/edit-product",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      let product = await Product.findById(req.body.productId);
+
+      if (!product) {
+        return next(new ErrorHandler("Product is not found with this id", 404));
+      }
+
+      let images = [];
+
+      if (typeof req.body.images === "string") {
+        images.push(req.body.images);
+      } else {
+        images = req.body.images;
+      }
+
+      if (images !== undefined) {
+        // Delete image from cloudinary
+        for (let i = 0; i < product.images.length; i++) {
+          await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+        }
+
+        const imagesLinks = [];
+
+        for (let i = 0; i < images.length; i++) {
+          const result = await cloudinary.v2.uploader.upload(images[i], {
+            folder: "products",
+          });
+          imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url,
+          });
+        }
+        req.body.images = imagesLinks;
+      }
+
+      product = await Product.findByIdAndUpdate(req.body.productId, req.body, {
+        new: true,
+        runValidators: true,
+        useUnified: false,
+      });
+
+      if (!product) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Product not found" });
+      }
+
+      res.status(200).json({ success: true, product: product });
+    } catch (error) {
+      return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
 // get all products of a shop
 router.get(
   "/get-all-products-shop/:id",
@@ -93,7 +149,8 @@ router.delete(
         );
       }
 
-      await product.remove();
+      // Use findByIdAndDelete to remove the product from the database
+      await Product.findByIdAndDelete(req.params.id);
 
       res.status(201).json({
         success: true,

@@ -6,6 +6,7 @@ import { deleteEvent, getAllEventsShop } from "../../redux/actions/event";
 import Loader from "../Layout/Loader";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 
 const AllEvents = () => {
   const { events, isLoading } = useSelector((state) => state.events);
@@ -15,11 +16,18 @@ const AllEvents = () => {
 
   useEffect(() => {
     dispatch(getAllEventsShop(seller._id));
-  }, [dispatch]);
+  }, [dispatch, seller._id]);
 
   const handleDelete = (id) => {
     dispatch(deleteEvent(id));
-    window.location.reload();
+
+    setTimeout(() => {
+      toast.success("Event deleted successfully");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); // Reloading the page after a seconds
+    }, 2000); // Displaying the toast after 2 seconds
   };
 
   const columns = [

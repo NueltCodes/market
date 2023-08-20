@@ -6,10 +6,13 @@ import { createProduct } from "../../redux/actions/product";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { BiTrash } from "react-icons/bi";
+import Loader from "../Layout/Loader";
+import axios from "axios";
+import { server } from "../../server";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
-  const { success, error } = useSelector((state) => state.products);
+  const { success, error, isLoading } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,49 +34,89 @@ const CreateProduct = () => {
       navigate("/dashboard");
       window.location.reload();
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, navigate, success]);
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+
+    setImages([]);
 
     files.forEach((file) => {
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImages((prevImages) => [...prevImages, reader.result]);
+          setImages((old) => [...old, reader.result]);
         }
       };
       reader.readAsDataURL(file);
     });
   };
 
-  const handleImageDelete = (index) => {
+  const handleImageDelete = (imageUrlToDelete) => {
     setImages((prevImages) => {
-      const newImages = [...prevImages];
-      newImages.splice(index, 1);
-      return newImages;
+      return prevImages.filter((imageUrl) => imageUrl !== imageUrlToDelete);
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     const newForm = new FormData();
 
-    images.forEach((image) => {
-      newForm.append("images", image);
+    images.forEach((image, index) => {
+      newForm.set(`images${index}`, image); // Use a unique name for each image
     });
-    newForm.append("name", name);
-    newForm.append("description", description);
-    newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
-    newForm.append("discountPrice", discountPrice);
-    newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    dispatch(createProduct(newForm));
+    try {
+      const newForm = new FormData();
+
+      images.forEach((image, index) => {
+        newForm.append(`images${index}`, image); // Use a unique name for each image
+      });
+      newForm.append("name", name);
+      newForm.append("description", description);
+      newForm.append("category", category);
+      newForm.append("tags", tags);
+      newForm.append("originalPrice", originalPrice);
+      newForm.append("discountPrice", discountPrice);
+      newForm.append("stock", stock);
+      newForm.append("shopId", seller._id);
+
+      const formData = {
+        name,
+        description,
+        category,
+        tags,
+        originalPrice,
+        discountPrice,
+        stock,
+        shopId: seller._id,
+        images,
+      };
+
+      const response = await axios.post(
+        `${server}/product/create-product`,
+        formData
+      );
+
+      if (response.data.success) {
+        toast.success("Product successfully edited");
+        navigate("/dashboard");
+        window.location.reload();
+      } else {
+        toast.error("Error editing product. Please try again later.");
+      }
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        "Image is too large. Please use an image compressor to compress the image.";
+      toast.error(errorMessage);
+    }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className=" bg-white shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
@@ -179,7 +222,7 @@ const CreateProduct = () => {
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             onChange={(e) => setStock(e.target.value)}
-            placeholder="Enter your product stock..."
+            placeholder="Enter available stock quantity..."
           />
         </div>
         <br />
@@ -202,7 +245,7 @@ const CreateProduct = () => {
             {images &&
               images.map((i) => (
                 <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
-                  <div className="z-10 absolute top-3 right-3">
+                  <div className="z-10 absolute top-1 right-1">
                     <BiTrash
                       type="button"
                       onClick={() => handleImageDelete(i)}
@@ -221,11 +264,12 @@ const CreateProduct = () => {
               ))}
           </div>
           <br />
+          {}
           <div>
             <input
               type="submit"
               value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 hover:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
+              className="cursor-pointer mt-2 appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 hover:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             />
           </div>
         </div>
