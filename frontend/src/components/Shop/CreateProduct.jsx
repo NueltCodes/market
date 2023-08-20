@@ -37,6 +37,15 @@ const CreateProduct = () => {
   }, [dispatch, error, navigate, success]);
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 2MB."
+      );
+      return;
+    }
+
     const files = Array.from(e.target.files);
 
     setImages([]);

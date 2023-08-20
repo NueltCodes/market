@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import { TfiGallery } from "react-icons/tfi";
 import styles from "../styles/styles";
+import { toast } from "react-toastify";
 const ENDPOINT = "http://localhost:4000/";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
@@ -148,6 +149,15 @@ const UserInbox = () => {
   };
 
   const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 2MB."
+      );
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -181,7 +191,11 @@ const UserInbox = () => {
         })
         .then((res) => {
           setImages();
-          setMessages([...messages, res.data.message]);
+          setMessages([
+            ...messages,
+            res.data.message ||
+              "Image is too large. Please compress the image.",
+          ]);
           updateLastMessageForImage();
         });
     } catch (error) {
