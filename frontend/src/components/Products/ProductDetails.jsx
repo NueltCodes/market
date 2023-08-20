@@ -147,7 +147,7 @@ const ProductDetails = ({ data }) => {
                 <div className=" hidden 800px:flex items-center mt-12">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
-                      src={`${backend_url}${data?.shop?.avatar}`}
+                      src={data?.shop?.avatar.url}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />
@@ -159,7 +159,7 @@ const ProductDetails = ({ data }) => {
                       </h3>
                     </Link>
                     <h5 className="pb-3 text-[15px]">
-                      ({averageRating}/5) Ratings
+                      ({averageRating.toFixed(1)}/5) Ratings
                     </h5>
                   </div>
                   <div
@@ -174,7 +174,9 @@ const ProductDetails = ({ data }) => {
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p>{data.description}</p>
+                <p className="leading-8 pb-10 whitespace-pre-line h-[40vh] overflow-y-scroll">
+                  {data.description}
+                </p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
                     ${data.discountPrice}
@@ -233,7 +235,7 @@ const ProductDetails = ({ data }) => {
                 <div className="800px:hidden flex items-center pt-8 ">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
-                      src={`${backend_url}${data?.shop?.avatar}`}
+                      src={data?.shop?.avatar.url}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />
@@ -245,7 +247,7 @@ const ProductDetails = ({ data }) => {
                       </h3>
                     </Link>
                     <h5 className="pb-3 text-[15px]">
-                      ({averageRating}/5) Ratings
+                      ({averageRating.toFixed(1)}/5) Ratings
                     </h5>
                   </div>
                   <div
@@ -339,7 +341,7 @@ const ProductDetailsInfo = ({
             data.reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <img
-                  src={`${backend_url}/${item.user.avatar}`}
+                  src={item.user.avatar.url}
                   alt=""
                   className="w-[50px] h-[50px] rounded-full"
                 />
@@ -367,14 +369,14 @@ const ProductDetailsInfo = ({
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
                 <img
-                  src={`${backend_url}${data?.shop?.avatar}`}
+                  src={data?.shop?.avatar.url}
                   className="w-[50px] h-[50px] rounded-full"
                   alt=""
                 />
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">
-                    ({averageRating}/5) Ratings
+                    ({averageRating.toFixed(1)}/5) Ratings
                   </h5>
                 </div>
               </div>
@@ -399,7 +401,7 @@ const ProductDetailsInfo = ({
                 Total Reviews:{" "}
                 <span className="font-[500]">{totalReviewsLength}</span>
               </h5>
-              <Link to="/">
+              <Link to={`/shop/preview/${data?.shop._id}`}>
                 <div
                   className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}
                 >

@@ -66,7 +66,7 @@ const ProductCard = ({ data, key, isEvent }) => {
   return (
     <>
       <div
-        className="w-full h-[350px] bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer"
+        className="w-full h-[370px] bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer"
         key={key}
       >
         <div className="flex justify-end"></div>
