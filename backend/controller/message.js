@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const { upload } = require("../multer");
 const router = express.Router();
+const cloudinary = require("cloudinary");
 
 // create new message
 router.post(
@@ -14,10 +15,14 @@ router.post(
     try {
       const messageData = req.body;
 
-      if (req.file) {
-        const filename = req.file.filename;
-        const fileUrl = path.join(filename);
-        messageData.images = fileUrl;
+      if (req.body.images) {
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
+          folder: "messages",
+        });
+        messageData.images = {
+          public_id: myCloud.public_id,
+          url: myCloud.url,
+        };
       }
 
       messageData.conversationId = req.body.conversationId;
