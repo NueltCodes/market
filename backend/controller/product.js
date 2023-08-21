@@ -6,7 +6,6 @@ const Product = require("../model/product");
 const Order = require("../model/order");
 const Shop = require("../model/shop");
 const ErrorHandler = require("../utils/ErrorHandler");
-const fs = require("fs");
 const cloudinary = require("cloudinary");
 
 // create product
