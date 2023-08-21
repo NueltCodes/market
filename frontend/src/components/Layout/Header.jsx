@@ -85,7 +85,7 @@ const Header = ({ activeHeading }) => {
             )}
 
             {searchData && searchData.length !== 0 && searchTerm ? (
-              <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
+              <div className="absolute w-full min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&
                   searchData.map((i, index) => {
                     // const d = i.name;
@@ -321,7 +321,7 @@ const Header = ({ activeHeading }) => {
                             <Link to={`/product/${Product_name}`} key={index}>
                               <div className="flex items-center mb-1">
                                 <img
-                                  src={`${backend_url}${i.images[0]}`}
+                                  src={i?.images[0].url}
                                   alt=""
                                   className="w-[40px] h-[40px] mr-[10px]"
                                 />

@@ -3,7 +3,6 @@ import styles from "../../styles/styles";
 import EventCard from "./EventCard";
 import { useSelector } from "react-redux";
 import noEvents from "../../Assests/animations/noEvents2.json";
-import noEvent2 from "../../Assests/animations/noEvents.json";
 import { useLottie } from "lottie-react";
 
 const Events = () => {
@@ -14,13 +13,8 @@ const Events = () => {
     loop: true,
     // autoplay: true,
   };
-  const option2 = {
-    animationData: noEvent2,
-    loop: true,
-    // autoplay: true,
-  };
+
   const { View: animationView1 } = useLottie(options);
-  const { View: animationView2 } = useLottie(option2);
   // const { View } = useLottie(options);
 
   return (
@@ -55,9 +49,6 @@ const Events = () => {
                     >
                       {animationView1}
                     </div>
-                    {/* <div style={{ width: "100%", textAlign: "center" }}>
-                      {animationView2}
-                    </div> */}
                   </div>
                 </div>
                 <div className="font-bold text-center ">

@@ -13,7 +13,7 @@ const DashboardSideBar = ({ active }) => {
   return (
     <div className="h-[90vh] bg-white shadow-sm overflow-y-scroll fixed top-15 left-0 z-10">
       {/* single item */}
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center hover:opacity-60 transition duration-200 p-4">
         <Link to="/dashboard" className="w-full flex items-center">
           <RxDashboard
             size={30}
@@ -28,14 +28,17 @@ const DashboardSideBar = ({ active }) => {
           </h5>
         </Link>
       </div>
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/" className="w-full flex items-center">
-          <HiOutlineMenuAlt2 size={30} />
+          <HiOutlineMenuAlt2
+            size={30}
+            color={`${active === 1 ? "crimson" : "#555"}`}
+          />
           <h5 className="hidden lg:block pl-2 text-[18px] font-normal">Home</h5>
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-orders" className="w-full flex items-center">
           <FiShoppingBag
             size={30}
@@ -51,7 +54,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-products" className="w-full flex items-center">
           <FiPackage size={30} color={`${active === 3 ? "crimson" : "#555"}`} />
           <h5
@@ -64,7 +67,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link
           to="/dashboard-create-product"
           className="w-full flex items-center"
@@ -83,7 +86,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-events" className="w-full flex items-center">
           <MdOutlineLocalOffer
             size={30}
@@ -99,7 +102,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-create-event" className="w-full flex items-center">
           <VscNewFile
             size={30}
@@ -115,7 +118,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link
           to="/dashboard-withdraw-money"
           className="w-full flex items-center"
@@ -134,7 +137,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-messages" className="w-full flex items-center">
           <BiMessageSquareDetail
             size={30}
@@ -150,7 +153,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-coupons" className="w-full flex items-center">
           <AiOutlineGift
             size={30}
@@ -166,7 +169,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-refunds" className="w-full flex items-center">
           <HiOutlineReceiptRefund
             size={30}
@@ -182,7 +185,7 @@ const DashboardSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/settings" className="w-full flex items-center">
           <CiSettings
             size={30}
