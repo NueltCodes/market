@@ -38,7 +38,7 @@ router.post("/create-shop", async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
+    const activationUrl = `https://e-store-app-three.vercel.app/activation/${activationToken}`;
 
     try {
       await sendMail({
@@ -124,7 +124,7 @@ router.post(
       });
 
       // am sending email along with the resetToken and reset link in here
-      const resetLink = `http://localhost:3000/seller/reset-password/${resetToken}`;
+      const resetLink = `https://e-store-app-three.vercel.app/reset-password/${resetToken}`;
       await sendMail({
         email: shop.email,
         subject: "Reset Your Shop Password",
