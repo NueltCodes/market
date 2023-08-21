@@ -15,17 +15,17 @@ app.use(
   })
 );
 
+app.use("/", express.static("uploads"));
 app.use("/", (req, res) => {
   res.send("Hello world!");
 });
 
-// app.use("/", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
-    path: ".env",
+    path: "config/.env",
   });
 }
 
