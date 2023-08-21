@@ -11,7 +11,7 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
 router.post("/create-user", async (req, res, next) => {
   try {
-    const { name, email, password, avatar } = req.body;
+    const { name, email, password } = req.body;
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
@@ -34,7 +34,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://e-store-app-three.vercel.app/activation/${activationToken}`;
+    const activationUrl = `https://e-store-app-tau.vercel.app//activation/${activationToken}`;
 
     try {
       await sendMail({
