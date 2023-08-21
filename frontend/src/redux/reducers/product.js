@@ -64,14 +64,14 @@ export const productReducer = createReducer(initialState, {
 
   // get all products for admin
   getAdminAllProductsRequest: (state) => {
-    state.adminProductsLoading = true;
+    state.isLoading = true;
   },
   getAdminAllProductsSuccess: (state, action) => {
-    state.adminProductsLoading = false;
+    state.isLoading = false;
     state.adminAllProducts = action.payload;
   },
   getAdminAllProductsFailed: (state, action) => {
-    state.adminProductsLoading = false;
+    state.isLoading = false;
     state.error = action.payload;
   },
 

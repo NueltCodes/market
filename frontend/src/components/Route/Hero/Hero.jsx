@@ -9,8 +9,21 @@ const heroImages = [
   {
     image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.png"),
   },
+
   {
-    image: require("../../../Assests/images/Desktop_homepage_slider__712x384_(Shop_Now).jpg"),
+    image: require("../../../Assests/images/dannie-sorum-xU-81R6CAVE-unsplash.jpg"),
+  },
+  {
+    image: require("../../../Assests/images/jan-bottinger--kChshW17rw-unsplash.jpg"),
+  },
+  {
+    image: require("../../../Assests/images/planetcare-5cpBWEl6y6c-unsplash.jpg"),
+  },
+  {
+    image: require("../../../Assests/images/sebastiaan-stam-5hBREM-5mnQ-unsplash.jpg"),
+  },
+  {
+    image: require("../../../Assests/images/arturo-rey-5yP83RhaFGA-unsplash.jpg"),
   },
   {
     image: require("../../../Assests/images/frankie-lg35FkimT30-unsplash.jpg"),

@@ -266,34 +266,34 @@ export const categoriesData = [
     title: "Shoes",
     subTitle: "",
     image_Url:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvBQPQMVNRd6TtDkGs2dCri0Y-rxKkFOiEWw&usqp=CAU",
+      "https://5.imimg.com/data5/MT/MB/EO/SELLER-14290347/men-555-black-fashion-lace-up-shoes-500x500.jpg",
   },
   {
     id: 6,
     title: "Gifts",
     subTitle: "",
     image_Url:
-      "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
+      "https://www.brides.com/thmb/4XSayGNRHjhx7zhMyTAEOweZ4Vo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/gif-gettyimages-re-215ebb8f3199469184954bdbf85a5d81.jpg",
   },
   {
     id: 7,
     title: "Pet Care",
     subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+    image_Url:
+      "https://img.freepik.com/premium-vector/pet-care-logo-mascot-template_190190-163.jpg?w=740",
   },
   {
     id: 8,
     title: "Mobile and Tablets",
     subTitle: "",
-    image_Url:
-      "https://st-troy.mncdn.com/mnresize/1500/1500/Content/media/ProductImg/original/mpwp3tua-apple-iphone-14-256gb-mavi-mpwp3tua-637986832343472449.jpg",
+    image_Url: "https://m.media-amazon.com/images/I/41ZH2PFe1+L._SS400_.jpg",
   },
   {
     id: 9,
     title: "Music and Gaming",
     subTitle: "",
     image_Url:
-      "https://static.vecteezy.com/system/resources/previews/011/996/555/original/3d-black-headphone-illustration-ecommerce-icon-png.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLWGOtNhOF_rATI2maXxaOOPA4sO2r_6yAg&usqp=CAU",
   },
   {
     id: 10,

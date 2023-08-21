@@ -1,28 +1,25 @@
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAdminAllProducts } from "../../redux/actions/product";
-import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
+import axios from "axios";
+import { server } from "../../server";
 
 const AllProducts = () => {
-  const { adminAllProducts, adminProductsLoading } = useSelector(
-    (state) => state.product
-  );
-
-  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    dispatch(getAdminAllProducts());
-  }, [dispatch]);
-
-  const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
-    window.location.reload();
-  };
+    setLoading(true);
+    axios
+      .get(`${server}/product/admin-all-products`, { withCredentials: true })
+      .then((res) => {
+        setData(res.data.products);
+      });
+    setLoading(false);
+  }, []);
 
   const columns = [
     { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
@@ -76,8 +73,8 @@ const AllProducts = () => {
 
   const row = [];
 
-  adminAllProducts &&
-    adminAllProducts.forEach((item) => {
+  data &&
+    data.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -89,7 +86,7 @@ const AllProducts = () => {
 
   return (
     <>
-      {adminProductsLoading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
