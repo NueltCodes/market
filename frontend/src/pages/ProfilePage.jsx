@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Layout/Header";
 import styles from "../styles/styles";
 import ProfileSideBar from "../components/Profile/ProfileSidebar.jsx";

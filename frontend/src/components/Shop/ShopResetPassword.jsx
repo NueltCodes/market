@@ -1,5 +1,4 @@
-import { React, useEffect, useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { React, useState } from "react";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +19,7 @@ const ShopResetPassword = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Reset link sent to your mail!");
+        toast.success("Password reset link has been sent to your mail!");
         // navigate("/dashboard");
         // window.location.reload(true);
       })

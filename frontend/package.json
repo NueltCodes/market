@@ -28,6 +28,7 @@
     "redux-thunk": "^2.4.2",
     "redux-toolkit": "^1.1.2",
     "socket.io-client": "^4.6.1",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "timeago.js": "^4.0.2",
     "web-vitals": "^2.1.4"

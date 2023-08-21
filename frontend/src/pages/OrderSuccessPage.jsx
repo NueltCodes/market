@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/Header";
-import { useLottie } from "lottie-react";
-import animationData from "../Assests/animations/107043-success.json";
 import SuccessLoader from "../components/Layout/SuccessLoader";
 
 const OrderSuccessPage = () => {
