@@ -10,7 +10,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://e-store-app-three.vercel.app/",
+    origin: "https://e-store-app-three.vercel.app",
     credentials: true,
   })
 );
