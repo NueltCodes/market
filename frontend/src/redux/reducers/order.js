@@ -31,10 +31,6 @@ export const orderReducer = createReducer(initialState, {
     state.error = action.payload;
   },
 
-  clearErrors: (state) => {
-    state.error = null;
-  },
-
   // get all orders for admin
   adminAllOrdersRequest: (state) => {
     state.adminOrderLoading = true;
