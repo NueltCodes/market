@@ -1,5 +1,6 @@
 # Ignore node_modules in the root directory
 /node_modules
 backend/config/.env
+backend/node_modules
 socket/node_modules
 socket/.env
