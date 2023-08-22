@@ -34,7 +34,7 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://e-store-app-tau.vercel.app//activation/${activationToken}`;
+    const activationUrl = `https://e-store-app-tau.vercel.app/activation/${activationToken}`;
 
     try {
       await sendMail({
@@ -138,7 +138,7 @@ router.get(
       const user = await User.findById(req.user.id);
 
       if (!user) {
-        return next(new ErrorHandler("User doesn't exist", 400));
+        return next(new ErrorHandler("User doesn't exists", 400));
       }
       res.status(200).json({
         success: true,
@@ -158,6 +158,8 @@ router.get(
       res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
       });
       res.status(201).json({
         success: true,
