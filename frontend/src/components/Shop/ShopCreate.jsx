@@ -20,25 +20,30 @@ const ShopCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const file = e.target.files[0];
 
-    if (avatar == null) {
+    if (avatar === null) {
       toast.error("an image must be uploaded");
       return;
     }
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 2MB."
+      );
+      return;
+    }
 
-    const newForm = new FormData();
-
-    newForm.append("avatar", avatar);
-    newForm.append("name", name);
-    newForm.append("email", email);
-    newForm.append("password", password);
-    newForm.append("zipCode", zipCode);
-    newForm.append("address", address);
-    newForm.append("phoneNumber", phoneNumber);
     axios
-      .post(`${server}/shop/create-shop`, newForm, config)
+      .post(`${server}/shop/create-shop`, {
+        name,
+        email,
+        password,
+        avatar,
+        zipCode,
+        address,
+        phoneNumber,
+      })
       .then((res) => {
         toast.success(res.data.message);
         setName("");
