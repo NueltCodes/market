@@ -26,7 +26,7 @@ const ShopCreate = () => {
       return;
     }
 
-    const file = e.target.fpciles[0];
+    const file = e.target.files[0];
 
     if (file.size > 2 * 1024 * 1024) {
       toast.error(
