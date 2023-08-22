@@ -20,12 +20,13 @@ const ShopCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
 
     if (avatar === null) {
       toast.error("an image must be uploaded");
       return;
     }
+
+    const file = e.target.fpciles[0];
 
     if (file.size > 2 * 1024 * 1024) {
       toast.error(
@@ -60,6 +61,16 @@ const ShopCreate = () => {
   };
 
   const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+
+    // Checking if the file size is larger than 2MB
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 2MB."
+      );
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => {

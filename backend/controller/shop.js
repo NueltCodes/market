@@ -16,7 +16,7 @@ router.post("/create-shop", async (req, res, next) => {
     const sellerEmail = await Shop.findOne({ email });
 
     if (sellerEmail) {
-      return next(new ErrorHandler("User already exists", 400));
+      return next(new ErrorHandler("Shop already exists", 400));
     }
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -86,7 +86,7 @@ router.post(
       let seller = await Shop.findOne({ email });
 
       if (seller) {
-        return next(new ErrorHandler("User already exists", 400));
+        return next(new ErrorHandler("Shop already exists", 400));
       }
 
       seller = await Shop.create({
@@ -192,7 +192,7 @@ router.post(
       const user = await Shop.findOne({ email }).select("+password");
 
       if (!user) {
-        return next(new ErrorHandler("User doesn't exists!", 400));
+        return next(new ErrorHandler("Shop doesn't exists!", 400));
       }
 
       const isPasswordValid = await user.comparePassword(password);
@@ -313,7 +313,7 @@ router.put(
       const shop = await Shop.findOne(req.seller._id);
 
       if (!shop) {
-        return next(new ErrorHandler("User not found", 400));
+        return next(new ErrorHandler("Shop not found", 400));
       }
 
       shop.name = name;
