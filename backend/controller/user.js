@@ -11,7 +11,7 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
 router.post("/create-user", async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, avatar } = req.body;
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
@@ -27,7 +27,7 @@ router.post("/create-user", async (req, res, next) => {
       email: email,
       password: password,
       avatar: {
-        pubic_id: myCloud.public_id,
+        public_id: myCloud.public_id,
         url: myCloud.secure_url,
       },
     };
@@ -81,7 +81,7 @@ router.post(
       let user = await User.findOne({ email });
 
       if (user) {
-        return next(new ErrorHandler("User already exists", 400));
+        return next(new ErrorHandler("User already exist", 400));
       }
 
       user = new User({
@@ -109,17 +109,21 @@ router.post(
       const { email, password } = req.body;
 
       if (!email || !password) {
-        return next(new ErrorHandler("Please fill the required fields!", 400));
+        return next(new ErrorHandler("Please provide all fields!", 400));
       }
+
       const user = await User.findOne({ email }).select("+password");
+
       if (!user) {
-        return next(new ErrorHandler("User doesn't exist", 400));
+        return next(new ErrorHandler("User doesn't exist!", 400));
       }
 
       const isPasswordValid = await user.comparePassword(password);
 
       if (!isPasswordValid) {
-        return next(new ErrorHandler("Provide the correct information", 400));
+        return next(
+          new ErrorHandler("Please provide the correct information", 400)
+        );
       }
 
       sendToken(user, 201, res);
@@ -140,6 +144,7 @@ router.get(
       if (!user) {
         return next(new ErrorHandler("User doesn't exists", 400));
       }
+
       res.status(200).json({
         success: true,
         user,
