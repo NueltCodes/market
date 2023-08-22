@@ -13,9 +13,16 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const navigate = useNavigate();
 
   const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error(
+        "Image size is too large. Please upload an image smaller than 2MB."
+      );
+      return;
+    }
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -45,7 +52,10 @@ const Signup = () => {
         setAvatar();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(
+          error.response?.data?.message ||
+            "Image is too large. Please use an image-compressor to compress image."
+        );
       });
   };
 

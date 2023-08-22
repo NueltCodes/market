@@ -84,14 +84,6 @@ const CreateEvent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
-
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error(
-        "Image size is too large. Please upload an image smaller than 2MB."
-      );
-      return;
-    }
 
     const newForm = new FormData();
 
