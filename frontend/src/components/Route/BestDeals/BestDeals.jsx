@@ -20,7 +20,7 @@ const BestDeals = () => {
   const [showRightScroll, setShowRightScroll] = useState(true);
 
   const handleScroll = (scrollOffset) => {
-    const container = document.querySelector(".scroll-container");
+    const container = document.querySelector(".best-deals-scroll");
     if (container) {
       const newScrollLeft = container.scrollLeft + scrollOffset;
 
@@ -50,7 +50,7 @@ const BestDeals = () => {
       {data.length !== 0 && (
         <div className="relative">
           <div
-            className="scroll-container scrollbar-hide"
+            className="best-deals-scroll scrollbar-hide"
             style={scrollContainerStyle}
             // onScroll={handleScroll}
           >
