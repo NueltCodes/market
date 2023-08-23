@@ -4,15 +4,16 @@ import ProductCard from "../ProductCard/ProductCard.jsx";
 import { useSelector } from "react-redux";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 
-const BestDeals = () => {
+const TopRated = () => {
   const [data, setData] = useState([]);
   const { allProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
     const allProductsData = allProducts ? [...allProducts] : [];
-    const sortedData = allProductsData?.sort(
-      (a, b) => b.discountPrice - a.discountPrice
+    const ratedProducts = allProductsData.filter(
+      (product) => product.ratings > 2.5
     );
+    const sortedData = ratedProducts?.sort((a, b) => b.rating - a.rating);
     const firstFive = sortedData && sortedData.slice(0, 20);
     setData(firstFive);
   }, [allProducts]);
@@ -43,9 +44,9 @@ const BestDeals = () => {
   };
 
   return (
-    <div className={`${styles.section}`}>
+    <div className={`${styles.section} mt-7`}>
       <div className={`${styles.heading} !text-left`}>
-        <h1>Best Deals</h1>
+        <h1>Top Rated</h1>
       </div>
       {data.length !== 0 && (
         <div className="relative">
@@ -78,4 +79,4 @@ const BestDeals = () => {
   );
 };
 
-export default BestDeals;
+export default TopRated;

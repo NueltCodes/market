@@ -5,7 +5,7 @@ import {
   AiFillYoutube,
   AiOutlineTwitter,
 } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   footercompanyLinks,
   footerProductLinks,
@@ -13,6 +13,12 @@ import {
 } from "../../static/data";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (data) => {
+    navigate(`/products?category=${data.name}`);
+    window.location.reload();
+  };
+
   return (
     <div className="bg-[#000] text-white">
       <div className="md:flex md:gap-2 md:justify-between md:items-center sm:px-12 px-4 bg-[#453780] py-7">
@@ -81,13 +87,13 @@ const Footer = () => {
           <h1 className="mb-1 font-semibold">Shop</h1>
           {footercompanyLinks.map((link, index) => (
             <li key={index}>
-              <Link
+              <div
                 className="text-gray-400 hover:text-teal-400 duration-300
-                     text-sm cursor-pointer leading-6"
-                to={link.link}
+             text-sm cursor-pointer leading-6"
+                onClick={() => handleSubmit(link)}
               >
                 {link.name}
-              </Link>
+              </div>
             </li>
           ))}
         </ul>

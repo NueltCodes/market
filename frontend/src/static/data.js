@@ -1,6 +1,12 @@
 // imports Data for my sideBar icons
-
+import {
+  AiOutlineCreditCard,
+  AiOutlineLogin,
+  AiOutlineMessage,
+} from "react-icons/ai";
 import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
+import { MdOutlineTrackChanges } from "react-icons/md";
+import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
 
 // navigation Data
@@ -630,11 +636,11 @@ export const productData = [
 export const footerProductLinks = [
   {
     name: "About us",
-    link: "/about",
+    link: "/",
   },
   {
-    name: "Careers",
-    link: "/carrers",
+    name: "Events",
+    link: "/events",
   },
   {
     name: "Store Locations",
@@ -652,25 +658,23 @@ export const footercompanyLinks = [
     name: "Game & Video",
   },
   {
-    name: "Phone &Tablets",
+    name: "Accesories",
   },
   {
-    name: "Computers & Laptop",
+    name: "Computers and Laptops",
   },
   {
     name: "Sport Watches",
   },
   {
-    name: "Events",
+    name: "Shoes",
   },
 ];
 
 export const footerSupportLinks = [
   {
     name: "FAQ",
-  },
-  {
-    name: "Reviews",
+    link: "/faq",
   },
   {
     name: "Contact Us",

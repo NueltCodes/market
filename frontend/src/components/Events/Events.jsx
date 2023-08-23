@@ -15,13 +15,12 @@ const Events = () => {
   };
 
   const { View: animationView1 } = useLottie(options);
-  // const { View } = useLottie(options);
 
   return (
-    <div className="mb-7 md:mb-20">
+    <div className="my-7 w-full overflow-hidden">
       {!isLoading && (
         <div className={`${styles.section}`}>
-          <div className={`${styles.heading}`}>
+          <div className={`${styles.heading} !text-left`}>
             <h1>Flash sales</h1>
           </div>
 
@@ -31,30 +30,14 @@ const Events = () => {
             )}
 
             {allEvents.length === 0 && (
-              <>
-                <div className="w-full sm:h-[60vh] h-[30vh] sm:mt-6 flex items-center justify-center">
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 200,
-                      width: "100%", // Set the width to 100% to occupy the available space
-                      justifyContent: "center", // Center the animations horizontally
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "50%",
-                        textAlign: "center",
-                      }}
-                    >
-                      {animationView1}
-                    </div>
-                  </div>
+              <div className="w-full flex flex-col items-center justify-center">
+                <div className="w-full flex items-center justify-center">
+                  <div className="w-[30%] text-center">{animationView1}</div>
                 </div>
-                <div className="font-bold text-center ">
+                <div className="font-bold text-center mt-4">
                   No events yet, sellers are yet to create flash sales!
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
