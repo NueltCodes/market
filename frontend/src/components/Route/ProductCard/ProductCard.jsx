@@ -66,11 +66,13 @@ const ProductCard = ({ data, key, isEvent }) => {
   return (
     <>
       <div
-        className="h-[370px] bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer"
+        className="h-[370px] bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer group"
         key={key}
       >
         <div className="flex justify-end"></div>
         <Link
+          className="aspect-square overflow-hidden 
+          "
           to={`${
             isEvent === true
               ? ` /product/${data._id}?isEvent=true`
@@ -80,7 +82,8 @@ const ProductCard = ({ data, key, isEvent }) => {
           <img
             src={`${data.images && data.images[0]?.url}`}
             alt=""
-            className="800px:w-[98%] w-full h-[170px] object-contain 800px:pr-2"
+            className="800px:w-[98%] w-full h-[170px] object-cover 800px:pr-2 group-hover:scale-105 transition overflow-hidden 
+            "
           />
         </Link>
         <Link to={`/shop/preview/${data?.shop._id}`}>
@@ -94,7 +97,7 @@ const ProductCard = ({ data, key, isEvent }) => {
           }`}
         >
           {" "}
-          <h4 className="pb-3 font-[500]">
+          <h4 className="pb-3 font-[500] truncate">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
           <div className="flex">
@@ -113,7 +116,7 @@ const ProductCard = ({ data, key, isEvent }) => {
               </h4>
             </div>
             <span className="font-[400] text-[17px] text-[#68d284]">
-              {data?.sold_out} sold
+              stock: {data?.stock}
             </span>
           </div>
         </Link>
