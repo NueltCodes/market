@@ -32,7 +32,7 @@ const DashboardSideBar = ({ active }) => {
         <Link to="/" className="w-full flex items-center">
           <HiOutlineMenuAlt2
             size={30}
-            color={`${active === 1 ? "crimson" : "#555"}`}
+            // color={`${active === 1 ? "crimson" : "#555"}`}
           />
           <h5 className="hidden lg:block pl-2 text-[18px] font-normal">Home</h5>
         </Link>
