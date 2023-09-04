@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
-import { backend_url, server } from "../../server";
+import { server } from "../../server";
 import styles from "../../styles/styles";
 import { toast } from "react-toastify";
 import {
@@ -348,7 +348,7 @@ const ProductDetailsInfo = ({
                 <div className="pl-2 ">
                   <div className="w-full flex items-center">
                     <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                    <Ratings rating={data?.ratings} />
+                    <Ratings rating={item?.rating} />
                   </div>
                   <p>{item.comment}</p>
                 </div>
