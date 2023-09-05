@@ -49,7 +49,7 @@ const ShopInfo = ({ isOwner }) => {
     axios.get(`${server}/shop/logout`, {
       withCredentials: true,
     });
-    window.location.reload();
+    window.location.reload(true);
   };
 
   return (
