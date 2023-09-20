@@ -5,6 +5,7 @@ import Header from "../components/Layout/Header";
 import ProductDetails from "../components/Products/ProductDetails";
 import SuggestedProduct from "../components/Products/SuggestedProduct";
 import { useSelector } from "react-redux";
+import ProductEventDetails from "../components/Products/ProductEventDetails";
 
 const ProductDetailsPage = () => {
   const { allProducts } = useSelector((state) => state.products);
@@ -25,18 +26,18 @@ const ProductDetailsPage = () => {
       }
     };
 
-    fetchData(); // Call the function immediately when the component mounts
+    fetchData(); // This Calls the function immediately when the component mounts
 
-    // Additionally, if you want to refetch data when the id changes:
-    // fetchData();
+    // Additionally fetchData(), This also you to refetch data when the id changes:
 
-    // Specify id as a dependency to trigger the effect when it changes
+    // The id as a dependency to trigger the function when it changes
   }, [id, allProducts, allEvents, eventData]);
 
   return (
     <div>
       <Header />
-      <ProductDetails data={data} />
+      {!eventData && <ProductDetails data={data} />}
+      {eventData && <ProductEventDetails data={data} />}
       {!eventData && <>{data && <SuggestedProduct data={data} />}</>}
 
       <Footer />
