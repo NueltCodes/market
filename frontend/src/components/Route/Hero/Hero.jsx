@@ -4,13 +4,6 @@ import styles from "../../../styles/styles";
 
 const heroImages = [
   {
-    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.jpg"),
-  },
-  {
-    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.png"),
-  },
-
-  {
     image: require("../../../Assests/images/dannie-sorum-xU-81R6CAVE-unsplash.jpg"),
   },
   {
