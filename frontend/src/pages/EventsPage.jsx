@@ -53,7 +53,7 @@ const EventsPage = () => {
             </>
           )}
           {allEvents && allEvents.length > 0 && (
-            <div className="my-5">
+            <div className="mb-16">
               <EventCard active={true} data={allEvents && allEvents[0]} />
             </div>
           )}

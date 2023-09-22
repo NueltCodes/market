@@ -36,7 +36,7 @@ const EventCard = ({ active, data }) => {
       </div>
       <div className="w-full lg:[w-50%] flex flex-col justify-center">
         <h2 className={`${styles.productTitle}`}>{data?.name}</h2>
-        <p className="leading-8 py-4 bg-slate-50 whitespace-pre-line h-[50vh] overflow-y-scroll">
+        <p className="leading-8 py-4 p-2 bg-slate-50 rounded-sm whitespace-pre-line h-[50vh] overflow-y-scroll">
           {data.description}
         </p>
         <div className="flex py-2 justify-between">
