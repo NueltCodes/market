@@ -174,7 +174,7 @@ const ProductDetails = ({ data }) => {
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p className="leading-8 pb-10 whitespace-pre-line h-[40vh] overflow-y-scroll">
+                <p className="leading-8 py-4 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
                   {data.description}
                 </p>
                 <div className="flex pt-3">
@@ -285,7 +285,7 @@ const ProductDetailsInfo = ({
   const [active, setActive] = useState(1);
 
   return (
-    <div className="bg-[#f5f6fb] px-3 800px:px-10 py-2 rounded">
+    <div className="bg-slate-50 px-3 800px:px-10 py-2 rounded">
       <div className="w-full flex justify-between border-b pt-10 pb-2">
         <div className="relative">
           <h5

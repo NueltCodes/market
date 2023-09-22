@@ -52,9 +52,10 @@ const EventsPage = () => {
               </div>
             </>
           )}
-
           {allEvents && allEvents.length > 0 && (
-            <EventCard active={true} data={allEvents && allEvents[0]} />
+            <div className="my-5">
+              <EventCard active={true} data={allEvents && allEvents[0]} />
+            </div>
           )}
         </div>
       )}
