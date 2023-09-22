@@ -174,7 +174,7 @@ const ProductDetails = ({ data }) => {
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p className="leading-8 py-4 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
+                <p className="leading-8 py-4 p-2 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
                   {data.description}
                 </p>
                 <div className="flex pt-3">
@@ -329,7 +329,7 @@ const ProductDetailsInfo = ({
       </div>
       {active === 1 ? (
         <>
-          <p className="py-2 p-2 text-[18px] leading-8 pb-10 whitespace-pre-line h-[60vh] overflow-y-scroll">
+          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line h-[60vh] overflow-y-scroll">
             {data.description}
           </p>
         </>
