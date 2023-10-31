@@ -12,9 +12,10 @@ const FeaturedProduct = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const totalPages = Math.ceil(
-    allProducts && allProducts?.length / itemsPerPage
-  );
+  const totalPages = allProducts
+    ? Math.ceil(allProducts.length / itemsPerPage)
+    : 0;
+
   const listingsToShow = allProducts?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
