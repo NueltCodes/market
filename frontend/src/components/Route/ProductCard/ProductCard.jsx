@@ -17,7 +17,7 @@ import {
 } from "../../../redux/actions/wishlist";
 import Ratings from "../../Ratings";
 
-const ProductCard = ({ data, key, isEvent }) => {
+const ProductCard = ({ data, key, isEvent, className }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -66,7 +66,11 @@ const ProductCard = ({ data, key, isEvent }) => {
   return (
     <>
       <div
-        className="h-[370px] bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer group"
+        className={` ${
+          className
+            ? " flex-none w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer"
+            : ""
+        } m-1 bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer group`}
         key={key}
       >
         <div className="flex justify-end"></div>
