@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { productData } from "../../static/data";
 import styles from "../../styles/styles";
 import ProductCard from "../Route/ProductCard/ProductCard";
 import { useSelector } from "react-redux";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 const SuggestedProduct = ({ data }) => {
   const [products, setProducts] = useState(null);
@@ -14,6 +14,38 @@ const SuggestedProduct = ({ data }) => {
     setProducts(d);
   }, [allProducts, data.category]);
 
+  const [showLeftScroll6, setShowLeftScroll6] = useState(true);
+  const [showRightScroll6, setShowRightScroll6] = useState(true);
+
+  const handleScroll6 = (event) => {
+    const container = event.currentTarget;
+    const buffer = 10; // Adjust this value as needed
+    const isAtEnd =
+      container.scrollLeft + container.clientWidth >=
+      container.scrollWidth - buffer;
+
+    setShowRightScroll6(!isAtEnd);
+
+    const isAtStart = container.scrollLeft === 0;
+    setShowLeftScroll6(!isAtStart);
+  };
+
+  const scrollRated = (direction) => {
+    const container = document.querySelector(".scroll-container1");
+    if (container) {
+      const newScrollLeft = container.scrollLeft + direction;
+
+      container.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      });
+
+      const isAtEnd =
+        newScrollLeft + container.clientWidth >= container.scrollWidth;
+      setShowRightScroll6(!isAtEnd);
+    }
+  };
+
   return (
     <div>
       {data ? (
@@ -23,9 +55,34 @@ const SuggestedProduct = ({ data }) => {
           >
             Related Product
           </h2>
-          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12">
-            {products &&
-              products.map((i, index) => <ProductCard data={i} key={index} />)}
+          <div className="relative group">
+            <div
+              className="pt-2 scroll-container1 overflow-x-auto scrollbar-hide"
+              onScroll={handleScroll6}
+            >
+              <div className="flex flex-nowrap space-x-1 sm:space-x-5">
+                {products &&
+                  products.map((i, index) => (
+                    <ProductCard data={i} key={index} className />
+                  ))}
+              </div>
+            </div>
+            {showLeftScroll6 && (
+              <button
+                className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+                onClick={() => scrollRated(-350)}
+              >
+                <BsChevronLeft size={25} className="text-blue-400" />
+              </button>
+            )}
+            {showRightScroll6 && (
+              <button
+                className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+                onClick={() => scrollRated(350)}
+              >
+                <BsChevronRight size={25} className="text-blue-400" />
+              </button>
+            )}
           </div>
         </div>
       ) : null}

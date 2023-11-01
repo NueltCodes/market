@@ -294,7 +294,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(1)}
           >
-            Product Details
+            Details
           </h5>
           {active === 1 ? (
             <div className={`${styles.active_indicator}`} />
@@ -307,7 +307,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(2)}
           >
-            Product Reviews
+            Reviews
           </h5>
           {active === 2 ? (
             <div className={`${styles.active_indicator}`} />

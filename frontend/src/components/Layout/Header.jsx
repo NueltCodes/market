@@ -58,7 +58,7 @@ const Header = ({ activeHeading }) => {
           <div>
             <Link to="/">
               <div className="text-3xl font-bold">
-                <span className="text-red-600">E•</span>Store
+                <span className="text-red-600">M•</span>arket
               </div>
             </Link>
           </div>
@@ -253,7 +253,7 @@ const Header = ({ activeHeading }) => {
           <div>
             <Link to="/">
               <div className="text-3xl font-bold mt-3 cursor-pointer">
-                <span className="text-red-600">E•</span>Store
+                <span className="text-red-600">M•</span>arket
               </div>
             </Link>
           </div>

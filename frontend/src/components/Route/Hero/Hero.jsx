@@ -82,12 +82,25 @@ const Hero = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
           }}
         >
-          <div className="sm:text-lg text-sm">
+          <div
+            className="sm:text-lg  text-sm"
+            style={{
+              textShadow: "-1px 0 gray, ",
+            }}
+          >
             Explore our endless collections on{" "}
-            <span className="text-red-600">M•</span>arket
+            <span
+              className="text-red-600"
+              style={{
+                textShadow: "-1px 0 gray, ",
+              }}
+            >
+              M•
+            </span>
+            arket
           </div>
           <Link to="/products" className="inline-block">
-            <div className={`${styles.button} !w-[100px] !my-0 !mt-3 `}>
+            <div className={`${styles.button} !w-[120px] !my-0 !mt-3 `}>
               <span className="text-[#fff] font-[Poppins] sm:text-lg text-sm">
                 Shop Now{" "}
               </span>

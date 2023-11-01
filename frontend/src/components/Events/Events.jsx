@@ -15,34 +15,40 @@ const Events = () => {
   };
 
   const { View: animationView1 } = useLottie(options);
+  // const { View } = useLottie(options);
 
   return (
-    <div className="my-7 w-full overflow-hidden">
-      {!isLoading && (
-        <div className={`${styles.section}`}>
-          <div className={`${styles.heading} !text-left`}>
-            <h1>Flash sales</h1>
-          </div>
-
-          <div className="w-full grid">
-            {allEvents.length !== 0 && (
-              <EventCard data={allEvents && allEvents[0]} />
-            )}
-
-            {allEvents.length === 0 && (
-              <div className="w-full flex flex-col items-center justify-center">
-                <div className="w-full flex items-center justify-center">
-                  <div className="w-[30%] text-center">{animationView1}</div>
-                </div>
-                <div className="font-bold text-center mt-4">
-                  No events yet, sellers are yet to create flash sales!
-                </div>
+    <>
+      {!isLoading ||
+        (allEvents && (
+          <div className="my-7 w-full overflow-hidden">
+            <div className={`${styles.section}`}>
+              <div className={`${styles.heading} !text-left`}>
+                <h1>Flash sales</h1>
               </div>
-            )}
+
+              <div className="w-full grid">
+                {allEvents.length !== 0 && (
+                  <EventCard data={allEvents && allEvents[0]} />
+                )}
+
+                {allEvents.length === 0 && (
+                  <div className="w-full flex flex-col items-center justify-center">
+                    <div className="w-full flex items-center justify-center">
+                      <div className="w-[30%] text-center">
+                        {animationView1}
+                      </div>
+                    </div>
+                    <div className="font-bold text-center mt-4">
+                      No events yet, sellers are yet to create flash sales!
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        ))}
+    </>
   );
 };
 
