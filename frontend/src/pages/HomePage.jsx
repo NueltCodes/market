@@ -8,6 +8,8 @@ import FeaturedProduct from "../components/Route/FeaturedProduct/FeaturedProduct
 import Sponsored from "../components/Route/Sponsored/Sponsored";
 import Footer from "../components/Layout/Footer.jsx";
 import TopRated from "../components/Route/TopRated/TopRated";
+import LimitedStock from "../components/Route/LimitedStock/LimitedStock";
+import Collections from "../components/Route/Collections/Collections";
 const HomePage = () => {
   // note this is for good ser experience, this is to scroll to top automatic when the page reload star from button
   useEffect(() => {
@@ -18,8 +20,10 @@ const HomePage = () => {
       <Header activeHeading={1} />
       <Hero />
       <Categories />
-      <TopRated />
       <BestDeals />
+      <TopRated />
+      <LimitedStock />
+      <Collections />
       <Events />
       <FeaturedProduct />
       <Sponsored />

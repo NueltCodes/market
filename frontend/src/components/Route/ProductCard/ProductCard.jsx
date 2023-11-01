@@ -75,8 +75,7 @@ const ProductCard = ({ data, key, isEvent, className }) => {
       >
         <div className="flex justify-end"></div>
         <Link
-          className="aspect-square overflow-hidden 
-          "
+          className="aspect-square overflow-hidden"
           to={`${
             isEvent === true
               ? ` /product/${data._id}?isEvent=true`
@@ -86,8 +85,7 @@ const ProductCard = ({ data, key, isEvent, className }) => {
           <img
             src={`${data.images && data.images[0]?.url}`}
             alt=""
-            className="800px:w-[98%] w-full h-[170px] object-cover 800px:pr-2 group-hover:scale-105 transition overflow-hidden 
-            "
+            className="800px:w-[98%] w-full h-[15vh] sm:h-[150px] object-contain 800px:pr-2 group-hover:scale-105 transition overflow-hidden"
           />
         </Link>
         <Link to={`/shop/preview/${data?.shop._id}`}>
@@ -101,25 +99,27 @@ const ProductCard = ({ data, key, isEvent, className }) => {
           }`}
         >
           {" "}
-          <h4 className="pb-3 font-[500] truncate">
+          <h4 className="pb-3 font-[500] truncate text-sm sm:text-base">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
           <div className="flex">
             <Ratings rating={data?.ratings} />
           </div>
-          <div className="py-2 flex items-center justify-between">
+          <div className="py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between">
             <div className="flex">
-              <h5 className={`${styles.productDiscountPrice}`}>
+              <h5
+                className={`${styles.productDiscountPrice} text-sm sm:text-base`}
+              >
                 {data.originalPrice === 0
                   ? data.originalPrice
                   : data.discountPrice}
                 $
               </h5>
-              <h4 className={`${styles.price}`}>
+              <h4 className={`${styles.price} !text-[12px] !sm:text-[14px]`}>
                 {data.originalPrice ? data.originalPrice + " $" : null}
               </h4>
             </div>
-            <span className="font-[400] text-[17px] text-[#68d284]">
+            <span className="hidden sm:block font-[400] text-[17px] text-[#68d284]">
               stock: {data?.stock}
             </span>
           </div>

@@ -53,8 +53,8 @@ const BestDeals = () => {
   return (
     <div className={`${styles.section}`}>
       <div className={`${styles.heading} !pb-0 !text-left`}>
-        <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-10">
-          Best Deals
+        <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-10 bg-black p-2 text-white">
+          Deals you can't miss
         </h1>
       </div>
       {data.length !== 0 && (

@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
+import Lottie from "lottie-react";
+import AnimateCart from "../../../Assests/animations/shopping.json";
+import { useMediaQuery } from "react-responsive";
 
 const heroImages = [
+  {
+    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.jpg"),
+  },
+  {
+    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.png"),
+  },
+
   {
     image: require("../../../Assests/images/dannie-sorum-xU-81R6CAVE-unsplash.jpg"),
   },
@@ -45,6 +55,7 @@ const Hero = () => {
 
     return () => clearInterval(interval);
   }, []);
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   return (
     <div className="md:h-[680px] h-[300px] relative bg-cover">
@@ -63,7 +74,7 @@ const Hero = () => {
 
       <div className="h-full w-full flex flex-col justify-end items-center text-center">
         <div
-          className="font-bold rounded md:p-2 p-1 text-lg md:mb-16 sm:text-2xl lg:text-4xl text-white sm:max-w-xl max-w-xs"
+          className="font-bold max-w-[200px] rounded md:p-2 p-1 text-lg md:mb-16 mb-7 sm:text-2xl lg:text-4xl text-white sm:max-w-xl "
           style={{
             background: "rgba(255, 255, 255, 0.2)",
             backdropFilter: "blur(10px)",
@@ -71,15 +82,25 @@ const Hero = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
           }}
         >
-          <div>
+          <div className="sm:text-lg text-sm">
             Explore our endless collections on{" "}
-            <span className="text-red-600">E•</span>Store
+            <span className="text-red-600">M•</span>arket
           </div>
           <Link to="/products" className="inline-block">
-            <div className={`${styles.button} !w-[120px] `}>
-              <span className="text-[#fff] font-[Poppins] text-[18px]">
-                Shop Now
+            <div className={`${styles.button} !w-[100px] !my-0 !mt-3 `}>
+              <span className="text-[#fff] font-[Poppins] sm:text-lg text-sm">
+                Shop Now{" "}
               </span>
+              <Lottie
+                animationData={AnimateCart}
+                loop
+                autoplay
+                style={
+                  isSmallScreen
+                    ? { height: 35, width: 35 }
+                    : { height: 60, width: 60 }
+                }
+              />
             </div>
           </Link>
         </div>

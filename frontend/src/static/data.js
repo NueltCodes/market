@@ -232,17 +232,45 @@ export const brandingData = [
 ];
 
 // categories data
+export const categories = [
+  {
+    label: "Computer",
+    image: require("../Assests/images/category/computer.png"),
+  },
+  {
+    label: "Fitness",
+    image: require("../Assests/images/category/fitness.png"),
+  },
+  {
+    label: "Kids",
+    image: require("../Assests/images/category/kids-wears.png"),
+  },
+  {
+    label: "Mobile",
+    image: require("../Assests/images/category/mobile.png"),
+  },
+  {
+    label: "Power",
+    image: require("../Assests/images/category/Generator.png"),
+  },
+  {
+    label: "Gaming",
+    image: require("../Assests/images/category/gaming-deals.png"),
+  },
+];
+
+// categories data
 export const categoriesData = [
   {
     id: 1,
-    title: "Computers and Laptops",
+    title: "Computers & Laptops",
     subTitle: "",
     image_Url:
       "https://cdn.shopify.com/s/files/1/1706/9177/products/NEWAppleMacbookProwithM1ProChip14InchLaptop2021ModelMKGQ3LL_A_16GB_1TBSSD_custommacbd.jpg?v=1659592838",
   },
   {
     id: 2,
-    title: "cosmetics and body care",
+    title: "cosmetics & body care",
     subTitle: "",
     image_Url:
       "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
@@ -284,13 +312,13 @@ export const categoriesData = [
   },
   {
     id: 8,
-    title: "Mobile and Tablets",
+    title: "Mobile & Tablets",
     subTitle: "",
     image_Url: "https://m.media-amazon.com/images/I/41ZH2PFe1+L._SS400_.jpg",
   },
   {
     id: 9,
-    title: "Music and Gaming",
+    title: "Music & Gaming",
     subTitle: "",
     image_Url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLWGOtNhOF_rATI2maXxaOOPA4sO2r_6yAg&usqp=CAU",

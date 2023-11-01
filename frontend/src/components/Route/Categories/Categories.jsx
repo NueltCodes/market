@@ -28,33 +28,28 @@ const Categories = () => {
       </div>
 
       <div
-        className={`${styles.section} p-6 bg-white shadow-sm rounded-lg mb-12`}
+        className={`${styles.section} p-2 mt-2 bg-white shadow-sm rounded-lg mb-12`}
         id="categories"
       >
-        <div className="grid grid-cols-1 gap-[5px] md:grid-cols-2 md:gap-[10px] lg:grid-cols-4 lg:gap-[20px] xl:grid-cols-5 xl:gap-[30px]">
+        <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {categoriesData &&
             categoriesData.map((data) => {
               const handleSubmit = (data) => {
                 navigate(`/products?category=${data.title}`);
               };
               return (
-                <>
-                  <div
-                    className="w-full h-[100px] flex items-center justify-between cursor-pointer overflow-hidden"
-                    key={data.id}
-                    onClick={() => handleSubmit(data)}
-                  >
-                    <h5 className={`text-[10px] leading-[1.3]`}>
-                      {data.title}
-                    </h5>
-                    <img
-                      src={data.image_Url}
-                      alt=""
-                      className="w-[120px] object-cover"
-                    />
-                  </div>
-                  <div className="border-b my-1 md:hidden md:my-0"></div>
-                </>
+                <div
+                  className="cursor-pointer flex flex-col items-center gap-1 shadow-md"
+                  key={data.id}
+                  onClick={() => handleSubmit(data)}
+                >
+                  <img
+                    src={data.image_Url}
+                    alt=""
+                    className="w-full h-[50px] sm:h-[100px] md:h-[150px] object-contain"
+                  />
+                  <h5 className={`text-[8px] leading-[1.3]`}>{data.title}</h5>
+                </div>
               );
             })}
         </div>
