@@ -10,6 +10,7 @@ import Footer from "../components/Layout/Footer.jsx";
 import TopRated from "../components/Route/TopRated/TopRated";
 import LimitedStock from "../components/Route/LimitedStock/LimitedStock";
 import Collections from "../components/Route/Collections/Collections";
+import Trending from "../components/Route/Trending/Trending";
 const HomePage = () => {
   // note this is for good ser experience, this is to scroll to top automatic when the page reload star from button
   useEffect(() => {
@@ -22,8 +23,9 @@ const HomePage = () => {
       <Categories />
       <BestDeals />
       <TopRated />
-      <LimitedStock />
       <Collections />
+      <LimitedStock />
+      <Trending />
       <Events />
       <FeaturedProduct />
       <Sponsored />

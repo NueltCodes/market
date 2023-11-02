@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/styles";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import { useSelector } from "react-redux";
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import AnimateDeals from "../../../Assests/animations/bestDeals.json";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import Lottie from "lottie-react";
+import { useMediaQuery } from "react-responsive";
 
 const BestDeals = () => {
   const [data, setData] = useState([]);
   const { allProducts } = useSelector((state) => state.products);
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   useEffect(() => {
     const allProductsData = allProducts ? [...allProducts] : [];
@@ -53,8 +57,18 @@ const BestDeals = () => {
   return (
     <div className={`${styles.section}`}>
       <div className={`${styles.heading} !pb-0 !text-left`}>
-        <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-10 bg-black p-2 text-white">
+        <h1 className="flex items-center font-bold text-base sm:text-lg md:text-2xl mt-10 bg-[#e1d7f1] p-2 text-black">
           Deals you can't miss
+          <Lottie
+            animationData={AnimateDeals}
+            loop
+            autoplay
+            style={
+              isSmallScreen
+                ? { height: 40, width: 100 }
+                : { height: 80, width: 200 }
+            }
+          />
         </h1>
       </div>
       {data.length !== 0 && (

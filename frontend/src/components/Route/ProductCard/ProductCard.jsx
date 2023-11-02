@@ -17,7 +17,7 @@ import {
 } from "../../../redux/actions/wishlist";
 import Ratings from "../../Ratings";
 
-const ProductCard = ({ data, key, isEvent, className }) => {
+const ProductCard = ({ data, key, isEvent, className, trending }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -58,6 +58,7 @@ const ProductCard = ({ data, key, isEvent, className }) => {
       }
     }
   };
+  const [isHovered, setIsHovered] = useState(false);
 
   // function below is used the replace spaces with dash when passed to the params as links
   // const d = data.name;
@@ -70,8 +71,14 @@ const ProductCard = ({ data, key, isEvent, className }) => {
           className
             ? " flex-none w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer"
             : ""
-        } m-1 bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer group`}
+        }   ${
+          trending
+            ? " flex-none w-[30%] sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer"
+            : ""
+        } m-1 bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer `}
         key={key}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex justify-end"></div>
         <Link
@@ -85,12 +92,19 @@ const ProductCard = ({ data, key, isEvent, className }) => {
           <img
             src={`${data.images && data.images[0]?.url}`}
             alt=""
-            className="800px:w-[98%] w-full h-[15vh] sm:h-[150px] object-contain 800px:pr-2 group-hover:scale-105 transition overflow-hidden"
+            className={`800px:w-[98%] w-full h-[15vh] sm:h-[150px] object-contain 800px:pr-2  ${
+              isHovered ? "scale-105" : ""
+            } transition overflow-hidden`}
           />
+          {trending && (
+            <div className="absolute rounded-lg bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-black/10 to-black/20"></div>
+          )}
         </Link>
-        <Link to={`/shop/preview/${data?.shop._id}`}>
-          <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
-        </Link>
+        {!trending && (
+          <Link to={`/shop/preview/${data?.shop._id}`}>
+            <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
+          </Link>
+        )}
         <Link
           to={`${
             isEvent === true
@@ -98,68 +112,70 @@ const ProductCard = ({ data, key, isEvent, className }) => {
               : `/product/${data._id}`
           }`}
         >
-          {" "}
-          <h4 className="pb-3 font-[500] truncate text-sm sm:text-base">
+          <h4 className="pb-3 font-[500] truncate text-[10px] sm:text-base">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
           <div className="flex">
             <Ratings rating={data?.ratings} />
           </div>
-          <div className="py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between">
-            <div className="flex">
-              <h5
-                className={`${styles.productDiscountPrice} text-sm sm:text-base`}
-              >
-                {data.originalPrice === 0
-                  ? data.originalPrice
-                  : data.discountPrice}
-                $
-              </h5>
-              <h4 className={`${styles.price} !text-[12px] !sm:text-[14px]`}>
-                {data.originalPrice ? data.originalPrice + " $" : null}
-              </h4>
+          {!trending && (
+            <div className="py-2 flex  sm:flex-row items-start sm:items-center justify-between">
+              <div className="flex">
+                <h5
+                  className={`${styles.productDiscountPrice} !text-[11px] sm:!text-base`}
+                >
+                  {data.originalPrice === 0
+                    ? data.originalPrice
+                    : data.discountPrice}
+                  $
+                </h5>
+                <h4 className={`${styles.price} !text-[10px] sm:!text-[14px]`}>
+                  {data.originalPrice ? "$" + data.originalPrice : null}
+                </h4>
+              </div>
+              <span className="block font-[400] sm:text-[16px] text-[12px] text-[#68d284]">
+                unit: {data?.stock}
+              </span>
             </div>
-            <span className="hidden sm:block font-[400] text-[17px] text-[#68d284]">
-              stock: {data?.stock}
-            </span>
-          </div>
-        </Link>
-
-        {/* side options */}
-        <div>
-          {click ? (
-            <AiFillHeart
-              size={18}
-              className="cursor-pointer absolute right-0.5 top-5"
-              color={click ? "red" : "#333"}
-              title="Remove from wishlist"
-              onClick={() => removeFromWishlistHandler(data)}
-            />
-          ) : (
-            <AiOutlineHeart
-              size={18}
-              className="cursor-pointer absolute right-0.5 top-5"
-              color={click ? "red" : "#333"}
-              title="Add to wishlist"
-              onClick={() => addToWishlistHandler(data)}
-            />
           )}
-          <AiOutlineEye
-            size={18}
-            className="cursor-pointer absolute right-0.5 top-14"
-            color="#333"
-            title="Quick view"
-            onClick={() => setOpen(!open)}
-          />
-          <AiOutlineShoppingCart
-            size={20}
-            className="cursor-pointer absolute right-0.5 top-24"
-            color="#444"
-            title="Add to cart"
-            onClick={() => addToCartHandler(data._id)}
-          />
-          {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
-        </div>
+        </Link>
+        {/* side options */}
+        {!trending && (
+          <div>
+            {click ? (
+              <AiFillHeart
+                size={18}
+                className="cursor-pointer absolute right-0.5 top-5"
+                color={click ? "red" : "#333"}
+                title="Remove from wishlist"
+                onClick={() => removeFromWishlistHandler(data)}
+              />
+            ) : (
+              <AiOutlineHeart
+                size={18}
+                className="cursor-pointer absolute right-0.5 top-5"
+                color={click ? "red" : "#333"}
+                title="Add to wishlist"
+                onClick={() => addToWishlistHandler(data)}
+              />
+            )}
+            <AiOutlineEye
+              size={18}
+              className="cursor-pointer absolute right-0.5 top-14"
+              color="#333"
+              title="Quick view"
+              onClick={() => setOpen(!open)}
+            />
+            <AiOutlineShoppingCart
+              size={20}
+              className="cursor-pointer absolute right-0.5 top-24"
+              color="#444"
+              title="Add to cart"
+              onClick={() => addToCartHandler(data._id)}
+            />
+            {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
+          </div>
+        )}
       </div>
     </>
   );

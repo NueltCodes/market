@@ -47,11 +47,12 @@ const heroImages = [
 
 const Hero = () => {
   const [imageIndex, setImageIndex] = useState(0);
+  const [cart, setCart] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 6000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -61,14 +62,17 @@ const Hero = () => {
     <div className="md:h-[680px] h-[300px] relative bg-cover">
       <div className="absolute top-0 left-0 w-full h-full transition-opacity z-0">
         {heroImages.map((image, index) => (
-          <img
-            key={index}
-            alt="hero"
-            src={image.image}
-            className={`${
-              imageIndex === index ? "opacity-100" : "opacity-0"
-            } transition-all duration-1000 absolute top-0 left-0 w-full h-full object-cover`}
-          />
+          <>
+            <img
+              key={index}
+              alt="hero"
+              src={image.image}
+              className={`${
+                imageIndex === index ? "opacity-100" : "opacity-0"
+              } transition-all duration-1000 absolute top-0 left-0 w-full h-full object-cover`}
+            />
+            <div className="absolute rounded-md bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-black/10 to-black/20"></div>
+          </>
         ))}
       </div>
 
@@ -83,7 +87,7 @@ const Hero = () => {
           }}
         >
           <div
-            className="sm:text-lg  text-sm"
+            className="sm:text-xl  text-sm"
             style={{
               textShadow: "-1px 0 gray, ",
             }}
@@ -100,20 +104,37 @@ const Hero = () => {
             arket
           </div>
           <Link to="/products" className="inline-block">
-            <div className={`${styles.button} !w-[120px] !my-0 !mt-3 `}>
+            <div
+              className={`${styles.button} !w-[120px] sm:!w-[180px] !my-0 !mt-3 `}
+              onMouseEnter={() => setCart(true)}
+              onMouseLeave={() => setCart(false)}
+            >
               <span className="text-[#fff] font-[Poppins] sm:text-lg text-sm">
                 Shop Now{" "}
               </span>
-              <Lottie
-                animationData={AnimateCart}
-                loop
-                autoplay
-                style={
-                  isSmallScreen
-                    ? { height: 35, width: 35 }
-                    : { height: 60, width: 60 }
-                }
-              />
+              {cart ? (
+                <Lottie
+                  animationData={AnimateCart}
+                  loop={false}
+                  autoplay
+                  style={
+                    isSmallScreen
+                      ? { height: 35, width: 35 }
+                      : { height: 60, width: 60 }
+                  }
+                />
+              ) : (
+                <Lottie
+                  animationData={AnimateCart}
+                  loop
+                  autoplay
+                  style={
+                    isSmallScreen
+                      ? { height: 35, width: 35 }
+                      : { height: 60, width: 60 }
+                  }
+                />
+              )}
             </div>
           </Link>
         </div>

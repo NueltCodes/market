@@ -3,10 +3,14 @@ import styles from "../../../styles/styles";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import { useSelector } from "react-redux";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import Lottie from "lottie-react";
+import { useMediaQuery } from "react-responsive";
+import AnimateStock from "../../../Assests/animations/stocks.json";
 
 const LimitedStock = () => {
   const [data, setData] = useState([]);
   const { allProducts } = useSelector((state) => state.products);
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   useEffect(() => {
     const allProductsData = allProducts ? [...allProducts] : [];
@@ -52,8 +56,18 @@ const LimitedStock = () => {
   return (
     <div className={`${styles.section}`}>
       <div className={`${styles.heading} !pb-0 !text-left`}>
-        <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-10 bg-red-600 p-2 text-white">
+        <h1 className="flex items-center gap-5 font-bold text-base sm:text-lg md:text-2xl mt-10 bg-red-600 p-2 text-white">
           Limited Stock
+          <Lottie
+            animationData={AnimateStock}
+            loop
+            autoplay
+            style={
+              isSmallScreen
+                ? { height: 40, width: 100 }
+                : { height: 80, width: 200 }
+            }
+          />
         </h1>
       </div>
       {data.length !== 0 && (

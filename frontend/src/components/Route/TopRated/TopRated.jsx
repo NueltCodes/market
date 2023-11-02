@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/styles";
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import { useSelector } from "react-redux";
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import AnimateRated from "../../../Assests/animations/topRated.json";
+import { useMediaQuery } from "react-responsive";
+import Lottie from "lottie-react";
 
 const TopRated = () => {
   const [data, setData] = useState([]);
   const { allProducts } = useSelector((state) => state.products);
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   useEffect(() => {
     const allProductsData = allProducts ? [...allProducts] : [];
@@ -53,8 +56,18 @@ const TopRated = () => {
   return (
     <div className={`${styles.section} !mt-0`}>
       <div className={`${styles.heading} !pb-0 !text-left`}>
-        <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-5 bg-black p-2 text-white">
-          Top Rated
+        <h1 className="flex items-center gap-5 font-bold text-base sm:text-lg md:text-2xl mt-5 bg-black p-2 text-white">
+          Top Rated{" "}
+          <Lottie
+            animationData={AnimateRated}
+            loop
+            autoplay
+            style={
+              isSmallScreen
+                ? { height: 30, width: 100 }
+                : { height: 50, width: 200 }
+            }
+          />
         </h1>
       </div>
       {data.length !== 0 && (
