@@ -7,13 +7,6 @@ import { useMediaQuery } from "react-responsive";
 
 const heroImages = [
   {
-    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.jpg"),
-  },
-  {
-    image: require("../../../Assests/images/Desktop_Homepage_Slider__712x384.png"),
-  },
-
-  {
     image: require("../../../Assests/images/dannie-sorum-xU-81R6CAVE-unsplash.jpg"),
   },
   {
@@ -59,7 +52,7 @@ const Hero = () => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   return (
-    <div className="md:h-[680px] h-[300px] relative bg-cover">
+    <div className="md:h-[680px] h-[400px] relative bg-cover">
       <div className="absolute top-0 left-0 w-full h-full transition-opacity z-0">
         {heroImages.map((image, index) => (
           <>
@@ -71,7 +64,7 @@ const Hero = () => {
                 imageIndex === index ? "opacity-100" : "opacity-0"
               } transition-all duration-1000 absolute top-0 left-0 w-full h-full object-cover`}
             />
-            <div className="absolute rounded-md bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-black/10 to-black/20"></div>
+            <div className="absolute rounded-md bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent  to-black/20"></div>
           </>
         ))}
       </div>

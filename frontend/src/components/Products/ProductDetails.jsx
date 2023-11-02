@@ -18,6 +18,9 @@ import {
 import { addTocart } from "../../redux/actions/cart";
 import Ratings from "../Ratings";
 import axios from "axios";
+import Lottie from "lottie-react";
+import { useMediaQuery } from "react-responsive";
+import AnimateChat from "../../Assests/animations/chat.json";
 
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -29,6 +32,13 @@ const ProductDetails = ({ data }) => {
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     dispatch(getAllProductsShop(data && data?.shop._id));
@@ -120,7 +130,7 @@ const ProductDetails = ({ data }) => {
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=""
-                  className="w-[85%] h-[250px] object-cover"
+                  className="w-[85%] h-[250px] object-contain"
                 />
                 <div className="w-full flex">
                   {data &&
@@ -163,11 +173,23 @@ const ProductDetails = ({ data }) => {
                     </h5>
                   </div>
                   <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
+                    className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
                     onClick={handleMessageSubmit}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
-                    <span className="text-white flex items-center">
-                      Chat seller <AiOutlineMessage className="ml-1" />
+                    <span className="text-white flex items-center gap-3">
+                      Chat seller
+                      <Lottie
+                        animationData={AnimateChat}
+                        loop={isHovered}
+                        autoplay
+                        style={
+                          isSmallScreen
+                            ? { height: 30, width: 30 }
+                            : { height: 40, width: 40 }
+                        }
+                      />
                     </span>
                   </div>
                 </div>
@@ -175,18 +197,23 @@ const ProductDetails = ({ data }) => {
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle} fon`}>{data.name}</h1>
                 <div className=" 800px:hidden flex pt-2">
-                  <h4 className={`${styles.productDiscountPrice}`}>
-                    ${data.discountPrice}
-                  </h4>
-                  <h3 className={`${styles.price}`}>
-                    ${data.originalPrice ? data.originalPrice : null}
-                  </h3>
+                  {data?.discountPrice && (
+                    <h4 className={`${styles.productDiscountPrice}`}>
+                      ${data.discountPrice}
+                    </h4>
+                  )}
+                  {data?.originalPrice && (
+                    <h3 className={`${styles.price}`}>
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
                 </div>
                 <h5 className="block text-[#239b79] 800px:hidden text-[15px]">
                   ({averageRating.toFixed(1)}) Ratings
                 </h5>
-                <Ratings rating={averageRating.toFixed(1)} />
-
+                <div className="800px:mt-2 mt-0">
+                  <Ratings rating={averageRating.toFixed(1)} />
+                </div>
                 <div className="justify-end  800px:hidden flex items-center gap-1 pt-2 text-[#9147ff]">
                   stocks left
                   <span className="font-[500]">
@@ -254,7 +281,7 @@ const ProductDetails = ({ data }) => {
                     Add to cart <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
-                <div className="800px:hidden flex items-center pt-8 ">
+                <div className="800px:hidden flex flex-col items-start pt-8 ">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
                       src={data?.shop?.avatar.url}
@@ -264,20 +291,40 @@ const ProductDetails = ({ data }) => {
                   </Link>
                   <div className="pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
-                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                      <h3
+                        className={`${styles.shop_name} pb-1 pt-1 flex items-center gap-1 `}
+                      >
+                        <span className="font-semibold text-gray-800 w-[91px]">
+                          Store name:
+                        </span>{" "}
                         {data.shop.name}
                       </h3>
                     </Link>
-                    <h5 className="pb-3 text-[15px]">
-                      ({averageRating.toFixed(1)}/5) Ratings
+                    <h5 className="pb-3 text-[15px] flex items-center gap-1 text-[#edbc33]">
+                      <span className="font-semibold text-gray-800 w-[91px]">
+                        Store ratings:
+                      </span>{" "}
+                      <span className="p-1">{averageRating.toFixed(1)}/5</span>{" "}
                     </h5>
                   </div>
                   <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
+                    className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
                     onClick={handleMessageSubmit}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
-                    <span className="text-white flex items-center">
-                      Chat seller <AiOutlineMessage className="ml-1" />
+                    <span className="text-white flex items-center gap-3">
+                      Chat seller
+                      <Lottie
+                        animationData={AnimateChat}
+                        loop={isHovered}
+                        autoplay
+                        style={
+                          isSmallScreen
+                            ? { height: 30, width: 30 }
+                            : { height: 50, width: 50 }
+                        }
+                      />
                     </span>
                   </div>
                 </div>
@@ -342,7 +389,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(3)}
           >
-            Sellers Info's
+            Store Info
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
@@ -379,7 +426,9 @@ const ProductDetailsInfo = ({
 
           <div className="w-full flex justify-center">
             {data && data.reviews.length === 0 && (
-              <h5>No Reviews yet for this product!</h5>
+              <h5 className="text-sm md:text-base">
+                No Reviews yet for this product!
+              </h5>
             )}
           </div>
         </div>
