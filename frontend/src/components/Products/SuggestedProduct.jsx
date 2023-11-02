@@ -51,13 +51,13 @@ const SuggestedProduct = ({ data }) => {
       {data ? (
         <div className={`p-4 ${styles.section}`}>
           <h2
-            className={`${styles.heading} text-[25px] font-[500] border-b mb-5`}
+            className={`${styles.heading} text-sm  800px:text-[25px] font-[500] border-b `}
           >
             Related Product
           </h2>
           <div className="relative group">
             <div
-              className="pt-2 scroll-container1 overflow-x-auto scrollbar-hide"
+              className="scroll-container1 overflow-x-auto scrollbar-hide"
               onScroll={handleScroll6}
             >
               <div className="flex flex-nowrap space-x-1 sm:space-x-5">

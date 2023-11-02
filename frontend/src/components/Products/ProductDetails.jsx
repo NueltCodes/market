@@ -158,7 +158,7 @@ const ProductDetails = ({ data }) => {
                         {data.shop.name}
                       </h3>
                     </Link>
-                    <h5 className="pb-3 text-[15px]">
+                    <h5 className="pb-3 text-sm sm:text-base">
                       ({averageRating.toFixed(1)}/5) Ratings
                     </h5>
                   </div>
@@ -173,11 +173,33 @@ const ProductDetails = ({ data }) => {
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
-                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                <h1 className={`${styles.productTitle} fon`}>{data.name}</h1>
+                <div className=" 800px:hidden flex pt-2">
+                  <h4 className={`${styles.productDiscountPrice}`}>
+                    ${data.discountPrice}
+                  </h4>
+                  <h3 className={`${styles.price}`}>
+                    ${data.originalPrice ? data.originalPrice : null}
+                  </h3>
+                </div>
+                <h5 className="block text-[#239b79] 800px:hidden text-[15px]">
+                  ({averageRating.toFixed(1)}) Ratings
+                </h5>
+                <Ratings rating={averageRating.toFixed(1)} />
+
+                <div className="justify-end  800px:hidden flex items-center gap-1 pt-2 text-[#9147ff]">
+                  stocks left
+                  <span className="font-[500]">
+                    {products && products.length}
+                  </span>
+                </div>
+                <div className="mt-2 font-semibold text-sm 800px:text-base 800px:hidden">
+                  Product Details
+                </div>
                 <p className="leading-8 py-4 p-2 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
                   {data.description}
                 </p>
-                <div className="flex pt-3">
+                <div className=" pt-3 hidden 800px:flex">
                   <h4 className={`${styles.productDiscountPrice}`}>
                     ${data.discountPrice}
                   </h4>
