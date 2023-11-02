@@ -167,7 +167,7 @@ const ProductDetails = ({ data }) => {
                     onClick={handleMessageSubmit}
                   >
                     <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage className="ml-1" />
+                      Chat seller <AiOutlineMessage className="ml-1" />
                     </span>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ const ProductDetails = ({ data }) => {
                     {products && products.length}
                   </span>
                 </div>
-                <div className="mt-2 font-semibold text-sm 800px:text-base 800px:hidden">
+                <div className="my-2 font-semibold text-sm 800px:text-base 800px:hidden">
                   Product Details
                 </div>
                 <p className="leading-8 py-4 p-2 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
@@ -277,7 +277,7 @@ const ProductDetails = ({ data }) => {
                     onClick={handleMessageSubmit}
                   >
                     <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage className="ml-1" />
+                      Chat seller <AiOutlineMessage className="ml-1" />
                     </span>
                   </div>
                 </div>

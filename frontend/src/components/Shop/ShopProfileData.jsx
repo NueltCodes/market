@@ -4,9 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
 import styles from "../../styles/styles";
 import ProductCard from "../Route/ProductCard/ProductCard";
-import { backend_url } from "../../server";
 import Ratings from "../Ratings";
 import { getAllEventsShop } from "../../redux/actions/event";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 const ShopProfileData = ({ isOwner }) => {
   const { products } = useSelector((state) => state.products);
@@ -14,6 +14,37 @@ const ShopProfileData = ({ isOwner }) => {
   const { seller } = useSelector((state) => state.seller);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [leftScroll, setLeftScroll] = useState(true);
+  const [rightScroll, setRightScroll] = useState(true);
+
+  const handleScroll1 = (event) => {
+    const container = event.currentTarget;
+    const buffer = 10; // Adjust this value as needed
+    const isAtEnd =
+      container.scrollLeft + container.clientWidth >=
+      container.scrollWidth - buffer;
+
+    setRightScroll(!isAtEnd);
+
+    const isAtStart = container.scrollLeft === 0;
+    setLeftScroll(!isAtStart);
+  };
+
+  const scrollRated = (direction) => {
+    const container = document.querySelector(".scroll-container1");
+    if (container) {
+      const newScrollLeft = container.scrollLeft + direction;
+
+      container.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      });
+
+      const isAtEnd =
+        newScrollLeft + container.clientWidth >= container.scrollWidth;
+      setRightScroll(!isAtEnd);
+    }
+  };
 
   useEffect(() => {
     dispatch(getAllProductsShop(id));
@@ -75,21 +106,46 @@ const ShopProfileData = ({ isOwner }) => {
 
       <br />
       {active === 1 && (
-        <div className="w-full">
-          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-            {products &&
-              products.map((i, index) => (
-                <ProductCard data={i} key={index} isShop={true} />
-              ))}
+        <>
+          <div className="relative group">
+            <div
+              className="pt-2 scroll-container1 overflow-x-auto scrollbar-hide"
+              onScroll={handleScroll1}
+            >
+              <div className="flex flex-nowrap space-x-1 sm:space-x-5">
+                {products &&
+                  products.map((i, index) => (
+                    <ProductCard data={i} key={index} isShop={true} className />
+                  ))}
+              </div>
+            </div>
+            {leftScroll && (
+              <button
+                className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+                onClick={() => scrollRated(-350)}
+              >
+                <BsChevronLeft size={25} className="text-blue-400" />
+              </button>
+            )}
+            {rightScroll && (
+              <button
+                className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+                onClick={() => scrollRated(350)}
+              >
+                <BsChevronRight size={25} className="text-blue-400" />
+              </button>
+            )}
           </div>
-          {products && products.length === 0 && (
-            <h5 className="w-full text-center py-5 text-[18px]">
-              {isOwner
-                ? "You are yet to create a product"
-                : "No Available product yet for this seller!"}
-            </h5>
-          )}
-        </div>
+          <>
+            {products && products.length === 0 && (
+              <h5 className="w-full text-center py-5 text-[18px]">
+                {isOwner
+                  ? "You are yet to create a product"
+                  : "No Available product yet for this seller!"}
+              </h5>
+            )}
+          </>
+        </>
       )}
 
       {active === 2 && (
@@ -121,7 +177,7 @@ const ShopProfileData = ({ isOwner }) => {
             allReviews.map((item, index) => (
               <div className="w-full flex my-4">
                 <img
-                  src={`${backend_url}/${item.user.avatar}`}
+                  src={item?.user.avatar.url}
                   className="w-[50px] h-[50px] rounded-full"
                   alt=""
                 />
