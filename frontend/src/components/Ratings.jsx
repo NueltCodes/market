@@ -12,7 +12,7 @@ const Ratings = ({ rating }) => {
           key={i}
           size={20}
           color="#f6b100"
-          className="sm:mr-2 mr-1 h-4 w-4 cursor-pointer"
+          className="sm:mr-2 mr-1 h-3 w-3 cursor-pointer"
         />
       );
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
@@ -21,7 +21,7 @@ const Ratings = ({ rating }) => {
           key={i}
           size={17}
           color="#f6ba00"
-          className="sm:mr-2 mr-1 h-4 w-4 cursor-pointer"
+          className="sm:mr-2 mr-1 h-3 w-3 cursor-pointer"
         />
       );
     } else {
@@ -30,7 +30,7 @@ const Ratings = ({ rating }) => {
           key={i}
           size={20}
           color="#f6ba00"
-          className="sm:mr-2 mr-1 h-4 w-4 cursor-pointer"
+          className="sm:mr-2 mr-1 h-3 w-3 cursor-pointer"
         />
       );
     }
