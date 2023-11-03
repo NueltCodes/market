@@ -46,9 +46,11 @@ const Categories = () => {
                   <img
                     src={data.image_Url}
                     alt=""
-                    className="w-full h-[50px] sm:h-[100px] md:h-[150px] object-contain"
+                    className="w-full h-[50px] sm:h-[100px] object-contain"
                   />
-                  <h5 className={`text-[8px] leading-[1.3]`}>{data.title}</h5>
+                  <h5 className={`text-[8px] sm:text-base leading-[1.3]`}>
+                    {data.title}
+                  </h5>
                 </div>
               );
             })}

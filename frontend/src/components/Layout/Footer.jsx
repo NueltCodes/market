@@ -46,7 +46,7 @@ const Footer = () => {
             className="text-3xl font-bold"
             style={{ filter: "brightness(0) invert(1)" }}
           >
-            <span className="">E•</span>Store
+            <span className="">M•</span>arket
           </div>
 
           <br />

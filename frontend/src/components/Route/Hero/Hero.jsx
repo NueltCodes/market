@@ -64,7 +64,7 @@ const Hero = () => {
                 imageIndex === index ? "opacity-100" : "opacity-0"
               } transition-all duration-1000 absolute top-0 left-0 w-full h-full object-cover`}
             />
-            <div className="absolute rounded-md bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent  to-black/20"></div>
+            <div className="absolute rounded-md bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent  to-black/10"></div>
           </>
         ))}
       </div>
