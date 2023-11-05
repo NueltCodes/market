@@ -165,7 +165,7 @@ const Header = ({ activeHeading }) => {
                                   setSearchData(false);
                                 }}
                               >
-                                <div className="w-full flex items-start my-3 text-gray-800 hover:text-white p-1">
+                                <div className="w-full flex items-start my-3 text-gray-800 hover:bg-[#453780] hover:text-white p-1">
                                   <img
                                     src={i.images[0]?.url}
                                     alt=""
@@ -206,31 +206,25 @@ const Header = ({ activeHeading }) => {
           className={`${styles.section} relative ${styles.normalFlex} justify-between`}
         >
           {/* categories */}
-          <div onClick={() => setDropDown(!dropDown)}>
-            <div className="relative 1000px:h-[60px] h-[40px] mt-[10px] 1000px:w-[270px] w-[80px]">
-              <BiMenuAltLeft
-                size={30}
-                className="absolute top-3 left-2 hidden 1000px:block"
-              />
-              <div
-                className={`h-[100%] w-full 1000px:flex hidden justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
-              >
+          <div
+            onClick={() => setDropDown(!dropDown)}
+            className="relative w-[130px] "
+          >
+            <div>
+              <div className="flex items-center gap-4 bg-white py-2 px-2 rounded-lg">
                 Categories
+                <IoIosArrowDown
+                  size={20}
+                  className="absolute right-2 top-3 cursor-pointer"
+                  onClick={() => setDropDown(!dropDown)}
+                />
               </div>
-              <div
-                className={`h-[100%] 1000px:hidden w-full text-left pl-1 pt-1.5 bg-white font-sans text-lg font-[500] select-none rounded-t-md`}
-              >
-                Filters
-              </div>
-              <IoIosArrowDown
-                size={20}
-                className="absolute right-2 top-3 cursor-pointer"
-                onClick={() => setDropDown(!dropDown)}
-              />
+
               {dropDown ? (
                 <DropDown
                   categoriesData={categoriesData}
                   setDropDown={setDropDown}
+                  dropDown={dropDown}
                 />
               ) : null}
             </div>
@@ -329,7 +323,7 @@ const Header = ({ activeHeading }) => {
           </div>
 
           <div>
-            <BiSearch size={20} onClick={() => setSearchOpen(true)} />
+            <BiSearch size={25} onClick={() => setSearchOpen(true)} />
           </div>
 
           {isAuthenticated ? (
@@ -344,16 +338,22 @@ const Header = ({ activeHeading }) => {
             </div>
           ) : (
             <Link to="/profile" className="text-sm flex items-center gap-1">
-              <RxAvatar size={20} />
+              <RxAvatar size={25} />
             </Link>
           )}
-
+          <div className="">
+            <IoIosArrowDown
+              size={25}
+              className=""
+              onClick={() => setDropDown(!dropDown)}
+            />
+          </div>
           <div>
             <div
               className="relative mr-[20px] cursor-pointer"
               onClick={() => setOpenCart(true)}
             >
-              <AiOutlineShoppingCart size={23} />
+              <AiOutlineShoppingCart size={25} />
               <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-3 h-3 top right p-0 m-0 text-white font-mono text-[10px]  leading-tight text-center">
                 {cart && cart.length}{" "}
               </span>

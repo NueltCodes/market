@@ -231,7 +231,7 @@ const AllProducts = () => {
                 setTags(foundProduct ? foundProduct.tags : "");
               }}
             >
-              <BiEdit size={20} />
+              <BiEdit size={20} className="text-black" />
             </Button>
           </>
         );
@@ -248,7 +248,7 @@ const AllProducts = () => {
         return (
           <>
             <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
+              <AiOutlineDelete size={20} className="text-red-500" />
             </Button>
           </>
         );

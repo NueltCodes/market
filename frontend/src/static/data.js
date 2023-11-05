@@ -235,26 +235,32 @@ export const brandingData = [
 export const categories = [
   {
     label: "Computer",
+    link: "Computers and Laptops",
     image: require("../Assests/images/category/computer.png"),
   },
   {
     label: "Fitness",
+    link: "Fitness",
     image: require("../Assests/images/category/fitness.png"),
   },
   {
     label: "Kids",
+    link: "Kids",
     image: require("../Assests/images/category/kids-wears.png"),
   },
   {
-    label: "Mobile",
+    label: "Mobile Accessories",
+    link: "Mobile Accessories",
     image: require("../Assests/images/category/mobile.png"),
   },
   {
-    label: "Power",
+    label: "Power Deals",
+    link: "Generator",
     image: require("../Assests/images/category/Generator.png"),
   },
   {
     label: "Gaming",
+    link: "Games",
     image: require("../Assests/images/category/gaming-deals.png"),
   },
 ];
@@ -263,14 +269,14 @@ export const categories = [
 export const categoriesData = [
   {
     id: 1,
-    title: "Computers & Laptops",
+    title: "Computers and Laptops",
     subTitle: "",
     image_Url:
       "https://cdn.shopify.com/s/files/1/1706/9177/products/NEWAppleMacbookProwithM1ProChip14InchLaptop2021ModelMKGQ3LL_A_16GB_1TBSSD_custommacbd.jpg?v=1659592838",
   },
   {
     id: 2,
-    title: "cosmetics & body care",
+    title: "cosmetics and body care",
     subTitle: "",
     image_Url:
       "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
@@ -312,13 +318,13 @@ export const categoriesData = [
   },
   {
     id: 8,
-    title: "Mobile & Tablets",
+    title: "Mobile and Tablets",
     subTitle: "",
     image_Url: "https://m.media-amazon.com/images/I/41ZH2PFe1+L._SS400_.jpg",
   },
   {
     id: 9,
-    title: "Music & Gaming",
+    title: "Music and Gaming",
     subTitle: "",
     image_Url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLWGOtNhOF_rATI2maXxaOOPA4sO2r_6yAg&usqp=CAU",
@@ -683,7 +689,7 @@ export const footerProductLinks = [
 
 export const footercompanyLinks = [
   {
-    name: "Game & Video",
+    name: "Game and Video",
   },
   {
     name: "Accesories",

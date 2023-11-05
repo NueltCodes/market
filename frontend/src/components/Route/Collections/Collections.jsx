@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/styles";
-import ProductCard from "../ProductCard/ProductCard.jsx";
-import { useSelector } from "react-redux";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { categories } from "../../../static/data";
 
 const Collections = () => {
-  const [data, setData] = useState([]);
-  const { allProducts } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    const allProductsData = allProducts ? [...allProducts] : [];
-    const ratedProducts = allProductsData.filter(
-      (product) => product.ratings > 2.5
-    );
-    const sortedData = ratedProducts?.sort((a, b) => b.rating - a.rating);
-    const firstFive = sortedData && sortedData.slice(0, 20);
-    setData(firstFive);
-  }, [allProducts]);
-
   const [showLeftScroll5, setShowLeftScroll5] = useState(true);
   const [showRightScroll5, setShowRightScroll5] = useState(true);
 
@@ -58,40 +43,38 @@ const Collections = () => {
             More collections
           </h1>
         </div>
-        {data.length !== 0 && (
-          <div className="relative group">
-            <div
-              className="pt-2 scroll-container5 overflow-x-auto scrollbar-hide"
-              onScroll={handleScroll1}
+        <div className="relative group">
+          <div
+            className="pt-2 scroll-container5 overflow-x-auto scrollbar-hide"
+            onScroll={handleScroll1}
+          >
+            <div className="flex flex-nowrap space-x-1 sm:space-x-5 m-1">
+              {categories.map((data, index) => (
+                <img
+                  src={data.image}
+                  alt={data.name}
+                  className="h-[30%] w-[30%]"
+                />
+              ))}
+            </div>
+          </div>{" "}
+          {showLeftScroll5 && (
+            <button
+              className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+              onClick={() => scrollRated(-350)}
             >
-              <div className="flex flex-nowrap space-x-1 sm:space-x-5 m-1">
-                {categories.map((data, index) => (
-                  <img
-                    src={data.image}
-                    alt={data.name}
-                    className="h-[30%] w-[30%]"
-                  />
-                ))}
-              </div>
-            </div>{" "}
-            {showLeftScroll5 && (
-              <button
-                className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
-                onClick={() => scrollRated(-350)}
-              >
-                <BsChevronLeft size={25} className="text-blue-400" />
-              </button>
-            )}
-            {showRightScroll5 && (
-              <button
-                className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
-                onClick={() => scrollRated(350)}
-              >
-                <BsChevronRight size={25} className="text-blue-400" />
-              </button>
-            )}
-          </div>
-        )}
+              <BsChevronLeft size={25} className="text-blue-400" />
+            </button>
+          )}
+          {showRightScroll5 && (
+            <button
+              className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
+              onClick={() => scrollRated(350)}
+            >
+              <BsChevronRight size={25} className="text-blue-400" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
