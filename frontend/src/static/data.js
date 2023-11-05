@@ -234,18 +234,18 @@ export const brandingData = [
 // categories data
 export const categories = [
   {
-    label: "Computer",
+    label: "Computers and Laptops",
     link: "Computers and Laptops",
     image: require("../Assests/images/category/computer.png"),
   },
   {
-    label: "Fitness",
-    link: "Fitness",
+    label: "Fitness & Wears",
+    link: "Fitness & Wears",
     image: require("../Assests/images/category/fitness.png"),
   },
   {
-    label: "Kids",
-    link: "Kids",
+    label: "Kids wears",
+    link: "Kids wears",
     image: require("../Assests/images/category/kids-wears.png"),
   },
   {
@@ -255,14 +255,14 @@ export const categories = [
   },
   {
     label: "Power Deals",
-    link: "Generator",
+    link: "Power Deals",
     image: require("../Assests/images/category/Generator.png"),
   },
-  {
-    label: "Gaming",
-    link: "Games",
-    image: require("../Assests/images/category/gaming-deals.png"),
-  },
+  // {
+  //   label: "Gaming",
+  //   link: "Games",
+  //   image: require("../Assests/images/category/gaming-deals.png"),
+  // },
 ];
 
 // categories data
@@ -290,10 +290,10 @@ export const categoriesData = [
   },
   {
     id: 4,
-    title: "Cloths",
+    title: "Men's Fashion",
     subTitle: "",
     image_Url:
-      "https://www.shift4shop.com/2015/images/industries/clothing/clothing-apparel.png",
+      "https://i5.walmartimages.com/seo/Hanes-Authentic-Men-s-T-Shirt-Black-4XL_d9ff4a2c-4c3c-4f73-8aaf-49ad5062072b_1.d87f47f601525d96ed42c93db21898c8.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
   },
   {
     id: 5,
@@ -316,6 +316,7 @@ export const categoriesData = [
     image_Url:
       "https://img.freepik.com/premium-vector/pet-care-logo-mascot-template_190190-163.jpg?w=740",
   },
+
   {
     id: 8,
     title: "Mobile and Tablets",
@@ -324,13 +325,41 @@ export const categoriesData = [
   },
   {
     id: 9,
-    title: "Music and Gaming",
+    title: "Music",
     subTitle: "",
     image_Url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSLWGOtNhOF_rATI2maXxaOOPA4sO2r_6yAg&usqp=CAU",
   },
   {
     id: 10,
+    title: "Appliances",
+    subTitle: "",
+    image_Url:
+      "https://ng.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/14/465763/1.jpg?8910",
+  },
+  {
+    id: 11,
+    title: "Health & Beauty",
+    subTitle: "",
+    image_Url:
+      "https://i5.walmartimages.com/seo/NIVEA-Oil-Infused-Body-Lotion-Orchid-and-Argan-Oil-16-9-Fl-Oz-Pump-Bottle_6c542d4f-f599-4911-9baa-86458db8d0b8.652f92cf45deb7e0d64f13161056288a.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+  },
+  {
+    id: 12,
+    title: "Electronics",
+    subTitle: "",
+    image_Url:
+      "https://i5.walmartimages.com/seo/VIZIO-65-Class-V-Series-4K-UHD-LED-Smart-TV-V655-J09_92b51b64-995c-47d5-ae51-18793f50b868.4da1a0845efe2cb80e37534a391af85d.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+  },
+  {
+    id: 13,
+    title: "Gaming",
+    subTitle: "",
+    image_Url:
+      "https://i5.walmartimages.com/asr/0cfb91ea-20c7-4663-b892-7999d3c6bbc6.b28985b5518d2bc9469de041fce9c8a4.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+  },
+  {
+    id: 14,
     title: "Others",
     subTitle: "",
     image_Url:

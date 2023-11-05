@@ -48,7 +48,9 @@ const Categories = () => {
                     alt=""
                     className="w-full h-[50px] sm:h-[100px] object-contain"
                   />
-                  <h5 className={`text-[8px] sm:text-base leading-[1.3]`}>
+                  <h5
+                    className={`text-[8px] sm:text-base text-center leading-[1.3]`}
+                  >
                     {data.title}
                   </h5>
                 </div>
