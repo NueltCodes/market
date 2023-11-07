@@ -280,9 +280,11 @@ router.put(
         return next(new ErrorHandler("Shop not found", 400));
       }
 
-      const imageId = shop.avatar.public_id;
+      if (shop.avatar.public_id) {
+        const imageId = shop.avatar.public_id;
 
-      await cloudinary.v2.uploader.destroy(imageId);
+        await cloudinary.v2.uploader.destroy(imageId);
+      }
 
       const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
