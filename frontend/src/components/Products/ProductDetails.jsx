@@ -157,7 +157,7 @@ const ProductDetails = ({ data }) => {
                 <div className=" hidden 800px:flex items-center mt-12">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
-                      src={data?.shop?.avatar.url}
+                      src={data.shop?.avatar?.url}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />

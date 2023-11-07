@@ -231,6 +231,113 @@ export const brandingData = [
   },
 ];
 
+export const Tags = [
+  {
+    label: "Computers and Laptops",
+    tags: [
+      "Mackbook",
+      "Microsoft",
+      "Dell",
+      "Hp",
+      "Lenovo",
+      "Compaq",
+      "Acer",
+      "Linux",
+      "Others",
+    ],
+  },
+  {
+    label: "Fitness & Wears",
+    tags: [],
+  },
+  {
+    label: "Men's Fashion",
+    tags: [
+      "Trousers",
+      "Underwearss",
+      "T-shirt",
+      "Polo",
+      "Hoodies",
+      "Suits",
+      "Shorts",
+      "Tops",
+    ],
+  },
+  {
+    label: "Kids wears",
+    tags: ["Shorts", "Tops", "underwears", "Caps"],
+  },
+  {
+    label: "Mobile and Tablets",
+    tags: [
+      "Iphone",
+      "Infinix",
+      "Tecno",
+      "Samsung",
+      "Itel",
+      "Lenovo",
+      "Hauwai",
+      "Redemi",
+    ],
+  },
+  {
+    label: "Power Source",
+    tags: ["Generator", "Solar", "Inverter"],
+  },
+  {
+    label: "Appliances",
+    tags: [
+      "Fan",
+      "Blender",
+      "Deep Fryer",
+      "Microwave",
+      "Kettler",
+      "Water Dispenser",
+      "Toaster",
+      "Washing Machine",
+      "Air Condition",
+      "Heater",
+      "Freezer",
+      "Fridge",
+      "Vacum CLeaner",
+      "Rice Cooker",
+      "Juicer",
+    ],
+  },
+  {
+    label: "Shoes",
+    tags: ["Men's Shoes", "Boot", "Slipper", "Canvas", "Crocs"],
+  },
+  {
+    label: "Gifts",
+    tags: ["Gifts"],
+  },
+  {
+    label: "Gaming",
+    tags: ["PS1", "PS2", "PS3", "PS4", "PS5", "XBOX One", "XBOX 360", "XBOX"],
+  },
+  {
+    label: "Health & Beauty",
+    tags: ["Body Cream", "Skin Care", "Perfumes"],
+  },
+  {
+    label: "Electronics",
+    tags: [
+      "Smart Tv",
+      "Tv",
+      "DVD & Recorder",
+      "Reciever & Amplifier",
+      "Home Theatre",
+      "Sound Bars",
+    ],
+  },
+
+  {
+    label: "Others",
+    tags: ["Others"],
+  },
+];
+
 // categories data
 export const categories = [
   {
@@ -254,8 +361,8 @@ export const categories = [
     image: require("../Assests/images/category/mobile.png"),
   },
   {
-    label: "Power Deals",
-    link: "Power Deals",
+    label: "Power Source",
+    link: "Power Source",
     image: require("../Assests/images/category/Generator.png"),
   },
   // {
@@ -273,13 +380,6 @@ export const categoriesData = [
     subTitle: "",
     image_Url:
       "https://cdn.shopify.com/s/files/1/1706/9177/products/NEWAppleMacbookProwithM1ProChip14InchLaptop2021ModelMKGQ3LL_A_16GB_1TBSSD_custommacbd.jpg?v=1659592838",
-  },
-  {
-    id: 2,
-    title: "cosmetics and body care",
-    subTitle: "",
-    image_Url:
-      "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
   },
   {
     id: 3,
@@ -354,6 +454,13 @@ export const categoriesData = [
   {
     id: 13,
     title: "Gaming",
+    subTitle: "",
+    image_Url:
+      "https://i5.walmartimages.com/asr/0cfb91ea-20c7-4663-b892-7999d3c6bbc6.b28985b5518d2bc9469de041fce9c8a4.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+  },
+  {
+    id: 13,
+    title: "Power Source",
     subTitle: "",
     image_Url:
       "https://i5.walmartimages.com/asr/0cfb91ea-20c7-4663-b892-7999d3c6bbc6.b28985b5518d2bc9469de041fce9c8a4.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",

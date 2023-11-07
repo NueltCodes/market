@@ -274,9 +274,13 @@ router.put(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      let existsSeller = await Shop.findById(req.seller._id);
+      const shop = await Shop.findOne(req.seller._id);
 
-      const imageId = existsSeller.avatar.public_id;
+      if (!shop) {
+        return next(new ErrorHandler("Shop not found", 400));
+      }
+
+      const imageId = shop.avatar.public_id;
 
       await cloudinary.v2.uploader.destroy(imageId);
 
@@ -285,16 +289,16 @@ router.put(
         width: 150,
       });
 
-      existsSeller.avatar = {
+      shop.avatar = {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,
       };
 
-      await existsSeller.save();
+      await shop.save();
 
       res.status(200).json({
         success: true,
-        seller: existsSeller,
+        seller: shop,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));

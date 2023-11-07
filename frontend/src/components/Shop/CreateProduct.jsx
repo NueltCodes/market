@@ -3,7 +3,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../redux/actions/product";
-import { categoriesData } from "../../static/data";
+import { Tags, categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { BiTrash } from "react-icons/bi";
 import Loader from "../Layout/Loader";
@@ -35,6 +35,11 @@ const CreateProduct = () => {
       window.location.reload();
     }
   }, [dispatch, error, navigate, success]);
+
+  const selectTags = () => {
+    const selectedCategory = Tags.find((tag) => tag.label === category);
+    return selectedCategory ? selectedCategory.tags : [];
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -71,6 +76,11 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newForm = new FormData();
+
+    if (images && images.length <= 0) {
+      toast.error("Image is require");
+      return;
+    }
 
     images.forEach((image, index) => {
       newForm.set(`images${index}`, image); // Use a unique name for each image
@@ -140,6 +150,7 @@ const CreateProduct = () => {
           <input
             type="text"
             name="name"
+            required
             value={name}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             onChange={(e) => setName(e.target.value)}
@@ -170,6 +181,7 @@ const CreateProduct = () => {
           </label>
           <select
             className="w-full font-semibold mt-2 border h-[35px] rounded-[5px]"
+            required
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -182,24 +194,37 @@ const CreateProduct = () => {
               ))}
           </select>
         </div>
-        <br />
-        <div>
-          <label className="pb-2">Tags</label>
-          <input
-            type="text"
-            name="tags"
+        <div className="mt-3">
+          <label className="pb-2">
+            Tags <span className="text-red-500">*</span>
+          </label>
+          <select
+            className="w-full font-semibold mt-2 border h-[35px] rounded-[5px]"
             value={tags}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
+            required
             onChange={(e) => setTags(e.target.value)}
-            placeholder="Enter your product tags..."
-          />
+          >
+            <option value="Choose a tag">Select Tag</option>
+            {selectTags().map((tag, index) => (
+              <option value={tag} key={index}>
+                {tag}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <br />
+
         <br />
         <div>
-          <label className="pb-2">Original Price</label>
+          <label className="pb-2">
+            <span className="text-green-600">$</span> Original Price
+            <span className="text-red-500">*</span>
+          </label>
           <input
             type="number"
             name="price"
+            required
             value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             onChange={(e) => setOriginalPrice(e.target.value)}
@@ -209,7 +234,8 @@ const CreateProduct = () => {
         <br />
         <div>
           <label className="pb-2">
-            Price (With Discount) <span className="text-red-500">*</span>
+            <span className="text-green-600">$</span> Price (With Discount){" "}
+            <span className="text-sm font-light">Optional</span>{" "}
           </label>
           <input
             type="number"
@@ -227,6 +253,7 @@ const CreateProduct = () => {
           </label>
           <input
             type="number"
+            required
             name="price"
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"

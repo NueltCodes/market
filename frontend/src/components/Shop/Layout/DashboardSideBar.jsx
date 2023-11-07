@@ -6,7 +6,7 @@ import { RxDashboard } from "react-icons/rx";
 import { VscNewFile } from "react-icons/vsc";
 import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import { BiMessageSquareDetail } from "react-icons/bi";
+import { BiCategoryAlt, BiMessageSquareDetail } from "react-icons/bi";
 import { HiOutlineMenuAlt2, HiOutlineReceiptRefund } from "react-icons/hi";
 
 const DashboardSideBar = ({ active }) => {
@@ -32,9 +32,15 @@ const DashboardSideBar = ({ active }) => {
         <Link to="/" className="w-full flex items-center">
           <HiOutlineMenuAlt2
             size={30}
-            // color={`${active === 1 ? "crimson" : "#555"}`}
+            color={`${active === 12 ? "crimson" : "#555"}`}
           />
-          <h5 className="hidden lg:block pl-2 text-[18px] font-normal">Home</h5>
+          <h5
+            className={`hidden lg:block pl-2 text-[18px] font-normal ${
+              active === 12 ? "text-[crimson]" : "text-[#555]"
+            }`}
+          >
+            Home
+          </h5>
         </Link>
       </div>
 
@@ -85,6 +91,25 @@ const DashboardSideBar = ({ active }) => {
           </h5>
         </Link>
       </div>
+
+      {/* <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
+        <Link
+          to="/dashboard-create-category"
+          className="w-full flex items-center"
+        >
+          <BiCategoryAlt
+            size={30}
+            color={`${active === 13 ? "crimson" : "#555"}`}
+          />
+          <h5
+            className={`hidden lg:block pl-2 text-[18px] font-normal ${
+              active === 13 ? "text-[crimson]" : "text-[#555]"
+            }`}
+          >
+            Create Category
+          </h5>
+        </Link>
+      </div> */}
 
       <div className="w-full flex items-center p-4 hover:opacity-60 transition duration-200">
         <Link to="/dashboard-events" className="w-full flex items-center">
