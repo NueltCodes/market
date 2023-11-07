@@ -19,6 +19,7 @@ import { RxCross1 } from "react-icons/rx";
 const Payment = () => {
   const [orderData, setOrderData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -102,6 +103,7 @@ const Payment = () => {
   const paymentHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +138,9 @@ const Payment = () => {
           await axios
             .post(`${server}/order/create-order`, order, config)
             .then((res) => {
+              setLoading(false);
               setOpen(false);
+
               navigate("/order/success");
               toast.success("Order successful!");
               localStorage.setItem("cartItems", JSON.stringify([]));
@@ -182,6 +186,7 @@ const Payment = () => {
           <PaymentInfo
             user={user}
             open={open}
+            loading={loading}
             setOpen={setOpen}
             onApprove={onApprove}
             createOrder={createOrder}
@@ -205,6 +210,7 @@ const PaymentInfo = ({
   createOrder,
   paymentHandler,
   cashOnDeliveryHandler,
+  loading,
 }) => {
   const [select, setSelect] = useState(1);
 
@@ -313,7 +319,9 @@ const PaymentInfo = ({
               <input
                 type="submit"
                 value="Submit"
-                className={`${styles.button} !bg-[#f63b60] text-[#fff] h-[45px] rounded-[5px] cursor-pointer text-[18px] font-semibold`}
+                className={`${loading ? "cursor-wait" : ""} ${
+                  styles.button
+                } !bg-[#f63b60] text-[#fff] h-[45px] rounded-[5px] cursor-pointer text-[18px] font-semibold`}
               />
             </form>
           </div>

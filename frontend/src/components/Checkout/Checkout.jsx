@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { HiOutlineSelector } from "react-icons/hi";
+import { AiFillCaretRight } from "react-icons/ai";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
@@ -142,10 +144,13 @@ const Checkout = () => {
         </div>
       </div>
       <div
-        className={`${styles.button} w-[150px] 800px:w-[280px] mt-10`}
+        className={`${styles.button} group w-[150px] 800px:w-[280px] mt-10`}
         onClick={paymentSubmit}
       >
-        <h5 className="text-white">Go to Payment</h5>
+        <h5 className="text-white flex items-center gap-2">
+          Go to Payment{" "}
+          <AiFillCaretRight className="h-4 w-4 group-hover:translate-x-2 transition" />
+        </h5>
       </div>
     </div>
   );
@@ -278,12 +283,16 @@ const ShippingInfo = ({
 
         <div></div>
       </form>
-      <h5
-        className="text-[18px] cursor-pointer inline-block"
-        onClick={() => setUserInfo(!userInfo)}
-      >
-        Choose From saved address
-      </h5>
+
+      {user && user.addresses && (
+        <h5
+          className="sm:text-[18px] text-[15px] flex gap-1 items-center cursor-pointer "
+          onClick={() => setUserInfo(!userInfo)}
+        >
+          Select from saved address
+          <HiOutlineSelector className="w-5 h-5 text-gray-500" />
+        </h5>
+      )}
       {userInfo && (
         <div>
           {user &&
