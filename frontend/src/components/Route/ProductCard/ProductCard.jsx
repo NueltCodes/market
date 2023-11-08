@@ -16,6 +16,7 @@ import {
   removeFromWishlist,
 } from "../../../redux/actions/wishlist";
 import Ratings from "../../Ratings";
+import { BsShop } from "react-icons/bs";
 
 const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -73,7 +74,7 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
             : ""
         }   ${
           trending
-            ? " flex-none w-[30%] sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer"
+            ? " flex-none w-[33%] sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer"
             : ""
         } m-1 bg-white rounded-lg shadow-md hover:shadow-sm transition duration-300 ease-in-out p-2 relative cursor-pointer `}
         key={key}
@@ -103,7 +104,9 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
         </Link>
         {!trending && (
           <Link to={`/shop/preview/${data?.shop._id}`}>
-            <h5 className={`${styles.shop_name}`}>{data.shop.name}</h5>
+            <h5 className={`${styles.shop_name} !flex items-center gap-1`}>
+              {data.shop.name} <BsShop className="text-green-600" />
+            </h5>
           </Link>
         )}
         <Link
@@ -113,32 +116,34 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
               : `/product/${data._id}`
           }`}
         >
-          <h4 className="pb-3 font-[500] truncate text-[10px] sm:text-base">
+          <h4 className="pb-2 font-[500] truncate text-[10px] sm:text-base">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
           <div className="flex">
             <Ratings rating={data?.ratings} />
           </div>
-          {!trending && (
-            <div className="py-2 flex  sm:flex-row items-start sm:items-center justify-between">
-              <div className="flex">
-                <h5
-                  className={`${styles.productDiscountPrice} !text-[11px] sm:!text-base`}
-                >
-                  {data.originalPrice === 0
-                    ? data.originalPrice
-                    : data.discountPrice}
-                  $
-                </h5>
-                <h4 className={`${styles.price} !text-[10px] sm:!text-[14px]`}>
-                  {data.originalPrice ? "$" + data.originalPrice : null}
-                </h4>
-              </div>
-              <span className="block font-[400] sm:text-[16px] text-[12px] text-[#68d284]">
-                unit: {data?.stock}
-              </span>
+
+          <div
+            className={` ${
+              trending ? "sm:flex-row flex flex-col" : ""
+            } py-2  sm:flex-row items-start sm:items-center justify-between`}
+          >
+            <div className="flex">
+              <h5
+                className={`${styles.productDiscountPrice} !text-[11px] sm:!text-base`}
+              >
+                {data.discountPrice <= 1 ? "$" + data.originalPrice : null}
+
+                {data.discountPrice ? "$" + data.discountPrice : null}
+              </h5>
+              <h4 className={`${styles.price} !text-[10px] sm:!text-[14px]`}>
+                {data.discountPrice ? "$" + data.originalPrice : null}
+              </h4>
             </div>
-          )}
+            <span className="block font-[400] sm:text-[16px] text-[12px] text-[#68d284]">
+              stock: {data?.stock}
+            </span>
+          </div>
         </Link>
         {/* side options */}
         {!trending && (
