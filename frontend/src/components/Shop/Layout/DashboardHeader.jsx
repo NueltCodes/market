@@ -5,7 +5,6 @@ import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import { backend_url } from "../../../server";
 
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -15,7 +14,7 @@ const DashboardHeader = () => {
       <div>
         <Link to="/dashboard">
           <div className="text-3xl font-bold">
-            <span className="text-red-600">E•</span>Store
+            <span className="text-red-600">M•</span>arket
           </div>
         </Link>
       </div>

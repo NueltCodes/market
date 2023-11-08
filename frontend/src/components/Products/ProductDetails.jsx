@@ -22,7 +22,7 @@ import Lottie from "lottie-react";
 import { useMediaQuery } from "react-responsive";
 import AnimateChat from "../../Assests/animations/chat.json";
 
-const ProductDetails = ({ data }) => {
+const ProductDetails = ({ data, shopImg }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -156,11 +156,19 @@ const ProductDetails = ({ data }) => {
                 </div>
                 <div className=" hidden 800px:flex items-center mt-12">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <img
-                      src={data.shop?.avatar?.url}
-                      alt=""
-                      className="w-[50px] h-[50px] rounded-full mr-2"
-                    />
+                    {shopImg ? (
+                      <img
+                        src={shopImg?.avatar?.url}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    ) : (
+                      <img
+                        src={require("../../Assests/images/profile.jpg")}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    )}
                   </Link>
                   <div className="pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
@@ -283,11 +291,19 @@ const ProductDetails = ({ data }) => {
                 </div>
                 <div className="800px:hidden flex flex-col items-start pt-8 ">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <img
-                      src={data?.shop.avatar?.url}
-                      alt=""
-                      className="w-[50px] h-[50px] rounded-full mr-2"
-                    />
+                    {shopImg ? (
+                      <img
+                        src={shopImg?.avatar?.url}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    ) : (
+                      <img
+                        src={require("../../Assests/images/profile.jpg")}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    )}
                   </Link>
                   <div className="pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
@@ -336,6 +352,7 @@ const ProductDetails = ({ data }) => {
             products={products}
             totalReviewsLength={totalReviewsLength}
             averageRating={averageRating}
+            shopImg={shopImg}
           />
           <br />
           <br />
@@ -350,6 +367,7 @@ const ProductDetailsInfo = ({
   products,
   totalReviewsLength,
   averageRating,
+  shopImg,
 }) => {
   const [active, setActive] = useState(1);
 
@@ -410,7 +428,7 @@ const ProductDetailsInfo = ({
             data.reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <img
-                  src={item?.user.avatar?.url}
+                  src={item?.user.avatar.url}
                   alt=""
                   className="w-[50px] h-[50px] rounded-full"
                 />
@@ -439,11 +457,19 @@ const ProductDetailsInfo = ({
           <div className="w-full 800px:w-[50%]">
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
-                <img
-                  src={data?.shop.avatar?.url}
-                  className="w-[50px] h-[50px] rounded-full"
-                  alt=""
-                />
+                {shopImg ? (
+                  <img
+                    src={shopImg?.avatar?.url}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full mr-2"
+                  />
+                ) : (
+                  <img
+                    src={require("../../Assests/images/profile.jpg")}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full mr-2"
+                  />
+                )}
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">

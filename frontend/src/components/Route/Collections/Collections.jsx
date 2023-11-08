@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../../../styles/styles";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { categories } from "../../../static/data";
+import { useNavigate } from "react-router-dom";
 
 const Collections = () => {
   const [showLeftScroll5, setShowLeftScroll5] = useState(true);
   const [showRightScroll5, setShowRightScroll5] = useState(true);
+  const navigate = useNavigate();
 
   const handleScroll1 = (event) => {
     const container = event.currentTarget;
@@ -35,6 +37,11 @@ const Collections = () => {
       setShowRightScroll5(!isAtEnd);
     }
   };
+
+  const handleSubmit = (data) => {
+    navigate(`/products?category=${data.link}`);
+  };
+
   return (
     <div className="mt-5 bg-black w-full items-center justify-center py-5">
       <div className={`${styles.section} bg-white !mt-0`}>
@@ -53,7 +60,8 @@ const Collections = () => {
                 <img
                   src={data.image}
                   alt={data.name}
-                  className="h-[30%] w-[30%]"
+                  className="h-[30%] w-[30%] cursor-pointer"
+                  onClick={() => handleSubmit(data)}
                 />
               ))}
             </div>

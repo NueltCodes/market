@@ -66,24 +66,29 @@ router.post(
         return next(new ErrorHandler("Product is not found with this id", 404));
       }
 
-      let images = [];
+      let imagesLinks = [];
 
-      if (typeof req.body.images === "string") {
-        images.push(req.body.images);
-      } else {
-        images = req.body.images;
+      // Handle existing images
+      if (req.body.images) {
+        const images = req.body.images;
+        imagesLinks = imagesLinks.concat(
+          images.map((url) => ({ public_id: url.public_id, url }))
+        );
+
+        // Delete removed images from Cloudinary
+        const removedImages = product.images.filter(
+          (image) => !images.includes(image.url)
+        );
+        for (let i = 0; i < removedImages.length; i++) {
+          await cloudinary.v2.uploader.destroy(removedImages[i].public_id);
+        }
       }
 
-      if (images !== undefined) {
-        // Delete image from cloudinary
-        for (let i = 0; i < product.images.length; i++) {
-          await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-        }
-
-        const imagesLinks = [];
-
-        for (let i = 0; i < images.length; i++) {
-          const result = await cloudinary.v2.uploader.upload(images[i], {
+      // Handle new images
+      if (req.body.newImages) {
+        const newImages = req.body.newImages;
+        for (let i = 0; i < newImages.length; i++) {
+          const result = await cloudinary.v2.uploader.upload(newImages[i], {
             folder: "products",
           });
           imagesLinks.push({
@@ -91,9 +96,11 @@ router.post(
             url: result.secure_url,
           });
         }
-        req.body.images = imagesLinks;
       }
 
+      req.body.images = imagesLinks;
+
+      console.log(imagesLinks);
       product = await Product.findByIdAndUpdate(req.body.productId, req.body, {
         new: true,
         runValidators: true,

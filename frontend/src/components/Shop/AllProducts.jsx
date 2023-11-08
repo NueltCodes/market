@@ -16,7 +16,7 @@ import {
 import Loader from "../Layout/Loader";
 import { toast } from "react-toastify";
 import { BiEdit, BiTrash } from "react-icons/bi";
-import { categoriesData } from "../../static/data";
+import { Tags, categoriesData } from "../../static/data";
 import { MdClose } from "react-icons/md";
 import axios from "axios";
 import { server } from "../../server";
@@ -32,8 +32,7 @@ const AllProducts = () => {
 
   const [productId, setProductId] = useState(null);
   const [images, setImages] = useState([]);
-  const [oldImages, setOldImages] = useState([]);
-  const [imagesPreview, setImagesPreview] = useState([]);
+  const [newImages, setNewImages] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -42,7 +41,7 @@ const AllProducts = () => {
   const [discountPrice, setDiscountPrice] = useState();
   const [stock, setStock] = useState();
   const [loading, setLoading] = useState(false);
-
+  console.log(images);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -57,26 +56,26 @@ const AllProducts = () => {
     }, 2000); // Displaying the toast after 2 seconds
   };
 
+  const selectTags = () => {
+    const selectedCategory = Tags.find((tag) => tag.label === category);
+    return selectedCategory ? selectedCategory.tags : [];
+  };
+
   useEffect(() => {
     dispatch(getAllProductsShop(seller._id)); // Fetch the updated products
   }, [dispatch, seller._id]);
 
+  // ...
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-
-    setImages([]);
-    setImagesPreview([]);
-    // setOldImages([]);
-
-    setImages([]);
 
     files.forEach((file) => {
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setImages((old) => [...old, reader.result]);
-          setImagesPreview((old) => [...old, reader.result]);
+          setNewImages((prevPreviews) => [...prevPreviews, reader.result]);
         }
       };
       reader.readAsDataURL(file);
@@ -84,12 +83,12 @@ const AllProducts = () => {
   };
 
   const handleImageDelete = (imageUrlToDelete) => {
-    setOldImages((prevImages) => {
+    setNewImages((prevImages) => {
       return prevImages.filter((imageUrl) => imageUrl !== imageUrlToDelete);
     });
   };
-  const handleNewDelete = (imageUrlToDelete) => {
-    setImagesPreview((prevImages) => {
+  const handlePrevDelete = (imageUrlToDelete) => {
+    setImages((prevImages) => {
       return prevImages.filter((imageUrl) => imageUrl !== imageUrlToDelete);
     });
   };
@@ -97,16 +96,23 @@ const AllProducts = () => {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    if (images.length === 0) {
-      setLoading(false);
-      return toast.error("Image is required please reselect images");
-    }
+    // if (images.length === 0) {
+    //   setLoading(false);
+    //   return toast.error("Image is required please reselect images");
+    // }
 
     const newForm = new FormData();
 
+    // Append existing images as strings
     images.forEach((image, index) => {
-      newForm.append(`images${index}`, image); // Use a unique name for each image
+      newForm.append(`existingImages${index}`, image.url);
     });
+
+    // Append new images as File objects
+    newImages.forEach((image, index) => {
+      newForm.append(`newImages${index}`, image);
+    });
+
     newForm.append("name", name);
     newForm.append("description", description);
     newForm.append("category", category);
@@ -126,7 +132,8 @@ const AllProducts = () => {
       discountPrice,
       stock,
       shopId: seller._id,
-      images,
+      images: images,
+      newImages: newImages,
     };
 
     try {
@@ -226,7 +233,7 @@ const AllProducts = () => {
                   foundProduct ? foundProduct.discountPrice : ""
                 );
                 setCategory(foundProduct ? foundProduct.category : "");
-                setOldImages(foundProduct ? foundProduct.images : []);
+                setImages(foundProduct ? foundProduct.images : []);
                 setStock(foundProduct ? foundProduct.stock : "");
                 setTags(foundProduct ? foundProduct.tags : "");
               }}
@@ -263,7 +270,7 @@ const AllProducts = () => {
       row.push({
         id: item._id,
         name: item.name,
-        price: "$ " + item.discountPrice,
+        price: "$ " + item.originalPrice,
         stock: item.stock,
         sold: item.sold_out,
       });
@@ -330,7 +337,7 @@ const AllProducts = () => {
                       onChange={(e) => setCategory(e.target.value)}
                     >
                       <option value="Choose a category">
-                        {category ? category : "Choose a category"}
+                        {category ? category : "select category"}
                       </option>
                       {categoriesData &&
                         categoriesData.map((i) => (
@@ -341,16 +348,23 @@ const AllProducts = () => {
                     </select>
                   </div>
                   <br />
-                  <div>
-                    <label className="pb-2">Tags</label>
-                    <input
-                      type="text"
-                      name="tags"
+                  <div className="mt-3">
+                    <label className="pb-2">
+                      Tags <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      className="w-full font-semibold mt-2 border h-[35px] rounded-[5px]"
                       value={tags}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
+                      required
                       onChange={(e) => setTags(e.target.value)}
-                      placeholder="Enter your product tags..."
-                    />
+                    >
+                      <option value="Choose a tag">Select Tag</option>
+                      {selectTags().map((tag, index) => (
+                        <option value={tag} key={index}>
+                          {tag}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <br />
                   <div>
@@ -409,45 +423,21 @@ const AllProducts = () => {
                     <label htmlFor="upload">
                       <AiOutlinePlusCircle
                         size={30}
-                        className="mt-3"
+                        className="mt-3 cursor-pointer"
                         color="#555"
                       />
-                    </label>
-                    {oldImages && oldImages.length > 0 && (
-                      <div className="font-semibold mt-3">previous uploads</div>
+                    </label>{" "}
+                    {newImages && newImages.length > 0 && (
+                      <div className="font-semibold mt-3">New uploads</div>
                     )}
                     <div className="w-full flex items-center flex-wrap">
-                      {oldImages &&
-                        oldImages.map((i) => (
+                      {newImages &&
+                        newImages.map((i) => (
                           <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
                             <div className="z-10 absolute top-1 right-1">
                               <BiTrash
                                 type="button"
                                 onClick={() => handleImageDelete(i)}
-                                size={20}
-                                color="red"
-                              />{" "}
-                            </div>
-
-                            <img
-                              src={i.url}
-                              key={i}
-                              alt=""
-                              className="h-full w-full object-cover rounded-md "
-                            />
-                          </div>
-                        ))}
-                    </div>
-
-                    <div className="font-semibold mt-3">New uploads </div>
-                    <div className="w-full flex items-center flex-wrap">
-                      {imagesPreview &&
-                        imagesPreview.map((i) => (
-                          <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
-                            <div className="z-10 absolute top-3 right-3">
-                              <BiTrash
-                                type="button"
-                                onClick={() => handleNewDelete(i)}
                                 size={20}
                                 color="red"
                               />{" "}
@@ -462,16 +452,39 @@ const AllProducts = () => {
                           </div>
                         ))}
                     </div>
+                    {images && images.length > 0 && (
+                      <div className="font-semibold mt-3">Previous upload </div>
+                    )}{" "}
+                    <div className="w-full flex items-center flex-wrap">
+                      {images &&
+                        images.map((i) => (
+                          <div className="relative rounded-md overflow-hidden m-2 p-0.5 bg-[#9484b8] h-[120px] w-[120px]">
+                            <div className="z-10 absolute top-3 right-3">
+                              <BiTrash
+                                type="button"
+                                onClick={() => handlePrevDelete(i)}
+                                size={20}
+                                color="red"
+                              />{" "}
+                            </div>
+
+                            <img
+                              key={i}
+                              src={i.url}
+                              alt=""
+                              className="h-full w-full object-cover rounded-md "
+                            />
+                          </div>
+                        ))}
+                    </div>
                     <br />
                     <div>
                       <input
                         type={!loading ? "submit" : "button"}
                         value="Update"
                         className={` ${
-                          loading
-                            ? "cursor-not-allowed opacity-40"
-                            : "cursor-pointer"
-                        }cursor-pointer mt-2 appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 hover:border-blue-500 transition duration-300 ease-in-out sm:text-s`}
+                          loading ? "cursor-wait opacity-40" : "cursor-pointer"
+                        } cursor-pointer mt-2 appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 hover:border-blue-500 transition duration-300 ease-in-out sm:text-s`}
                       />
                     </div>
                   </div>
