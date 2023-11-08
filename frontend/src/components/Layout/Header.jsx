@@ -211,7 +211,7 @@ const Header = ({ activeHeading }) => {
             className="relative w-[130px] "
           >
             <div>
-              <div className="flex items-center gap-4 bg-white py-2 px-2 rounded-lg">
+              <div className="flex items-center gap-4 bg-white py-2 px-2 rounded-lg cursor-pointer">
                 Categories
                 <IoIosArrowDown
                   size={20}

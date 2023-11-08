@@ -222,21 +222,21 @@ router.put(
     try {
       let existsUser = await User.findById(req.user.id);
 
-      if (req.body.avatar !== "") {
+      if (req.body.avatar.public_id) {
         const imageId = existsUser.avatar.public_id;
 
         await cloudinary.v2.uploader.destroy(imageId);
-
-        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-          folder: "avatars",
-          width: 150,
-        });
-
-        existsUser.avatar = {
-          public_id: myCloud.public_id,
-          url: myCloud.secure_url,
-        };
       }
+
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+      });
+
+      existsUser.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      };
 
       await existsUser.save();
 

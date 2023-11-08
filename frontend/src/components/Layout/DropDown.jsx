@@ -45,7 +45,7 @@ const DropDown = ({ categoriesData, dropDown, setDropDown }) => {
             leaveTo="-translate-y-full"
           >
             <Dialog.Panel className="relative flex flex-col w-full max-w-[80%] bg-white">
-              <div className="m-4 800px:text-3xl text-2xl font-bold">
+              <div className="m-4 800px:text-3xl text-2xl font-bold cursor-pointer">
                 <Link to="/">
                   <span className="text-red-600">M•</span>arket
                 </Link>
@@ -69,7 +69,7 @@ const DropDown = ({ categoriesData, dropDown, setDropDown }) => {
                       className={`${styles.normalFlex}`}
                       onClick={() => submitHandler(i)}
                     >
-                      <div className="w-full flex items-start my-3 text-gray-800 hover:bg-[#453780] hover:text-white p-1">
+                      <div className="w-full flex items-start my-3 cursor-pointer text-gray-800 hover:bg-[#453780] hover:text-white p-1">
                         <img
                           src={i.image_Url}
                           alt=""
