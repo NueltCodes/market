@@ -17,7 +17,7 @@ import {
 } from "../../../redux/actions/wishlist";
 import Ratings from "../../Ratings";
 
-const ProductCard = ({ data, key, isEvent, className, trending }) => {
+const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
@@ -79,6 +79,7 @@ const ProductCard = ({ data, key, isEvent, className, trending }) => {
         key={key}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={onClick}
       >
         <div className="flex justify-end"></div>
         <Link

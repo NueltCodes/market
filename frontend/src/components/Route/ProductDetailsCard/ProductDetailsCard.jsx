@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
-  AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
@@ -15,10 +14,13 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../../../redux/actions/wishlist";
+import Lottie from "lottie-react";
+import AnimateChat from "../../../Assests/animations/chat.json";
 
 const ProductDetailsCard = ({ setOpen, data }) => {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const { cart } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
@@ -87,10 +89,14 @@ const ProductDetailsCard = ({ setOpen, data }) => {
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
                 <img src={`${data.images && data.images[0]?.url}`} z alt="" />
-                <div className="flex">
-                  <Link to={`/shop/preview/${data.shop._id}`} className="flex">
+
+                <div className="mt-1">
+                  <Link
+                    to={`/shop/preview/${data.shop._id}`}
+                    className="flex items-center"
+                  >
                     <img
-                      src={`${data.images && data.images[0]?.url}`}
+                      src={`${data.shop && data.shop.avatar?.url}`}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />
@@ -98,19 +104,30 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                       <h3 className={`${styles.shop_name}`}>
                         {data.shop.name}
                       </h3>
-                      <h5 className="pb-3 text-[15px]">(4.5) Ratings</h5>
+                      <h5 className="pb-2 text-[15px]">(4.5) Ratings</h5>
                     </div>
                   </Link>
                 </div>
+
                 <div
-                  className={`${styles.button} bg-[#000] mt-4 rounded-[4px] h-11`}
+                  className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
                   onClick={handleMessageSubmit}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                 >
-                  <span className="text-[#fff] flex items-center">
-                    Send Message <AiOutlineMessage className="ml-1" />
+                  <span className="text-white flex items-center gap-2">
+                    Chat seller
+                    <Lottie
+                      animationData={AnimateChat}
+                      loop={isHovered}
+                      autoplay
+                      style={{ height: 30, width: 30 }}
+                    />
                   </span>
                 </div>
-                <h5 className="text-[16px] text-[red] mt-5">(50) Sold out</h5>
+                <h5 className="text-[16px] text-[red] mt-5">
+                  Stock <span> {data.stock}</span>
+                </h5>
               </div>
 
               <div className="w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px]">
@@ -119,7 +136,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                 </h1>
                 {/* <p className="w-auto overflow-clip">{data.description}</p> */}
                 <p
-                  className="leading-8 w-full max-w-[400px] "
+                  className="leading-7 text-sm w-full max-w-[400px] "
                   dangerouslySetInnerHTML={{
                     __html: data.description,
                   }}
@@ -141,11 +158,11 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                     >
                       -
                     </button>
-                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[11px]">
+                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[10px]">
                       {count}
                     </span>
                     <button
-                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
+                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-r px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={incrementCount}
                     >
                       +

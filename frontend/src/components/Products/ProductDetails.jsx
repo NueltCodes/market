@@ -125,7 +125,7 @@ const ProductDetails = ({ data, shopImg }) => {
       {data ? (
         <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
           <div className="w-full py-5">
-            <div className="block w-full 800px:flex">
+            <div className="block w-full 800px:flex 800px:gap-2">
               <div className="w-full 800px:w-[50%]">
                 <img
                   src={`${data && data.images[select]?.url}`}
@@ -170,7 +170,7 @@ const ProductDetails = ({ data, shopImg }) => {
                       />
                     )}
                   </Link>
-                  <div className="pr-8">
+                  <div className="pr-3 lg:pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
                       <h3 className={`${styles.shop_name} pb-1 pt-1`}>
                         {data.shop.name}
@@ -186,7 +186,7 @@ const ProductDetails = ({ data, shopImg }) => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                   >
-                    <span className="text-white flex items-center gap-3">
+                    <span className="text-white flex items-center gap-2">
                       Chat seller
                       <Lottie
                         animationData={AnimateChat}
@@ -329,7 +329,7 @@ const ProductDetails = ({ data, shopImg }) => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                   >
-                    <span className="text-white flex items-center gap-3">
+                    <span className="text-white flex items-center gap-2">
                       Chat seller
                       <Lottie
                         animationData={AnimateChat}
@@ -338,7 +338,7 @@ const ProductDetails = ({ data, shopImg }) => {
                         style={
                           isSmallScreen
                             ? { height: 30, width: 30 }
-                            : { height: 50, width: 50 }
+                            : { height: 40, width: 40 }
                         }
                       />
                     </span>

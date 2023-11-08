@@ -83,7 +83,7 @@ const BestDeals = () => {
               ))}
             </div>
           </div>
-          {showLeftScroll && (
+          {data && data.length > 3 && showLeftScroll && (
             <button
               className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
               onClick={() => scrollDeals(-350)}
@@ -91,7 +91,7 @@ const BestDeals = () => {
               <BsChevronLeft size={25} className="text-blue-400" />
             </button>
           )}
-          {showRightScroll && (
+          {data && data.length > 3 && showRightScroll && (
             <button
               className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
               onClick={() => scrollDeals(350)}

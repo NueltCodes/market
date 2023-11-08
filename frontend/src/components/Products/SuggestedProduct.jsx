@@ -9,10 +9,13 @@ const SuggestedProduct = ({ data }) => {
   const { allProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const d =
-      allProducts && allProducts.filter((i) => i.category === data.category);
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const d = allProducts && allProducts.filter((i) => i.tags === data.tags);
     setProducts(d);
-  }, [allProducts, data.category]);
+  }, [allProducts, data.tags]);
 
   const [showLeftScroll6, setShowLeftScroll6] = useState(true);
   const [showRightScroll6, setShowRightScroll6] = useState(true);
@@ -63,11 +66,16 @@ const SuggestedProduct = ({ data }) => {
               <div className="flex flex-nowrap space-x-1 sm:space-x-5">
                 {products &&
                   products.map((i, index) => (
-                    <ProductCard data={i} key={index} className />
+                    <ProductCard
+                      data={i}
+                      key={index}
+                      className
+                      onClick={() => window.scrollTo(0, 0)}
+                    />
                   ))}
               </div>
             </div>
-            {showLeftScroll6 && (
+            {products && products.length > 3 && showLeftScroll6 && (
               <button
                 className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
                 onClick={() => scrollRated(-350)}
@@ -75,7 +83,7 @@ const SuggestedProduct = ({ data }) => {
                 <BsChevronLeft size={25} className="text-blue-400" />
               </button>
             )}
-            {showRightScroll6 && (
+            {products && products.length > 3 && showRightScroll6 && (
               <button
                 className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
                 onClick={() => scrollRated(350)}

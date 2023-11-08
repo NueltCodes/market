@@ -71,7 +71,7 @@ const Trending = () => {
                 ))}
               </div>
             </div>{" "}
-            {showLeftScroll1 && (
+            {data && data.length > 3 && showLeftScroll1 && (
               <button
                 className="absolute group-hover:sm:block hidden z-50 -left-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
                 onClick={() => scrollTrend(-350)}
@@ -79,7 +79,7 @@ const Trending = () => {
                 <BsChevronLeft size={25} className="text-blue-400" />
               </button>
             )}
-            {showRightScroll1 && (
+            {data && data.length > 3 && showRightScroll1 && (
               <button
                 className="absolute group-hover:sm:block hidden z-50 -right-4 top-1/2 hover:opacity-80 transition bg-white/95 border border-[#003b95] rounded-full p-2"
                 onClick={() => scrollTrend(350)}
