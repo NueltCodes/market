@@ -237,7 +237,9 @@ export const Tags = [
     tags: [
       "Mackbook",
       "Microsoft",
+      "Samsung",
       "Dell",
+      "Infinix",
       "Hp",
       "Lenovo",
       "Compaq",
@@ -248,15 +250,16 @@ export const Tags = [
   },
   {
     label: "Fitness & Wears",
-    tags: [],
+    tags: ["Fitness & Wears", "Fitness equipment"],
   },
   {
     label: "Men's Fashion",
     tags: [
       "Trousers",
-      "Underwearss",
+      "Underwears",
       "T-shirt",
       "Polo",
+      "Jacket",
       "Hoodies",
       "Suits",
       "Shorts",
@@ -270,10 +273,10 @@ export const Tags = [
   {
     label: "Mobile and Tablets",
     tags: [
-      "Iphone",
-      "Infinix",
-      "Tecno",
       "Samsung",
+      "Iphone",
+      "Tecno",
+      "Infinix",
       "Itel",
       "Lenovo",
       "Hauwai",
@@ -310,7 +313,7 @@ export const Tags = [
   },
   {
     label: "Gifts",
-    tags: ["Gifts"],
+    tags: ["Gifts", "Flowers"],
   },
   {
     label: "Gaming",

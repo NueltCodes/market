@@ -129,7 +129,7 @@ const Signup = () => {
                 />
                 {visible ? (
                   <div
-                    className="absolute top-2 right-2"
+                    className="absolute top-2 right-2 cursor-pointer"
                     onClick={() => setVisible(false)}
                   >
                     <Lottie
@@ -141,7 +141,7 @@ const Signup = () => {
                   </div>
                 ) : (
                   <div
-                    className="absolute top-2 right-2"
+                    className="absolute top-2 right-2 cursor-pointer"
                     onClick={() => setVisible(true)}
                   >
                     <Lottie

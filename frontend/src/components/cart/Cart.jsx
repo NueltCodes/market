@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart, removeFromCart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Cart = ({ setOpenCart }) => {
   const { cart } = useSelector((state) => state.cart);
@@ -16,10 +17,13 @@ const Cart = ({ setOpenCart }) => {
     dispatch(removeFromCart(data));
   };
 
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.qty * item.discountPrice,
-    0
-  );
+  const totalPrice = cart.reduce((acc, item) => {
+    if (item.discountPrice) {
+      return acc + item.qty * item.discountPrice;
+    } else {
+      return acc + item.qty * item.originalPrice;
+    }
+  }, 0);
 
   const quantityChangeHandler = (data) => {
     dispatch(addTocart(data));
@@ -51,7 +55,7 @@ const Cart = ({ setOpenCart }) => {
               </div>
               {/* Item length */}
               <div className={`${styles.normalFlex} p-4`}>
-                <IoBagHandleOutline size={25} className="text-green-600" />
+                <AiOutlineShoppingCart size={25} className="text-green-600" />
                 <h5 className="pl-2 text-[20px] font-semibold">
                   {cart && cart.length} items
                 </h5>
@@ -76,10 +80,10 @@ const Cart = ({ setOpenCart }) => {
               {/* checkout buttons */}
               <Link to="/checkout">
                 <div
-                  className={`h-[45px] flex items-center justify-center w-[100%] bg-[#168a42] rounded-[5px]`}
+                  className={`h-[45px] flex items-center justify-center w-[100%] bg-[#453780] rounded-[5px]`}
                 >
-                  <h1 className="text-[#fff] text-[18px] font-[600]">
-                    Checkout Now (${totalPrice})
+                  <h1 className="text-[#fff] sm:text-[18px] text-sm font-[600]">
+                    Checkout now (${totalPrice})
                   </h1>
                 </div>
               </Link>
@@ -93,7 +97,9 @@ const Cart = ({ setOpenCart }) => {
 
 const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   const [value, setValue] = useState(data.qty);
-  const totalPrice = data.discountPrice * value;
+  const totalPrice = data.discountPrice
+    ? data.discountPrice
+    : data.originalPrice * value;
 
   const increment = (data) => {
     if (data.stock <= value) {
@@ -135,12 +141,13 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
         <img
           src={data?.images[0].url}
           alt=""
-          className="w-[130px] h-min ml-2 mr-2 mt-3 800px:mt-['unset'] rounded-[5px]"
+          className="w-[120px] h-[min] ml-2 mr-2 mt-3 800px:mt-['unset'] rounded-[5px]"
         />
         <div className="pl-[5px] w-full">
-          <h1>{data.name}</h1>
+          <h1 className="text-sm md:text-base">{data.name}</h1>
           <h4 className="font-[400] text-[14px] text-[#05ba3fa4]">
-            ( ${data.discountPrice} * {value})
+            ( ${data.discountPrice ? data.discountPrice : data.originalPrice} *{" "}
+            {value})
           </h4>
           <div className="flex items-center justify-between">
             <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">

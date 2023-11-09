@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles";
 import { categoriesData } from "../../static/data";
 import {
@@ -21,6 +21,9 @@ import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
 import WishList from "../WishList/WishList.jsx";
 import { RxAvatar, RxCross1, RxHamburgerMenu } from "react-icons/rx";
+import axios from "axios";
+import { server } from "../../server";
+import { toast } from "react-toastify";
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -37,6 +40,20 @@ const Header = ({ activeHeading }) => {
   const { allProducts } = useSelector((state) => state.products);
   const { cart } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    axios
+      .get(`${server}/user/logout`, { withCredentials: true })
+      .then((res) => {
+        toast.success(res.data.message);
+        window.location.reload(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+  };
 
   useEffect(() => {
     if (searchOpen) {
@@ -413,7 +430,7 @@ const Header = ({ activeHeading }) => {
               onClick={() => setOpen(false)}
             ></div>
             <div className="fixed w-[75%] bg-[#fff] h-screen top-0 left-0 z-20 overflow-y-scroll scrollbar-hide">
-              <div className="w-full justify-between flex pr-3">
+              <div className="w-full justify-between items-center flex pr-3 shadow-md py-3">
                 <div>
                   <div
                     className="relative mr-[15px] cursor-pointer"
@@ -425,6 +442,13 @@ const Header = ({ activeHeading }) => {
                     </span>
                   </div>
                 </div>
+                <div>
+                  <Link to="/">
+                    <div className="text-base sm:text-3xl font-bold">
+                      <span className="text-red-600">M•</span>arket
+                    </div>
+                  </Link>
+                </div>
                 <RxCross1
                   size={30}
                   className="ml-4 mt-5"
@@ -434,6 +458,13 @@ const Header = ({ activeHeading }) => {
 
               <div className="mt-9">
                 <Navbar active={activeHeading} />
+              </div>
+
+              <div
+                className="mx-6 800px:mx-4 cursor-pointer text-sm 800px:text-base font-[500] text-gray-500"
+                onClick={() => logoutHandler()}
+              >
+                Logout
               </div>
               {/* <div className={`${styles.button} ml-4 !rounded-[4px]`}> */}
               <Link

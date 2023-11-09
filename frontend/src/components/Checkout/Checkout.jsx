@@ -63,10 +63,13 @@ const Checkout = () => {
     }
   };
 
-  const subTotalPrice = cart.reduce(
-    (acc, item) => acc + item.qty * item.discountPrice,
-    0
-  );
+  const subTotalPrice = cart.reduce((acc, item) => {
+    if (item.discountPrice) {
+      return acc + item.qty * item.discountPrice;
+    } else {
+      return acc + item.qty * item.originalPrice;
+    }
+  }, 0);
 
   // this is shipping cost variable
   const shipping = subTotalPrice * 0.1;
@@ -86,10 +89,14 @@ const Checkout = () => {
           toast.error("Coupon code is not valid for this shop");
           setCouponCode("");
         } else {
-          const eligiblePrice = isCouponValid.reduce(
-            (acc, item) => acc + item.qty * item.discountPrice,
-            0
-          );
+          const eligiblePrice = isCouponValid.reduce((acc, item) => {
+            if (item.discountPrice) {
+              return acc + item.qty * item.discountPrice;
+            } else {
+              return acc + item.qty * item.originalPrice;
+            }
+          }, 0);
+
           const discountPrice = (eligiblePrice * couponCodeValue) / 100;
           setDiscountPrice(discountPrice);
           setCouponCodeData(res.data.couponCode);
@@ -97,7 +104,7 @@ const Checkout = () => {
         }
       }
       if (res.data.couponCode === null) {
-        toast.error("Coupon code doesn't exists!");
+        toast.error("Coupon is invalid");
         setCouponCode("");
       }
     });
@@ -108,8 +115,6 @@ const Checkout = () => {
   const totalPrice = couponCodeData
     ? (subTotalPrice + shipping - discountPercentenge).toFixed(2)
     : (subTotalPrice + shipping).toFixed(2);
-
-  console.log(discountPercentenge);
 
   return (
     <div className="w-full flex flex-col items-center py-8">
@@ -284,7 +289,7 @@ const ShippingInfo = ({
         <div></div>
       </form>
 
-      {user && user.addresses && (
+      {user && user.addresses.length > 0 && (
         <h5
           className="sm:text-[18px] text-[15px] flex gap-1 items-center cursor-pointer "
           onClick={() => setUserInfo(!userInfo)}
@@ -332,17 +337,19 @@ const CartData = ({
     <div className="w-full bg-[#fff] rounded-md p-5 pb-8">
       <div className="flex justify-between">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">subtotal:</h3>
-        <h5 className="text-[18px] font-[600]">${subTotalPrice}</h5>
+        <h5 className="sm:text-[18px] text-sm font-[600]">${subTotalPrice}</h5>
       </div>
       <br />
       <div className="flex justify-between">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">shipping:</h3>
-        <h5 className="text-[18px] font-[600]">${shipping.toFixed(2)}</h5>
+        <h5 className="sm:text-[18px] text-sm font-[600]">
+          ${shipping.toFixed(2)}
+        </h5>
       </div>
       <br />
       <div className="flex justify-between border-b pb-3">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Discount:</h3>
-        <h5 className="text-[18px] font-[600]">
+        <h5 className="sm:text-[18px] text-sm font-[600]">
           - {discountPercentenge ? "$" + discountPercentenge.toString() : null}
         </h5>
       </div>

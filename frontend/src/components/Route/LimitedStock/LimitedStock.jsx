@@ -38,7 +38,7 @@ const LimitedStock = () => {
   };
 
   const scrollDeals = (direction) => {
-    const container = document.querySelector(".scroll-container");
+    const container = document.querySelector(".scroll-container7");
     if (container) {
       const newScrollLeft = container.scrollLeft + direction;
 
@@ -73,7 +73,7 @@ const LimitedStock = () => {
       {data.length !== 0 && (
         <div className="relative group">
           <div
-            className="pt-2 scroll-container overflow-x-auto scrollbar-hide"
+            className="pt-2 scroll-container7 overflow-x-auto scrollbar-hide"
             onScroll={handleScroll}
           >
             <div className="flex flex-nowrap space-x-1 sm:space-x-5">

@@ -113,11 +113,16 @@ const UserOrderDetails = () => {
       {data &&
         data?.cart.map((item, index) => (
           <div className="w-full 800px:flex flex flex-col gap-5 items-start mb-5">
-            <img src={item.images[0].url} alt="" className="w-[80x] h-[80px]" />
+            <img
+              src={item.images[0]?.url}
+              alt=""
+              className="w-[80x] h-[80px]"
+            />
             <div className="w-full">
               <h5 className="pl-3 text-[20px]">{item.name}</h5>
               <h5 className="pl-3 text-[20px] text-[#00000091]">
-                ${item.discountPrice} x {item.qty}
+                ${item.discountPrice ? item.discountPrice : item.originalPrice}{" "}
+                x {item.qty}
               </h5>
             </div>
             <div>
@@ -156,14 +161,18 @@ const UserOrderDetails = () => {
             <br />
             <div className="w-full flex">
               <img
-                src={selectedItem?.images[0].url}
+                src={selectedItem?.images[0]?.url}
                 alt=""
                 className="w-[80px] h-[80px]"
               />
               <div>
                 <div className="pl-3 text-[20px]">{selectedItem?.name}</div>
                 <h4 className="pl-3 text-[20px]">
-                  ${selectedItem?.discountPrice} x {selectedItem?.qty}
+                  $
+                  {selectedItem.discountPrice
+                    ? selectedItem.discountPrice
+                    : selectedItem.originalPrice}{" "}
+                  x {selectedItem?.qty}
                 </h4>
               </div>
             </div>

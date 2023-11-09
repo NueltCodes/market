@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { categoriesData } from "../../static/data";
+import { Tags, categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import { createevent } from "../../redux/actions/event";
 import { BiTrash } from "react-icons/bi";
@@ -24,6 +24,11 @@ const CreateEvent = () => {
   const [stock, setStock] = useState();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const selectTags = () => {
+    const selectedCategory = Tags.find((tag) => tag.label === category);
+    return selectedCategory ? selectedCategory.tags : [];
+  };
 
   const handleStartDateChange = (e) => {
     const startDate = new Date(e.target.value);
@@ -152,7 +157,8 @@ const CreateEvent = () => {
             Category <span className="text-red-500">*</span>
           </label>
           <select
-            className="w-full mt-2 border h-[35px] rounded-[5px]"
+            className="w-full font-semibold mt-2 border h-[35px] rounded-[5px]"
+            required
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -165,42 +171,55 @@ const CreateEvent = () => {
               ))}
           </select>
         </div>
-        <br />
-        <div>
-          <label className="pb-2">Tags</label>
-          <input
-            type="text"
-            name="tags"
+        <div className="mt-3">
+          <label className="pb-2">
+            Tags <span className="text-red-500">*</span>
+          </label>
+          <select
+            className="w-full font-semibold mt-2 border h-[35px] rounded-[5px]"
             value={tags}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            required
             onChange={(e) => setTags(e.target.value)}
-            placeholder="Enter your event product tags..."
-          />
+          >
+            <option value="Choose a tag">Select Tag</option>
+            {selectTags().map((tag, index) => (
+              <option value={tag} key={index}>
+                {tag}
+              </option>
+            ))}
+          </select>
         </div>
         <br />
         <div>
-          <label className="pb-2">Original Price</label>
+          <label className="pb-2">
+            <span className="text-green-600">$</span> Original Price
+            <span className="text-red-500">*</span>
+          </label>
           <input
             type="number"
             name="price"
+            required
             value={originalPrice}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder="Enter your event product price..."
+            placeholder="Enter your product price..."
           />
         </div>
         <br />
         <div>
           <label className="pb-2">
-            Price (With Discount) <span className="text-red-500">*</span>
+            <span className="text-green-600">$ </span>
+            Discount price <span className="text-sm font-light">
+              Optional
+            </span>{" "}
           </label>
           <input
             type="number"
             name="price"
             value={discountPrice}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out sm:text-sm"
             onChange={(e) => setDiscountPrice(e.target.value)}
-            placeholder="Enter your event product price with discount..."
+            placeholder="Enter your product price with discount..."
           />
         </div>
         <br />

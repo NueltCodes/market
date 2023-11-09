@@ -23,13 +23,14 @@ const ProfileSidebar = ({ setActive, active }) => {
       .get(`${server}/user/logout`, { withCredentials: true })
       .then((res) => {
         toast.success(res.data.message);
+        navigate("/");
         window.location.reload(true);
-        navigate("/login");
       })
       .catch((error) => {
         console.log(error.response.data.message);
       });
   };
+
   return (
     <div className="w-full bg-white shadow-sm rounded-[10px] p-4 pt-8 mb-11">
       <div

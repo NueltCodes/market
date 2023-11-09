@@ -5,6 +5,7 @@ import styles from "../../styles/styles";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../../redux/actions/wishlist";
+import { backend_url } from "../../server";
 import { addTocart } from "../../redux/actions/cart";
 
 const Wishlist = ({ setOpenWishlist }) => {
@@ -22,8 +23,12 @@ const Wishlist = ({ setOpenWishlist }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
-      <div className="fixed top-0 right-0 min-h-full w-[70%] 800px:w-[50%] bg-white flex flex-col justify-between shadow-sm overflow-y-auto scrollbar-hidden">
+    <>
+      <div
+        className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10"
+        onClick={() => setOpenWishlist(false)}
+      ></div>
+      <div className="fixed top-0 right-0 h-screen w-[70%] 800px:w-[50%] bg-white flex flex-col justify-between shadow-md z-10 overflow-y-scroll scrollbar-hidden">
         {wishlist && wishlist.length === 0 ? (
           <div className="w-full h-screen flex items-center justify-center">
             <div className="flex w-full justify-end pt-5 pr-5 fixed top-3 right-3">
@@ -70,13 +75,15 @@ const Wishlist = ({ setOpenWishlist }) => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
 const CartSingle = ({ data, removeFromWishlistHandler, addToCartHandler }) => {
   const [value, setValue] = useState(1);
-  const totalPrice = data.discountPrice * value;
+  const totalPrice = data.discountPrice
+    ? data.discountPrice
+    : data.originalPrice * value;
 
   return (
     <div className="border-b p-4">
