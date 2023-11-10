@@ -444,14 +444,17 @@ const Header = ({ activeHeading }) => {
                 </div>
                 <div>
                   <Link to="/">
-                    <div className="text-base sm:text-3xl font-bold">
+                    <div
+                      className="text-base sm:text-3xl font-bold"
+                      onClick={() => setOpen(true)}
+                    >
                       <span className="text-red-600">M•</span>arket
                     </div>
                   </Link>
                 </div>
                 <RxCross1
                   size={30}
-                  className="ml-4 mt-5"
+                  className="ml-4 mt-5 cursor-pointer"
                   onClick={() => setOpen(false)}
                 />
               </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
-  AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -154,73 +153,87 @@ const ProductDetails = ({ data, shopImg }) => {
                     } cursor-pointer`}
                   ></div>
                 </div>
-                <div className=" hidden 800px:flex items-center mt-12">
-                  <Link to={`/shop/preview/${data?.shop._id}`}>
-                    {shopImg ? (
-                      <img
-                        src={shopImg?.avatar?.url}
-                        alt=""
-                        className="w-[50px] h-[50px] rounded-full mr-2"
-                      />
-                    ) : (
-                      <img
-                        src={require("../../Assests/images/profile.jpg")}
-                        alt=""
-                        className="w-[50px] h-[50px] rounded-full mr-2"
-                      />
-                    )}
-                  </Link>
-                  <div className="pr-3 lg:pr-8">
-                    <Link to={`/shop/preview/${data?.shop._id}`}>
-                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
-                        {data.shop.name}
-                      </h3>
-                    </Link>
-                    <h5 className="pb-3 text-sm sm:text-base">
-                      ({averageRating.toFixed(1)}/5) Ratings
-                    </h5>
+
+                <div className="hidden 800px:flex  flex-col items-center mt-12">
+                  <div className="font-bold flex items-center">
+                    <span className="text-gray-600 underline">Store Info</span>
                   </div>
-                  <div
-                    className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
-                    onClick={handleMessageSubmit}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                  >
-                    <span className="text-white flex items-center gap-2">
-                      Chat seller
-                      <Lottie
-                        animationData={AnimateChat}
-                        loop={isHovered}
-                        autoplay
-                        style={
-                          isSmallScreen
-                            ? { height: 30, width: 30 }
-                            : { height: 40, width: 40 }
-                        }
-                      />
-                    </span>
+                  <div className="800px:flex items-center">
+                    <Link to={`/shop/preview/${data?.shop._id}`}>
+                      {shopImg ? (
+                        <img
+                          src={shopImg?.avatar?.url}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full mr-2"
+                        />
+                      ) : (
+                        <img
+                          src={require("../../Assests/images/profile.jpg")}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full mr-2"
+                        />
+                      )}
+                    </Link>
+                    <div className="pr-3 lg:pr-8">
+                      <Link to={`/shop/preview/${data?.shop._id}`}>
+                        <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                          {data.shop.name}
+                        </h3>
+                      </Link>
+                      <h5 className="pb-3 text-sm sm:text-base">
+                        ({averageRating.toFixed(1)}/5) Ratings
+                      </h5>
+                    </div>
+                    <div
+                      className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
+                      onClick={handleMessageSubmit}
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <span className="text-white flex items-center gap-2">
+                        Chat seller
+                        <Lottie
+                          animationData={AnimateChat}
+                          loop={isHovered}
+                          autoplay
+                          style={
+                            isSmallScreen
+                              ? { height: 30, width: 30 }
+                              : { height: 40, width: 40 }
+                          }
+                        />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
-                <h1 className={`${styles.productTitle} fon`}>{data.name}</h1>
-                <div className=" 800px:hidden flex pt-2">
-                  {data?.discountPrice && (
+                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                <div className=" 800px:hidden flex my-2">
+                  {data?.discountPrice ? (
                     <h4 className={`${styles.productDiscountPrice}`}>
                       ${data.discountPrice}
                     </h4>
+                  ) : (
+                    <h3 className="font-[500] text-[16px] mt-[-4px] ">
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
                   )}
-                  {data?.originalPrice && (
+
+                  {data?.originalPrice && data?.discountPrice && (
                     <h3 className={`${styles.price}`}>
                       ${data.originalPrice ? data.originalPrice : null}
                     </h3>
                   )}
                 </div>
                 <h5 className="block text-[#239b79] 800px:hidden text-[15px]">
-                  ({averageRating.toFixed(1)}) Ratings
+                  ({data.ratings.toFixed(1)}) Ratings
                 </h5>
-                <div className="800px:mt-2 mt-0">
-                  <Ratings rating={averageRating.toFixed(1)} />
+                <div className="800px:my-2 mt-0">
+                  <Ratings
+                    className
+                    rating={data.ratings && data?.ratings.toFixed(1)}
+                  />
                 </div>
                 <div className="justify-end  800px:hidden flex items-center gap-1 pt-2 text-[#9147ff]">
                   stocks left
@@ -235,12 +248,21 @@ const ProductDetails = ({ data, shopImg }) => {
                   {data.description}
                 </p>
                 <div className=" pt-3 hidden 800px:flex">
-                  <h4 className={`${styles.productDiscountPrice}`}>
-                    ${data.discountPrice}
-                  </h4>
-                  <h3 className={`${styles.price}`}>
-                    ${data.originalPrice ? data.originalPrice : null}
-                  </h3>
+                  {data?.discountPrice ? (
+                    <h4 className={`${styles.productDiscountPrice}`}>
+                      ${data.discountPrice}
+                    </h4>
+                  ) : (
+                    <h3 className="font-[500] text-[18px] mt-3">
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
+
+                  {data?.originalPrice && data?.discountPrice && (
+                    <h3 className={`${styles.price}`}>
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">

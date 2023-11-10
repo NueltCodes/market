@@ -104,7 +104,9 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
         </Link>
         {!trending && (
           <Link to={`/shop/preview/${data?.shop._id}`}>
-            <h5 className={`${styles.shop_name} !flex items-center gap-1`}>
+            <h5
+              className={`${styles.shop_name} !flex items-center truncate gap-1`}
+            >
               {data.shop.name} <BsShop className="text-green-600" />
             </h5>
           </Link>
@@ -157,28 +159,34 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
                 onClick={() => removeFromWishlistHandler(data)}
               />
             ) : (
-              <AiOutlineHeart
-                size={18}
-                className="cursor-pointer absolute right-0.5 top-5"
-                color={click ? "red" : "#333"}
-                title="Add to wishlist"
-                onClick={() => addToWishlistHandler(data)}
-              />
+              <div className="bg-white rounded-full bg-opacity-70 cursor-pointer absolute right-0.5 top-5">
+                <AiOutlineHeart
+                  size={18}
+                  className="m-0.5"
+                  color={click ? "red" : "#333"}
+                  title="Add to wishlist"
+                  onClick={() => addToWishlistHandler(data)}
+                />
+              </div>
             )}
-            <AiOutlineEye
-              size={18}
-              className="cursor-pointer absolute right-0.5 top-14"
-              color="#333"
-              title="Quick view"
-              onClick={() => setOpen(!open)}
-            />
-            <AiOutlineShoppingCart
-              size={20}
-              className="cursor-pointer absolute right-0.5 top-24"
-              color="#444"
-              title="Add to cart"
-              onClick={() => addToCartHandler(data._id)}
-            />
+            <div className="bg-white bg-opacity-70 rounded-full cursor-pointer absolute right-0.5 top-14">
+              <AiOutlineEye
+                size={18}
+                className="m-0.5"
+                color="#333"
+                title="Quick view"
+                onClick={() => setOpen(!open)}
+              />
+            </div>
+            <div className="bg-white bg-opacity-70 rounded-full cursor-pointer absolute right-0.5 top-[92px]">
+              <AiOutlineShoppingCart
+                size={20}
+                className="m-0.5"
+                color="#444"
+                title="Add to cart"
+                onClick={() => addToCartHandler(data._id)}
+              />
+            </div>
             {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
           </div>
         )}

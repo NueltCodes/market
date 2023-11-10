@@ -250,7 +250,30 @@ export const Tags = [
   },
   {
     label: "Fitness & Wears",
-    tags: ["Fitness & Wears", "Fitness equipment"],
+    tags: [
+      "Men gym wears",
+      "Women gym wears",
+      "Fitness Tech",
+      "Weights",
+      "Sports",
+      "Fitness equipment",
+    ],
+  },
+  {
+    label: "Camera",
+    tags: [
+      "Canon",
+      "Sony",
+      "Nikon",
+      "Fujifilm",
+      "Olympus",
+      "Panasonic",
+      "Leica",
+      "Pentax",
+      "GoPro",
+      "Kodak",
+      "Hasselblad",
+    ],
   },
   {
     label: "Men's Fashion",
@@ -267,8 +290,8 @@ export const Tags = [
     ],
   },
   {
-    label: "Kids wears",
-    tags: ["Shorts", "Tops", "underwears", "Caps"],
+    label: "Ipads",
+    tags: ["Samsung", "Iphone", "Tecno", "Infinix", "Itel", "Lenovo", "Hauwai"],
   },
   {
     label: "Mobile and Tablets",
@@ -315,10 +338,7 @@ export const Tags = [
     label: "Gifts",
     tags: ["Gifts", "Flowers"],
   },
-  {
-    label: "Gaming",
-    tags: ["PS1", "PS2", "PS3", "PS4", "PS5", "XBOX One", "XBOX 360", "XBOX"],
-  },
+
   {
     label: "Health & Beauty",
     tags: ["Body Cream", "Skin Care", "Perfumes"],
@@ -334,7 +354,10 @@ export const Tags = [
       "Sound Bars",
     ],
   },
-
+  {
+    label: "Gaming",
+    tags: ["PS1", "PS2", "PS3", "PS4", "PS5", "XBOX One", "XBOX 360", "XBOX"],
+  },
   {
     label: "Others",
     tags: ["Others"],
@@ -354,25 +377,25 @@ export const categories = [
     image: require("../Assests/images/category/fitness.png"),
   },
   {
-    label: "Kids wears",
-    link: "Kids wears",
-    image: require("../Assests/images/category/kids-wears.png"),
+    label: "Ipads",
+    link: "Ipads",
+    image: require("../Assests/images/category/ipads.png"),
   },
   {
-    label: "Mobile Accessories",
-    link: "Mobile Accessories",
-    image: require("../Assests/images/category/mobile.png"),
+    label: "Camera",
+    link: "Camera",
+    image: require("../Assests/images/category/camera.png"),
   },
   {
     label: "Power Source",
     link: "Power Source",
     image: require("../Assests/images/category/Generator.png"),
   },
-  // {
-  //   label: "Gaming",
-  //   link: "Games",
-  //   image: require("../Assests/images/category/gaming-deals.png"),
-  // },
+  {
+    label: "Gaming",
+    link: "Gaming",
+    image: require("../Assests/images/category/gaming-deals.png"),
+  },
 ];
 
 // categories data
@@ -461,19 +484,38 @@ export const categoriesData = [
     image_Url:
       "https://i5.walmartimages.com/asr/0cfb91ea-20c7-4663-b892-7999d3c6bbc6.b28985b5518d2bc9469de041fce9c8a4.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
   },
-  {
-    id: 13,
-    title: "Power Source",
-    subTitle: "",
-    image_Url:
-      "https://i5.walmartimages.com/asr/0cfb91ea-20c7-4663-b892-7999d3c6bbc6.b28985b5518d2bc9469de041fce9c8a4.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
-  },
+
   {
     id: 14,
     title: "Others",
     subTitle: "",
     image_Url:
       "https://searchspring.com/wp-content/uploads/2022/10/Hero-Image-Platform-Others-2.png",
+  },
+
+  {
+    id: 15,
+    title: "Power Source",
+    subTitle: "",
+    image_Url: require("../Assests/images/category/Generator.png"),
+  },
+  {
+    id: 16,
+    title: "Ipads",
+    subTitle: "",
+    image_Url: require("../Assests/images/category/ipads.png"),
+  },
+  {
+    id: 17,
+    title: "Fitness & Wears",
+    subTitle: "",
+    image_Url: require("../Assests/images/category/fitness.png"),
+  },
+  {
+    id: 18,
+    title: "Camera",
+    subTitle: "",
+    image_Url: require("../Assests/images/category/camera.png"),
   },
 ];
 

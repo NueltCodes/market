@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../../styles/styles";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { categories } from "../../../static/data";
@@ -50,12 +50,12 @@ const Collections = () => {
             More collections
           </h1>
         </div>
-        <div className="relative group">
+        <div className="relative mx-2 group">
           <div
             className="pt-2 scroll-container5 overflow-x-auto scrollbar-hide"
             onScroll={handleScroll1}
           >
-            <div className="flex flex-nowrap space-x-1 sm:space-x-5 m-1">
+            <div className="flex flex-nowrap space-x-1 sm:space-x-3 m-1">
               {categories.map((data, index) => (
                 <img
                   src={data.image}

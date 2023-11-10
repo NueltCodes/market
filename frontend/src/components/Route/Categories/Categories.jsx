@@ -33,7 +33,7 @@ const Categories = () => {
       >
         <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
           {categoriesData &&
-            categoriesData.map((data) => {
+            categoriesData.slice(0, 14).map((data) => {
               const handleSubmit = (data) => {
                 navigate(`/products?category=${data.title}`);
               };

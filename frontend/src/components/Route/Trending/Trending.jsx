@@ -55,17 +55,17 @@ const Trending = () => {
         className={`${styles.section} bg-gradient-to-r from-blue-500 to-green-500 !mt-0`}
       >
         <div className={`${styles.heading} !pb-0 !text-left`}>
-          <h1 className="font-bold text-base sm:text-lg md:text-2xl mt-5 bg-black p-2 text-white">
+          <h1 className="font-bold text-base sm:text-lg md:text-2xl bg-black p-2 text-white">
             All they want & more
           </h1>
         </div>
         {data.length !== 0 && (
-          <div className="relative group">
+          <div className="relative px-2 group">
             <div
-              className="pt-2 scroll-container0 overflow-x-auto scrollbar-hide"
+              className="py-1  scroll-container0 overflow-x-auto scrollbar-hide"
               onScroll={handleScroll1}
             >
-              <div className="flex flex-nowrap space-x-1 sm:space-x-5">
+              <div className="flex flex-nowrap space-x-1 sm:space-x-2">
                 {data.map((d, index) => (
                   <ProductCard data={d} key={index} trending />
                 ))}

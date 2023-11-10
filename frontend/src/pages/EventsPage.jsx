@@ -24,9 +24,9 @@ const EventsPage = () => {
       ) : (
         <div>
           <Header activeHeading={4} />
-          <div className={`${styles.section} `}>
-            <div className="relative w-full ">
-              <div className="pt-2 gap-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 my-10">
+          <div className={`${styles.section} h-screen mb-20`}>
+            <div className="relative w-full my-4">
+              <div className="pt-2 gap-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
                 {allEvents.map((d, index) => (
                   <EventCard EventPage data={d} key={index} />
                 ))}

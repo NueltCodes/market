@@ -52,23 +52,23 @@ const EventCard = ({ EventPage, data }) => {
     <div
       className={` ${
         EventPage ? "w-full" : "w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5"
-      } block bg-white rounded-lg flex-none `}
+      } block h-full bg-white rounded-lg flex-none `}
     >
-      <div className="w-full m-auto">
+      <div className="w-full">
         <img
           src={`${data?.images && data?.images[0]?.url}`}
           alt=""
           className="800px:w-[98%] w-full h-[15vh] sm:h-[150px] object-contain"
         />
       </div>
-      <div className="w-full lg:[w-50%] flex flex-col justify-center p-2">
-        <h2 className="pb-2 line-clamp-2 h-[56px] font-[500] text-[10px] sm:text-base">
+      <div className="w-full  flex flex-col justify-center gap-2 p-2">
+        <h2 className="line-clamp-1 font-[500] text-[10px] sm:text-base">
           {data.name}
         </h2>
         {/* <p className="leading-8 py-4 p-2 bg-slate-50 rounded-sm whitespace-pre-line sm:block hidden h-[20vh] overflow-y-scroll">
           {data.description}
         </p> */}
-        <div className="flex py-2 justify-between">
+        <div className="flex justify-between">
           <div className="flex">
             <h5 className="font-[500] text-[11px] sm:text-base text-[#d55b45] pr-3 line-through">
               {data?.originalPrice}$
@@ -78,12 +78,22 @@ const EventCard = ({ EventPage, data }) => {
             </h5>
           </div>
         </div>
-        <CountDown data={data} />
-        <br />
-        <div className="flex gap-3 items-center">
+        <div className="-mt-2">
+          <CountDown data={data} />
+        </div>
+        <div className="flex gap-1 items-center justify-around mt-auto">
           <Link to={`/product/${data?._id}?isEvent=true`}>
-            <div className={` rounded-lg p-2 bg-[#453780] text-sm text-[#fff]`}>
-              {EventPage ? "View" : "See Details"}
+            <div
+              className={` rounded-lg sm:p-2 px-1.5 py-0.5 bg-[#453780] sm:text-sm text-[12px] text-[#fff]`}
+            >
+              {EventPage ? (
+                <span>View</span>
+              ) : (
+                <>
+                  <span className="hidden sm:block">See Details</span>
+                  <span className="sm:hidden block">View</span>
+                </>
+              )}
             </div>
           </Link>
 

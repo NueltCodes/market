@@ -46,10 +46,9 @@ const CountDown = ({ data }) => {
       hours: "hrs",
       minutes: "mins",
       seconds: "secs",
-      // Add more mappings if needed
     };
     return (
-      <span className="sm:text-base text-[12px] text-[#475ad2]">
+      <span className="sm:text-base text-[10px] text-[#475ad2]">
         {timeLeft[interval]} {intervalShortForms[interval] || interval}{" "}
       </span>
     );
@@ -60,7 +59,7 @@ const CountDown = ({ data }) => {
       {timerComponents.length ? (
         timerComponents
       ) : (
-        <span className="text-[red] text-base">Time's Up</span>
+        <span className="text-[red] text-sm sm:text-base">Time's Up</span>
       )}
     </div>
   );

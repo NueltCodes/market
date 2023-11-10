@@ -47,14 +47,14 @@ const Events = () => {
           >
             Flash sales{" "}
           </h1>
-          <div className={`${styles.section} bg-black py-7  overflow-hidden`}>
+          <div className={`${styles.section} bg-black py-2  overflow-hidden`}>
             <div className="mx-2">
               <div className="relative group">
                 <div
                   className="pt-2 scroll-container8 overflow-x-auto scrollbar-hide"
                   onScroll={scrollEvents}
                 >
-                  <div className="flex flex-nowrap space-x-1 sm:space-x-5">
+                  <div className="flex flex-nowrap space-x-1 sm:space-x-3">
                     {allEvents.map((d, index) => (
                       <EventCard data={d} key={index} className />
                     ))}
