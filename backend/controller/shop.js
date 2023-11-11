@@ -38,7 +38,7 @@ router.post("/create-shop", async (req, res, next) => {
 
     const activationToken = createActivationToken(seller);
 
-    const activationUrl = `https://e-store-app-tau.vercel.app/seller/activation/${activationToken}`;
+    const activationUrl = `https://markett.vercel.app/seller/activation/${activationToken}`;
 
     try {
       await sendMail({
@@ -124,7 +124,7 @@ router.post(
       });
 
       // am sending email along with the resetToken and reset link in here
-      const resetLink = `https://e-store-app-tau.vercel.app/seller/reset-password/${resetToken}`;
+      const resetLink = `https://markett.vercel.app/seller/reset-password/${resetToken}`;
       await sendMail({
         email: shop.email,
         subject: "Reset Your Shop Password",
