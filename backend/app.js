@@ -10,7 +10,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["https://e-store-app-tau.vercel.app"],
+    origin: ["https://markett.vercel.app/"],
     credentials: true,
   })
 );
