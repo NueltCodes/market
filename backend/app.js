@@ -19,8 +19,8 @@ app.use("/test", (req, res) => {
   res.send("Hello world!");
 });
 
-app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-
+app.use(bodyParser.json({ limit: "600mb" }));
+app.use(bodyParser.urlencoded({ limit: "600mb", extended: true }));
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
