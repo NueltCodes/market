@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import Lottie from "lottie-react";
+import AnimateEye from "../../Assests/animations/eye.json";
 
 const ShopLogin = () => {
   const navigate = useNavigate();
@@ -81,17 +83,29 @@ const ShopLogin = () => {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
                 {visible ? (
-                  <AiOutlineEye
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
+                  <div
+                    className="absolute top-2 right-2 cursor-pointer"
                     onClick={() => setVisible(false)}
-                  />
+                  >
+                    <Lottie
+                      animationData={AnimateEye}
+                      loop={false}
+                      autoplay
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </div>
                 ) : (
-                  <AiOutlineEyeInvisible
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
+                  <div
+                    className="absolute top-2 right-2 cursor-pointer"
                     onClick={() => setVisible(true)}
-                  />
+                  >
+                    <Lottie
+                      animationData={AnimateEye}
+                      loop
+                      autoplay
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </div>
                 )}
               </div>
             </div>
