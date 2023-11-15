@@ -7,7 +7,7 @@ const sendToken = (user, statusCode, res) => {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     sameSite: "None", // Allow the cookie to be sent with cross-site requests
-    secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+    secure: true,
   };
 
   res.status(statusCode).cookie("token", token, options).json({
