@@ -181,7 +181,7 @@ const ProductDetails = ({ data, shopImg }) => {
                         </h3>
                       </Link>
                       <h5 className="pb-3 text-sm sm:text-base">
-                        ({averageRating.toFixed(1)}/5) Ratings
+                        ({averageRating?.toFixed(1)}/5) Ratings
                       </h5>
                     </div>
                     <div
@@ -227,12 +227,12 @@ const ProductDetails = ({ data, shopImg }) => {
                   )}
                 </div>
                 <h5 className="block text-[#239b79] 800px:hidden text-[15px]">
-                  ({data.ratings.toFixed(1)}) Ratings
+                  ({data?.ratings?.toFixed(1)}) Ratings
                 </h5>
                 <div className="800px:my-2 mt-0">
                   <Ratings
                     className
-                    rating={data.ratings && data?.ratings.toFixed(1)}
+                    rating={data.ratings && data?.ratings?.toFixed(1)}
                   />
                 </div>
                 <div className="justify-end  800px:hidden flex items-center gap-1 pt-2 text-[#9147ff]">
@@ -342,7 +342,7 @@ const ProductDetails = ({ data, shopImg }) => {
                       <span className="font-semibold text-gray-800 w-[91px]">
                         Store ratings:
                       </span>{" "}
-                      <span className="p-1">{averageRating.toFixed(1)}/5</span>{" "}
+                      <span className="p-1">{averageRating?.toFixed(1)}/5</span>{" "}
                     </h5>
                   </div>
                   <div
@@ -495,7 +495,7 @@ const ProductDetailsInfo = ({
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">
-                    ({averageRating.toFixed(1)}/5) Ratings
+                    ({averageRating?.toFixed(1)}/5) Ratings
                   </h5>
                 </div>
               </div>

@@ -118,7 +118,7 @@ const ProductCard = ({ data, key, isEvent, onClick, className, trending }) => {
               : `/product/${data._id}`
           }`}
         >
-          <h4 className="pb-2 font-[500] truncate text-[10px] sm:text-base">
+          <h4 className="pb-2 font-[500] truncate text-[10px] sm:text-[14px]">
             {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
           </h4>
           <div className="flex">

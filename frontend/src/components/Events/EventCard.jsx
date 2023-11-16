@@ -62,7 +62,7 @@ const EventCard = ({ EventPage, data }) => {
         />
       </div>
       <div className="w-full  flex flex-col justify-center gap-2 p-2">
-        <h2 className="line-clamp-1 font-[500] text-[10px] sm:text-base">
+        <h2 className="line-clamp-1 font-[500] text-[10px] sm:text-[14px]">
           {data.name}
         </h2>
         {/* <p className="leading-8 py-4 p-2 bg-slate-50 rounded-sm whitespace-pre-line sm:block hidden h-[20vh] overflow-y-scroll">
