@@ -15,11 +15,19 @@ const BestDeals = () => {
 
   useEffect(() => {
     const allProductsData = allProducts ? [...allProducts] : [];
-    const sortedData = allProductsData?.sort(
+
+    const filteredData = allProductsData?.filter(
+      (product) => product.discountPrice > 1
+    );
+    const sortedData = filteredData?.sort(
       (a, b) => b.discountPrice - a.discountPrice
     );
-    const firstFive = sortedData && sortedData.slice(0, 20);
-    setData(firstFive);
+
+    const firstThirty = sortedData?.slice(0, 30);
+    const shuffledData = firstThirty.sort(() => Math.random() - 0.5);
+    setData(firstThirty);
+
+    setData(shuffledData);
   }, [allProducts]);
 
   const [showLeftScroll, setShowLeftScroll] = useState(true);

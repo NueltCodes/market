@@ -54,9 +54,9 @@ const LimitedStock = () => {
   };
 
   return (
-    <div className={`${styles.section}`}>
+    <div className={`${styles.section} mb-5 mt-5`}>
       <div className={`${styles.heading} !pb-0 !text-left`}>
-        <h1 className="flex items-center gap-5 font-bold text-base sm:text-lg md:text-2xl mt-10 bg-red-600 p-2 text-white">
+        <h1 className="flex items-center gap-5 font-bold text-base sm:text-lg md:text-2xl bg-red-600 p-2 text-white">
           Limited Stock
           <Lottie
             animationData={AnimateStock}
