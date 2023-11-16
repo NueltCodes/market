@@ -45,11 +45,11 @@ const CountDown = ({ data }) => {
     const intervalShortForms = {
       hours: "hrs",
       minutes: "mins",
-      seconds: "",
+      seconds: " ",
     };
     return (
       <span className="sm:text-base text-[10px] text-[#475ad2]">
-        {timeLeft[interval]} {intervalShortForms[interval] || interval}
+        {timeLeft[interval]} {intervalShortForms[interval] || interval}{" "}
       </span>
     );
   });

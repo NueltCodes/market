@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
-  AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { backend_url, server } from "../../server";
+import { getAllProductsShop } from "../../redux/actions/product";
+import { server } from "../../server";
 import styles from "../../styles/styles";
 import { toast } from "react-toastify";
 import {
@@ -17,9 +17,11 @@ import {
 import { addTocart } from "../../redux/actions/cart";
 import Ratings from "../Ratings";
 import axios from "axios";
-import { getAllProductsShop } from "../../redux/actions/product";
+import Lottie from "lottie-react";
+import { useMediaQuery } from "react-responsive";
+import AnimateChat from "../../Assests/animations/chat.json";
 
-const ProductEventDetails = ({ data }) => {
+const ProductEventDetails = ({ data, shopImg }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -29,6 +31,13 @@ const ProductEventDetails = ({ data }) => {
   const [select, setSelect] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     dispatch(getAllProductsShop(data && data?.shop._id));
@@ -115,12 +124,12 @@ const ProductEventDetails = ({ data }) => {
       {data ? (
         <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
           <div className="w-full py-5">
-            <div className="block w-full 800px:flex">
+            <div className="block w-full 800px:flex 800px:gap-2">
               <div className="w-full 800px:w-[50%]">
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=""
-                  className="w-[85%] h-[250px] object-cover"
+                  className="w-[85%] h-[250px] object-contain"
                 />
                 <div className="w-full flex">
                   {data &&
@@ -144,46 +153,116 @@ const ProductEventDetails = ({ data }) => {
                     } cursor-pointer`}
                   ></div>
                 </div>
-                <div className=" hidden 800px:flex items-center mt-12">
-                  <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <img
-                      src={data?.shop?.avatar.url}
-                      alt=""
-                      className="w-[50px] h-[50px] rounded-full mr-2"
-                    />
-                  </Link>
-                  <div className="pr-8">
-                    <Link to={`/shop/preview/${data?.shop._id}`}>
-                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
-                        {data.shop.name}
-                      </h3>
-                    </Link>
-                    <h5 className="pb-3 text-[15px]">
-                      ({averageRating.toFixed(1)}/5) Ratings
-                    </h5>
+
+                <div className="hidden 800px:flex  flex-col items-center mt-12">
+                  <div className="font-bold flex items-center">
+                    <span className="text-gray-600 underline">Store Info</span>
                   </div>
-                  <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
-                    onClick={handleMessageSubmit}
-                  >
-                    <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage className="ml-1" />
-                    </span>
+                  <div className="800px:flex items-center">
+                    <Link to={`/shop/preview/${data?.shop._id}`}>
+                      {shopImg ? (
+                        <img
+                          src={shopImg?.avatar?.url}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full mr-2"
+                        />
+                      ) : (
+                        <img
+                          src={require("../../Assests/images/profile.jpg")}
+                          alt=""
+                          className="w-[50px] h-[50px] rounded-full mr-2"
+                        />
+                      )}
+                    </Link>
+                    <div className="pr-3 lg:pr-8">
+                      <Link to={`/shop/preview/${data?.shop._id}`}>
+                        <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                          {data.shop.name}
+                        </h3>
+                      </Link>
+                      <h5 className="pb-3 text-sm sm:text-base">
+                        ({averageRating.toFixed(1)}/5) Ratings
+                      </h5>
+                    </div>
+                    <div
+                      className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
+                      onClick={handleMessageSubmit}
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <span className="text-white flex items-center gap-2">
+                        Chat seller
+                        <Lottie
+                          animationData={AnimateChat}
+                          loop={isHovered}
+                          autoplay
+                          style={
+                            isSmallScreen
+                              ? { height: 30, width: 30 }
+                              : { height: 40, width: 40 }
+                          }
+                        />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p className="leading-8 pb-10 whitespace-pre-line h-[40vh] overflow-y-scroll">
+                <div className=" 800px:hidden flex my-2">
+                  {data?.discountPrice ? (
+                    <h4 className={`${styles.productDiscountPrice}`}>
+                      ${data.discountPrice}
+                    </h4>
+                  ) : (
+                    <h3 className="font-[500] text-[16px] mt-[-4px] ">
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
+
+                  {data?.originalPrice && data?.discountPrice && (
+                    <h3 className={`${styles.price}`}>
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
+                </div>
+                <h5 className="block text-[#239b79] 800px:hidden text-[15px]">
+                  ({data?.ratings?.toFixed(1)}) Ratings
+                </h5>
+                <div className="800px:my-2 mt-0">
+                  <Ratings
+                    className
+                    rating={data.ratings && data?.ratings?.toFixed(1)}
+                  />
+                </div>
+                <div className="justify-end  800px:hidden flex items-center gap-1 pt-2 text-[#9147ff]">
+                  stocks left
+                  <span className="font-[500]">
+                    {products && products.length}
+                  </span>
+                </div>
+                <div className="my-2 font-semibold text-sm 800px:text-base 800px:hidden">
+                  Product Details
+                </div>
+                <p className="leading-8 py-4 p-2 bg-slate-50 whitespace-pre-line h-[40vh] overflow-y-scroll">
                   {data.description}
                 </p>
-                <div className="flex pt-3">
-                  <h4 className={`${styles.productDiscountPrice}`}>
-                    ${data.discountPrice}
-                  </h4>
-                  <h3 className={`${styles.price}`}>
-                    ${data.originalPrice ? data.originalPrice : null}
-                  </h3>
+                <div className=" pt-3 hidden 800px:flex">
+                  {data?.discountPrice ? (
+                    <h4 className={`${styles.productDiscountPrice}`}>
+                      ${data.discountPrice}
+                    </h4>
+                  ) : (
+                    <h3 className="font-[500] text-[18px] mt-3">
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
+
+                  {data?.originalPrice && data?.discountPrice && (
+                    <h3 className={`${styles.price}`}>
+                      ${data.originalPrice ? data.originalPrice : null}
+                    </h3>
+                  )}
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">
@@ -232,30 +311,58 @@ const ProductEventDetails = ({ data }) => {
                     Add to cart <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
-                <div className="800px:hidden flex items-center pt-8 ">
+                <div className="800px:hidden flex flex-col items-start pt-8 ">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
-                    <img
-                      src={data?.shop?.avatar.url}
-                      alt=""
-                      className="w-[50px] h-[50px] rounded-full mr-2"
-                    />
+                    {shopImg ? (
+                      <img
+                        src={shopImg?.avatar?.url}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    ) : (
+                      <img
+                        src={require("../../Assests/images/profile.jpg")}
+                        alt=""
+                        className="w-[50px] h-[50px] rounded-full mr-2"
+                      />
+                    )}
                   </Link>
                   <div className="pr-8">
                     <Link to={`/shop/preview/${data?.shop._id}`}>
-                      <h3 className={`${styles.shop_name} pb-1 pt-1`}>
+                      <h3
+                        className={`${styles.shop_name} pb-1 pt-1 flex items-center gap-1 `}
+                      >
+                        <span className="font-semibold text-gray-800 w-[91px]">
+                          Store name:
+                        </span>{" "}
                         {data.shop.name}
                       </h3>
                     </Link>
-                    <h5 className="pb-3 text-[15px]">
-                      ({averageRating.toFixed(1)}/5) Ratings
+                    <h5 className="pb-3 text-[15px] flex items-center gap-1 text-[#edbc33]">
+                      <span className="font-semibold text-gray-800 w-[91px]">
+                        Store ratings:
+                      </span>{" "}
+                      <span className="p-1">{averageRating.toFixed(1)}/5</span>{" "}
                     </h5>
                   </div>
                   <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
+                    className={`${styles.button} !bg-[#003b95] mt-4 !rounded-2xl p-2 !h-11`}
                     onClick={handleMessageSubmit}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
-                    <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage className="ml-1" />
+                    <span className="text-white flex items-center gap-2">
+                      Chat seller
+                      <Lottie
+                        animationData={AnimateChat}
+                        loop={isHovered}
+                        autoplay
+                        style={
+                          isSmallScreen
+                            ? { height: 30, width: 30 }
+                            : { height: 40, width: 40 }
+                        }
+                      />
                     </span>
                   </div>
                 </div>
@@ -267,6 +374,7 @@ const ProductEventDetails = ({ data }) => {
             products={products}
             totalReviewsLength={totalReviewsLength}
             averageRating={averageRating}
+            shopImg={shopImg}
           />
           <br />
           <br />
@@ -281,11 +389,12 @@ const ProductDetailsInfo = ({
   products,
   totalReviewsLength,
   averageRating,
+  shopImg,
 }) => {
   const [active, setActive] = useState(1);
 
   return (
-    <div className="bg-[#f5f6fb] px-3 800px:px-10 py-2 rounded">
+    <div className="bg-slate-50 px-3 800px:px-10 py-2 rounded">
       <div className="w-full flex justify-between border-b pt-10 pb-2">
         <div className="relative">
           <h5
@@ -294,21 +403,21 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(1)}
           >
-            Product Details
+            Details
           </h5>
           {active === 1 ? (
             <div className={`${styles.active_indicator}`} />
           ) : null}
         </div>
         <div className="relative">
-          {/* <h5
+          <h5
             className={
               "text-[#000] text-[14px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
             }
             onClick={() => setActive(2)}
           >
-            Product Reviews
-          </h5> */}
+            Reviews
+          </h5>
           {active === 2 ? (
             <div className={`${styles.active_indicator}`} />
           ) : null}
@@ -320,7 +429,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(3)}
           >
-            Sellers Info's
+            Store Info
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
@@ -329,7 +438,7 @@ const ProductDetailsInfo = ({
       </div>
       {active === 1 ? (
         <>
-          <p className="py-2 text-[18px] leading-8 pb-10 whitespace-pre-line">
+          <p className="py-2 md:text-[18px] text-sm leading-8 pb-10 whitespace-pre-line h-[60vh] overflow-y-scroll">
             {data.description}
           </p>
         </>
@@ -341,23 +450,25 @@ const ProductDetailsInfo = ({
             data.reviews.map((item, index) => (
               <div className="w-full flex my-2">
                 <img
-                  src={item.user.avatar.url}
+                  src={item?.user.avatar.url}
                   alt=""
                   className="w-[50px] h-[50px] rounded-full"
                 />
                 <div className="pl-2 ">
                   <div className="w-full flex items-center">
-                    <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                    <Ratings rating={data?.ratings} />
+                    <h1 className="font-[500] mr-3">{item?.user.name}</h1>
+                    <Ratings rating={item?.rating} />
                   </div>
-                  <p>{item.comment}</p>
+                  <p>{item?.comment}</p>
                 </div>
               </div>
             ))}
 
           <div className="w-full flex justify-center">
             {data && data.reviews.length === 0 && (
-              <h5>No Reviews yet for this product!</h5>
+              <h5 className="text-sm md:text-base">
+                No Reviews yet for this product!
+              </h5>
             )}
           </div>
         </div>
@@ -368,11 +479,19 @@ const ProductDetailsInfo = ({
           <div className="w-full 800px:w-[50%]">
             <Link to={`/shop/preview/${data.shop._id}`}>
               <div className="flex items-center">
-                <img
-                  src={data?.shop?.avatar.url}
-                  className="w-[50px] h-[50px] rounded-full"
-                  alt=""
-                />
+                {shopImg ? (
+                  <img
+                    src={shopImg?.avatar?.url}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full mr-2"
+                  />
+                ) : (
+                  <img
+                    src={require("../../Assests/images/profile.jpg")}
+                    alt=""
+                    className="w-[50px] h-[50px] rounded-full mr-2"
+                  />
+                )}
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">
